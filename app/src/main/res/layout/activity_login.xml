@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@drawable/costum_bg"
     tools:context=".ActivityLogin"
 
@@ -13,6 +13,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="80dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="Welcome to Buy&amp;bye-bey"
         android:textColor="#000000"
@@ -21,6 +22,7 @@
         app:autoSizeStepGranularity="2sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
@@ -44,6 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/custom_btn2"
+        android:onClick="Login_Customer"
         android:text="Login as a seller"
         android:textSize="20dp"
         app:autoSizeMaxTextSize="100sp"
@@ -53,8 +56,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline11"
-        android:onClick="Login_Customer"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline11" />
 
     <ImageView
         android:id="@+id/imageView"
