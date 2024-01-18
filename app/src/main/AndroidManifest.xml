@@ -9,11 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Buybyebye">
-        <activity android:name=".Login_seller"></activity>
+        <activity
+            android:name=".Login_seller">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <meta-data
-            android:name="com.google.android.actions"
-            android:resource="@xml/btn_custom" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
 
         <activity android:name=".ActivityLogin" />
     </application>
