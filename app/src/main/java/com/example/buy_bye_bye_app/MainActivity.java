@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         move_to_register_seller_window();
         move_to_register_customer_window();
+
     }
 
     private void move_to_register_seller_window() {
