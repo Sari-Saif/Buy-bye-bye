@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Buy_bye_bye_app"
         tools:targetApi="31">
         <activity
+            android:name=".S1"
+            android:exported="false" />
+        <activity
             android:name=".C1"
             android:exported="false" />
         <activity
