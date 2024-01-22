@@ -15,10 +15,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        move_to_register_client_window();
+        move_to_register_seller_window();
+        move_to_register_customer_window();
     }
 
-    private void move_to_register_client_window() {
+    private void move_to_register_seller_window() {
+        TextView nextbutton = (TextView) findViewById(R.id.textView_seller_register);
+        nextbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, S1.class));
+            }
+        });
+    }
+
+    private void move_to_register_customer_window() {
         TextView nextbutton = (TextView) findViewById(R.id.textView_customer_register);
         nextbutton.setOnClickListener(new View.OnClickListener(){
             @Override
