@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">buy_bye_bye_app</string>
+    <string name="Header_mainActivity">Wellcome to Buy And bye bye</string>
 </resources>
