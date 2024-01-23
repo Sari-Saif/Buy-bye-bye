@@ -21,10 +21,11 @@ public class C1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c1);
+        Reqister_Ok();
 
     }
 
-    public void log_in(View view)
+    public void Reqister_Ok()
     {
         et_emailC =findViewById(R.id.InputUsername);
         et_passwordC =findViewById(R.id.InputPassword);
@@ -40,7 +41,7 @@ public class C1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: ADD TO DATA BASE !!
-                Intent i = new Intent(C1.this , C3.class);
+                Intent i = new Intent(C1.this , MainActivity.class);
                 startActivity(i);
             }
         });
