@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         move_to_register_seller_window();
+
+        move_to_login_customer_window();
         move_to_register_customer_window();
 
     }
@@ -26,6 +28,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, S1.class));
+            }
+        });
+    }
+
+    private void move_to_login_customer_window() {
+        Button nextbutton = (Button) findViewById(R.id.button_customer_login);
+        nextbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, C2.class));
             }
         });
     }
