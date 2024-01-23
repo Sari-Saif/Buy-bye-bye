@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class C1 extends AppCompatActivity {
 
     //et -> EditText
@@ -16,6 +19,8 @@ public class C1 extends AppCompatActivity {
     private EditText et_passwordC;
     private EditText et_addressC;
     private EditText et_visaC;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
