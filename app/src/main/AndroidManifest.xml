@@ -17,6 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".S2"
+
             android:exported="false" />
         <activity
             android:name=".C2"
