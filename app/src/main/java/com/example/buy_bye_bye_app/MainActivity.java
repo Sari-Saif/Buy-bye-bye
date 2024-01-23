@@ -15,11 +15,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        move_to_login_seller_window();
         move_to_register_seller_window();
 
         move_to_login_customer_window();
         move_to_register_customer_window();
 
+    }
+
+    private void move_to_login_seller_window() {
+        Button nextbutton = (Button) findViewById(R.id.button_seller_login);
+        nextbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, S2.class));
+            }
+        });
     }
 
     private void move_to_register_seller_window() {
