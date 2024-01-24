@@ -28,7 +28,7 @@ public class C1 extends AppCompatActivity {
         setContentView(R.layout.activity_c1);
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("customer");
+        myRef = database.getReference();
 
         Reqister_Ok();
 
@@ -54,11 +54,11 @@ public class C1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: ADD TO DATA BASE !!
-                myRef.push();
-                myRef.child(email).child("email").setValue(email).;
-                myRef.child(email).child("password").setValue(password);
-                myRef.child(email).child("address").setValue(address);
-                myRef.child(email).child("visa").setValue(visa);
+                FirebaseDatabase.getInstance().getReference().child("customer").child("email").setValue(email);
+                //myRef.child(email).child("email").setValue(email);
+                //myRef.child(email).child("password").setValue(password);
+                //myRef.child(email).child("address").setValue(address);
+                //myRef.child(email).child("visa").setValue(visa);
                 Intent i = new Intent(C1.this , MainActivity.class);
                 startActivity(i);
             }
