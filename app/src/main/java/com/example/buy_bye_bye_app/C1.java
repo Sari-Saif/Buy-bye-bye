@@ -54,7 +54,8 @@ public class C1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: ADD TO DATA BASE !!
-                myRef.child(email).child("email").setValue(email);
+                myRef.push();
+                myRef.child(email).child("email").setValue(email).;
                 myRef.child(email).child("password").setValue(password);
                 myRef.child(email).child("address").setValue(address);
                 myRef.child(email).child("visa").setValue(visa);
