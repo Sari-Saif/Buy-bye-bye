@@ -26,6 +26,10 @@ public class C1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c1);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Seller");
+
         Reqister_Ok();
 
     }
@@ -39,6 +43,10 @@ public class C1 extends AppCompatActivity {
 
         //example
         String email = et_emailC.getText().toString();
+        String password = et_passwordC.getText().toString();
+        String address = et_addressC.getText().toString();
+        String visa = et_visaC.getText().toString();
+
 
         Button Register = (Button) findViewById(R.id.button);
 
@@ -46,6 +54,10 @@ public class C1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: ADD TO DATA BASE !!
+                FirebaseDatabase.getInstance().getReference("seller").child(email).child("email").setValue(email);
+                FirebaseDatabase.getInstance().getReference("seller").child(email).child("password").setValue(password);
+                FirebaseDatabase.getInstance().getReference("seller").child(email).child("address").setValue(address);
+                FirebaseDatabase.getInstance().getReference("seller").child(email).child("visa").setValue(visa);
                 Intent i = new Intent(C1.this , MainActivity.class);
                 startActivity(i);
             }
