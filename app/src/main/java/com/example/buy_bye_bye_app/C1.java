@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,10 +16,10 @@ public class C1 extends AppCompatActivity {
 
     //et -> EditText
     //c-> client
-    private EditText et_emailC;
-    private EditText et_passwordC;
-    private EditText et_addressC;
-    private EditText et_visaC;
+    //private EditText et_emailC;
+    //private EditText et_passwordC;
+    //private EditText et_addressC;
+    //private EditText et_visaC;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
@@ -36,25 +37,27 @@ public class C1 extends AppCompatActivity {
 
     public void Reqister_Ok()
     {
-        et_emailC =findViewById(R.id.InputUsername);
-        et_passwordC =findViewById(R.id.InputPassword);
-        et_addressC =findViewById(R.id.InputAddress);
-        et_visaC =findViewById(R.id.InputVisa);
-
-        //example
-        String email = et_emailC.getText().toString();
-        String password = et_passwordC.getText().toString();
-        String address = et_addressC.getText().toString();
-        String visa = et_visaC.getText().toString();
-
-
         Button Register = (Button) findViewById(R.id.button);
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EditText et_emailC;
+                et_emailC =(EditText) findViewById(R.id.InputUsername);
+                //et_passwordC =findViewById(R.id.InputPassword);
+                //et_addressC =findViewById(R.id.InputAddress);
+                //et_visaC =findViewById(R.id.InputVisa);
+
+                //example
+                String email = et_emailC.getText().toString();
+                //String password = et_passwordC.getText().toString();
+                //String address = et_addressC.getText().toString();
+                //String visa = et_visaC.getText().toString();
+
                 //TODO: ADD TO DATA BASE !!
-                FirebaseDatabase.getInstance().getReference().child("customer").child("email").setValue(email);
+                String id = "id";
+                Log.d("FirebaseDebug", "EditText value: " + et_emailC.getText().toString());
+                FirebaseDatabase.getInstance().getReference().child("customers").child(email).child("email").setValue(email);
                 //myRef.child(email).child("email").setValue(email);
                 //myRef.child(email).child("password").setValue(password);
                 //myRef.child(email).child("address").setValue(address);
