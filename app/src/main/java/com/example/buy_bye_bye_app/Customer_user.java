@@ -19,6 +19,13 @@ public class Customer_user {
         this.id = id;
     }
 
+    public Customer_user(String email, String password, String address, String visa) {
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.visa = visa;
+    }
+
 
     public String getEmail() {
         return email;
