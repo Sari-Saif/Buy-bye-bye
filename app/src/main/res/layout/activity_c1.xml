@@ -86,10 +86,10 @@
         app:layout_constraintVertical_bias="0.042" />
 
     <TextView
-        android:id="@+id/headerUsername"
+        android:id="@+id/headerEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username:"
+        android:text="Email:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.169"
@@ -98,12 +98,12 @@
         app:layout_constraintVertical_bias="0.143" />
 
     <EditText
-        android:id="@+id/InputUsername"
+        android:id="@+id/InputEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="username"
+        android:hint="email"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
