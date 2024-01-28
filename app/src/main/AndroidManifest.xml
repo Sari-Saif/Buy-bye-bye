@@ -24,7 +24,7 @@
         <activity
             android:name=".S5"
             android:exported="false" />
-      <activity
+        <activity
             android:name=".S4"
             android:exported="false" />
         <activity
