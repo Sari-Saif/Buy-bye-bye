@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".C4">
+    tools:context=".C5">
 
     <TextView
-        android:id="@+id/C4_Store_Name_textView"
+        android:id="@+id/C5_Store_Name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="<Store_name>"
@@ -21,37 +21,49 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
 
+    <TextView
+        android:id="@+id/C5_Header_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your shopping cart"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/C5_Store_Name_textView"
+        app:layout_constraintVertical_bias="0.012" />
+
+    <ListView
+        android:id="@+id/C5_Products_listView"
+        android:layout_width="381dp"
+        android:layout_height="489dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
-        android:id="@+id/C4_Back_button"
+        android:id="@+id/C5_Back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/C4_Stores_listView"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintTop_toBottomOf="@+id/C5_Products_listView"
+        app:layout_constraintVertical_bias="0.78" />
 
     <Button
-        android:id="@+id/C4_Cart_button"
+        android:id="@+id/C5_Buy_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cart"
+        android:text="Buy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.956"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/C4_Stores_listView"
-        app:layout_constraintVertical_bias="0.976" />
-
-    <ListView
-        android:id="@+id/C4_Stores_listView"
-        android:layout_width="365dp"
-        android:layout_height="588dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.496" />
+        app:layout_constraintTop_toBottomOf="@+id/C5_Products_listView"
+        app:layout_constraintVertical_bias="0.78" />
 </androidx.constraintlayout.widget.ConstraintLayout>
