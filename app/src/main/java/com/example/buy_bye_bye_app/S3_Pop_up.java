@@ -81,8 +81,18 @@ public class S3_Pop_up extends Activity {
                 Log.d("FirebaseDebug", "EditText value: " + store_name.getText().toString());
                 database.getInstance().getReference().child("Stores").child(store).child(
                         "OwnerID").setValue("null");
+
+
+                // wait and ask yoad
+                database.getInstance().getReference().child("Stores").child(store).child(
+                        "StoreName").setValue(store_name.getText().toString());
                 Intent i = new Intent(S3_Pop_up.this , S3_Pop_up.class);
                 startActivity(i);
+
+                //TODO: refresh the S3 page after adding new stores
+                //  after adding its done back to main page
+                startActivity(new Intent(S3_Pop_up.this, S3.class));
+
 
             };
         });
