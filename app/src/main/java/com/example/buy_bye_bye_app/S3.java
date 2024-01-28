@@ -9,10 +9,49 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+
 
 public class S3 extends AppCompatActivity {
 
     Button add;
+
+    RecyclerView rv;
+    DatabaseReference db;
+    StoreAdapter adapter;
+    ArrayList<Store> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +70,30 @@ public class S3 extends AppCompatActivity {
         // S6
         move_to_S6_profile();
 
-//        // after click on "Add" Button
-//        move_to_S3_pop_window();
+        rv = findViewById(R.id.StoreList);
+        db = FirebaseDatabase.getInstance().getReference("Stores");
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(this));
 
+        list = new ArrayList<>();
+        adapter = new StoreAdapter(this, list);
+        rv.setAdapter(adapter);
+
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot d : snapshot.getChildren()) {
+                    Store store = d.getValue(Store.class);
+                    list.add(store);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     /*
@@ -60,5 +120,4 @@ public class S3 extends AppCompatActivity {
             }
         });
     }
-
 }
