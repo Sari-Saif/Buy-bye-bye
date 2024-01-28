@@ -20,21 +20,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Store Name: "
-                android:textColor="@color/black"
-                android:textSize="26sp"
-                android:textStyle="bold"/>
-
-            <TextView
                 android:id="@+id/tvStoreName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="FakeStore"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="26dp"
+                android:textStyle="bold"/>
         </LinearLayout>
 
     </LinearLayout>

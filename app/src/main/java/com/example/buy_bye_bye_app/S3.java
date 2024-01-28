@@ -69,7 +69,13 @@ public class S3 extends AppCompatActivity {
 
         // S6
         move_to_S6_profile();
+        
+        retrive_store_list();
 
+    }
+
+
+    private void retrive_store_list() {
         rv = findViewById(R.id.StoreList);
         db = FirebaseDatabase.getInstance().getReference("Stores");
         rv.setHasFixedSize(true);
@@ -84,6 +90,7 @@ public class S3 extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot d : snapshot.getChildren()) {
                     Store store = d.getValue(Store.class);
+                    // if current.userID == store.userID :
                     list.add(store);
                 }
                 adapter.notifyDataSetChanged();
