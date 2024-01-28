@@ -52,7 +52,7 @@ public class C1 extends AppCompatActivity {
         et_visaC =findViewById(R.id.InputVisa);
 
         //TODO: check existence
-        //checkEmailExistence(email);
+        checkEmailExistence(et_emailC.getText().toString());
         Log.d("FirebaseDebug", "email : " + et_emailC.getText().toString());
 
         mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString(), et_passwordC.getText().toString())
@@ -64,40 +64,37 @@ public class C1 extends AppCompatActivity {
                         startActivity(i);
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.e("FirebaseAuthError", "createUserWithEmail:failure", task.getException());
+                        Log.e("FirebaseDebug", "createUserWithEmail:failure", task.getException());
                         showErrorToast("Authentication failed: " + task.getException().getMessage());
                     }
                 });
 
-
     }
 
 
-//    public int checkEmailExistence(String emailToCheck) {
-//
-//        int code = 0;
-//        myRef.orderByChild("email").equalTo(emailToCheck).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    // Email already exists
-//                    code = 1;
-//                    showErrorToast("Email already exists. Please choose a different email.");
-//                    Log.d("FirebaseDebug", "Email already exists");
-//                } else {
-//                    // Email does not exist, you can proceed
-//
-//                    Log.d("FirebaseDebug", "Email does not exist, adding new customer...");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // Handle errors if any
-//                Log.e("FirebaseDebug", "Error checking email existence: " + databaseError.getMessage());
-//            }
-//        });
-//    }
+    public void checkEmailExistence(String emailToCheck) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child("customer");
+        userRef.orderByChild("email").equalTo(emailToCheck).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Email already exists
+                    showErrorToast("Email already exists. Please choose a different email.");
+                    Log.d("FirebaseDebug", "Email already exists");
+                } else {
+                    // Email does not exist, you can proceed
+                    Log.d("FirebaseDebug", "Email does not exist, adding new customer...");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle errors if any
+                Log.e("FirebaseDebug", "Error checking email existence: " + databaseError.getMessage());
+            }
+        });
+    }
+
 
     private void showErrorToast(String errorMessage) {
         // Display an error toast

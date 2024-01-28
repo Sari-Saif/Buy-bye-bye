@@ -6,18 +6,7 @@ public class Customer_user {
     private String password;
     private String address;
     private String visa;
-
     private String id;
-
-    public Customer_user()
-    {}
-    public Customer_user(String email, String password, String address, String visa, String id) {
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.visa = visa;
-        this.id = id;
-    }
 
     public Customer_user(String email, String password, String address, String visa) {
         this.email = email;
@@ -25,7 +14,6 @@ public class Customer_user {
         this.address = address;
         this.visa = visa;
     }
-
 
     public String getEmail() {
         return email;
