@@ -8,10 +8,12 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class S3 extends AppCompatActivity {
 
     Button add;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,9 @@ public class S3 extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        // S6
+        move_to_S6_profile();
 
 //        // after click on "Add" Button
 //        move_to_S3_pop_window();
@@ -40,6 +45,18 @@ public class S3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(S3.this, S3_Pop_up.class));
+            }
+        });
+    }
+    /*
+   - move to S6 class
+    */
+    private void move_to_S6_profile() {
+        ImageView to_s6 = (ImageView) findViewById(R.id.image_Button);
+        to_s6.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(S3.this, S6.class));
             }
         });
     }
