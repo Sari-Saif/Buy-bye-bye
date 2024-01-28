@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,26 +27,39 @@ public class C1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c1);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+
         Reqister_Ok();
 
     }
 
     public void Reqister_Ok()
     {
-        et_emailC =findViewById(R.id.InputUsername);
-        et_passwordC =findViewById(R.id.InputPassword);
-        et_addressC =findViewById(R.id.InputAddress);
-        et_visaC =findViewById(R.id.InputVisa);
-
-        //example
-        String email = et_emailC.getText().toString();
-
         Button Register = (Button) findViewById(R.id.button);
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                et_emailC =(EditText) findViewById(R.id.InputUsername);
+                et_passwordC =findViewById(R.id.InputPassword);
+                et_addressC =findViewById(R.id.InputAddress);
+                et_visaC =findViewById(R.id.InputVisa);
+
+
+                String email = et_emailC.getText().toString();
+                String password = et_passwordC.getText().toString();
+                String address = et_addressC.getText().toString();
+                String visa = et_visaC.getText().toString();
+
                 //TODO: ADD TO DATA BASE !!
+                Log.d("FirebaseDebug", "EditText value: " + et_emailC.getText().toString());
+                FirebaseDatabase.getInstance().getReference().child("customers").child(email).child("email").setValue(email);
+                FirebaseDatabase.getInstance().getReference().child("customers").child(email).child("password").setValue(password);
+                FirebaseDatabase.getInstance().getReference().child("customers").child(email).child("address").setValue(address);
+                FirebaseDatabase.getInstance().getReference().child("customers").child(email).child("visa").setValue(visa);
                 Intent i = new Intent(C1.this , MainActivity.class);
                 startActivity(i);
             }

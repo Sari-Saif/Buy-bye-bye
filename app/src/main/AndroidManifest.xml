@@ -24,8 +24,11 @@
         <activity
             android:name=".S5"
             android:exported="false" />
-        <activity
+      <activity
             android:name=".S4"
+            android:exported="false" />
+        <activity
+            android:name=".S3_Pop_up"
             android:exported="false" />
         <activity
             android:name=".C3"
