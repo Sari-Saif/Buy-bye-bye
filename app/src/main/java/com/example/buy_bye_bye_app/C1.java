@@ -51,18 +51,15 @@ public class C1 extends AppCompatActivity {
         et_addressC =findViewById(R.id.InputAddress);
         et_visaC =findViewById(R.id.InputVisa);
 
-        String email = et_emailC.getText().toString();
-        String password = et_passwordC.getText().toString();
-
         //TODO: check existence
         //checkEmailExistence(email);
+        Log.d("FirebaseDebug", "email : " + et_emailC.getText().toString());
 
-        mAuth.createUserWithEmailAndPassword(email , password)
+        mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString() , et_passwordC.getText().toString())
                 .addOnCompleteListener(this , new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Customer_user user1 = new Customer_user(et_emailC.getText().toString(), et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getUid().toString() );
                             FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
                             Intent i = new Intent(C1.this , MainActivity.class);
