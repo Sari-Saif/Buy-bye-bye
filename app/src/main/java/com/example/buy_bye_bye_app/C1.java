@@ -55,9 +55,9 @@ public class C1 extends AppCompatActivity {
 
         //TODO: check existence
         checkEmailExistence(et_emailC.getText().toString());
-        while (email_check == 1)
+        if (email_check == 1)
         {
-            checkEmailExistence(et_emailC.getText().toString());
+            return;
         }
 
         mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString(), et_passwordC.getText().toString())
