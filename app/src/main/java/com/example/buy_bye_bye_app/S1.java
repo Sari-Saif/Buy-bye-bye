@@ -26,7 +26,7 @@ public class S1 extends AppCompatActivity {
     private EditText et_Bank;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-
+    private int email_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class S1 extends AppCompatActivity {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(et_emailS.getText().toString(), et_passwordS.getText().toString())
+        database.createUserWithEmailAndPassword(et_emailS.getText().toString(), et_passwordS.getText().toString())
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Customer_user user1 = new Customer_user(et_emailS.getText().toString(), et_passwordS.getText().toString(), et_addressS.getText().toString(), et_Bank.getText().toString());
