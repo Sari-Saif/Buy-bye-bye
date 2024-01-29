@@ -27,8 +27,6 @@ import java.util.ArrayList;
 
 public class C1 extends AppCompatActivity {
 
-    //et -> EditText
-    //c-> client
     private EditText et_emailC;
     private EditText et_passwordC;
     private EditText et_addressC;
@@ -41,76 +39,49 @@ public class C1 extends AppCompatActivity {
         setContentView(R.layout.activity_c1);
 
         mAuth = FirebaseAuth.getInstance();
-
     }
 
-    public void sign_up(View view)
-    {
-        et_emailC =(EditText) findViewById(R.id.InputUsername);
-        et_passwordC =findViewById(R.id.InputPassword);
-        et_addressC =findViewById(R.id.InputAddress);
-        et_visaC =findViewById(R.id.InputVisa);
+    public void sign_up(View view) {
+        et_emailC = findViewById(R.id.InputUsername);
+        et_passwordC = findViewById(R.id.InputPassword);
+        et_addressC = findViewById(R.id.InputAddress);
+        et_visaC = findViewById(R.id.InputVisa);
 
-        //TODO: check existence
-        //checkEmailExistence(email);
         Log.d("FirebaseDebug", "email : " + et_emailC.getText().toString());
 
         mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString(), et_passwordC.getText().toString())
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Customer_user user1 = new Customer_user(et_emailC.getText().toString(), et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString());
-                        FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
-                        Intent i = new Intent(C1.this, MainActivity.class);
-                        startActivity(i);
+                        // User creation successful
+                        Log.d("FirebaseDebug", "User creation successful");
+
+                        // Store additional user information in the database
+                        Customer_user user1 = new Customer_user(et_emailC.getText().toString(),
+                                et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString());
+
+                        FirebaseDatabase.getInstance().getReference("user")
+                                .child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1)
+                                .addOnCompleteListener(databaseTask -> {
+                                    if (databaseTask.isSuccessful()) {
+                                        Log.d("FirebaseDebug", "User information stored successfully");
+                                        Intent i = new Intent(C1.this, MainActivity.class);
+                                        startActivity(i);
+                                    } else {
+                                        Log.e("FirebaseDebug", "Failed to store user information", databaseTask.getException());
+                                        showErrorToast("Failed to store user information: " + databaseTask.getException().getMessage());
+                                    }
+                                });
+
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.e("FirebaseAuthError", "createUserWithEmail:failure", task.getException());
+                        Log.e("FirebaseDebug", "createUserWithEmailAndPassword:failure", task.getException());
                         showErrorToast("Authentication failed: " + task.getException().getMessage());
                     }
                 });
-
-
     }
-
-
-//    public int checkEmailExistence(String emailToCheck) {
-//
-//        int code = 0;
-//        myRef.orderByChild("email").equalTo(emailToCheck).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    // Email already exists
-//                    code = 1;
-//                    showErrorToast("Email already exists. Please choose a different email.");
-//                    Log.d("FirebaseDebug", "Email already exists");
-//                } else {
-//                    // Email does not exist, you can proceed
-//
-//                    Log.d("FirebaseDebug", "Email does not exist, adding new customer...");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                // Handle errors if any
-//                Log.e("FirebaseDebug", "Error checking email existence: " + databaseError.getMessage());
-//            }
-//        });
-//    }
 
     private void showErrorToast(String errorMessage) {
         // Display an error toast
         Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
-
-
-
-
-
-
-
-
-
-
 }
