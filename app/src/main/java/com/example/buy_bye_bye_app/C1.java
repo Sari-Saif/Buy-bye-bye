@@ -55,21 +55,20 @@ public class C1 extends AppCompatActivity {
         //checkEmailExistence(email);
         Log.d("FirebaseDebug", "email : " + et_emailC.getText().toString());
 
-        mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString() , et_passwordC.getText().toString())
-                .addOnCompleteListener(this , new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Customer_user user1 = new Customer_user(et_emailC.getText().toString(), et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString());
-                            FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
-                            Intent i = new Intent(C1.this , MainActivity.class);
-                            startActivity(i);
-                        } else {
-                            showErrorToast("Authentication failed.");
-                        }
+        mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString(), et_passwordC.getText().toString())
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Customer_user user1 = new Customer_user(et_emailC.getText().toString(), et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString());
+                        FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
+                        Intent i = new Intent(C1.this, MainActivity.class);
+                        startActivity(i);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.e("FirebaseAuthError", "createUserWithEmail:failure", task.getException());
+                        showErrorToast("Authentication failed: " + task.getException().getMessage());
                     }
-
                 });
+
 
     }
 
