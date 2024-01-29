@@ -65,6 +65,7 @@ public class C1 extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Customer_user user1 = new Customer_user(et_emailC.getText().toString(), et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString());
                         FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
+                        Log.d("FirebaseDebug" , "createUserWithEmail");
                         Intent i = new Intent(C1.this, MainActivity.class);
                         startActivity(i);
                     } else {
