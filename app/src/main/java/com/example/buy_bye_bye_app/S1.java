@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,37 +38,37 @@ public class S1 extends AppCompatActivity {
 
     }
 
-    public void Reqister_Ok()
-    {
-        Button Register = (Button) findViewById(R.id.button);
-
-        Register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                et_emailS =(EditText) findViewById(R.id.InputUsername);
-                et_passwordS =findViewById(R.id.InputPassword);
-                et_addressS =findViewById(R.id.InputAddress);
-                et_Bank =findViewById(R.id.InputBank);
-
-
-                String email = et_emailS.getText().toString();
-                String password = et_passwordS.getText().toString();
-                String address = et_addressS.getText().toString();
-                String visa = et_Bank.getText().toString();
-
-                //TODO: ADD TO DATA BASE !!
-                Log.d("FirebaseDebug", "EditText value: " + et_emailS.getText().toString());
-                FirebaseDatabase.getInstance().getReference().child("user").child("seller").child(email).child("Email").setValue(email);
-                FirebaseDatabase.getInstance().getReference().child("user").child("seller").child(email).child("password").setValue(password);
-                FirebaseDatabase.getInstance().getReference().child("user").child("seller").child(email).child("Address").setValue(address);
-                FirebaseDatabase.getInstance().getReference().child("user").child("seller").child(email).child("Bank").setValue(visa);
-                Intent i = new Intent(S1.this , MainActivity.class);
-                startActivity(i);
-            }
-        });
-
-    }
+//    public void Reqister_Ok()
+//    {
+//        Button Register = (Button) findViewById(R.id.button);
+//
+//        Register.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                et_emailS =(EditText) findViewById(R.id.InputUsername);
+//                et_passwordS =findViewById(R.id.InputPassword);
+//                et_addressS =findViewById(R.id.InputAddress);
+//                et_Bank =findViewById(R.id.InputBank);
+//
+//
+//                String email = et_emailS.getText().toString();
+//                String password = et_passwordS.getText().toString();
+//                String address = et_addressS.getText().toString();
+//                String visa = et_Bank.getText().toString();
+//
+//                //TODO: ADD TO DATA BASE !!
+//                Log.d("FirebaseDebug", "EditText value: " + et_emailS.getText().toString());
+//                FirebaseDatabase.getInstance().getReference().child("user").child("seller").child(email).child("Email").setValue(email);
+//                FirebaseDatabase.getInstance().getReference().child("user").child("seller").child(email).child("password").setValue(password);
+//                FirebaseDatabase.getInstance().getReference().child("user").child("seller").child(email).child("Address").setValue(address);
+//                FirebaseDatabase.getInstance().getReference().child("user").child("seller").child(email).child("Bank").setValue(visa);
+//                Intent i = new Intent(S1.this , MainActivity.class);
+//                startActivity(i);
+//            }
+//        });
+//
+//    }
     public void sign_up(View view)
     {
         et_emailS =(EditText) findViewById(R.id.InputUsername);
@@ -121,6 +122,11 @@ public class S1 extends AppCompatActivity {
                 Log.e("FirebaseDebug", "Error checking email existence: " + databaseError.getMessage());
             }
         });
+    }
+
+    private void showErrorToast(String errorMessage) {
+        // Display an error toast
+        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
 
