@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class C1 extends AppCompatActivity {
 
@@ -49,6 +50,7 @@ public class C1 extends AppCompatActivity {
 
         Log.d("FirebaseDebug", "email : " + et_emailC.getText().toString());
 
+        // This listener is triggered when the task fails before the onComplete listener.
         mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString(), et_passwordC.getText().toString())
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
@@ -59,25 +61,40 @@ public class C1 extends AppCompatActivity {
                         Customer_user user1 = new Customer_user(et_emailC.getText().toString(),
                                 et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString());
 
-                        FirebaseDatabase.getInstance().getReference("user")
-                                .child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1)
+                        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("user")
+                                .child("customer").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+
+                        userReference.setValue(user1)
                                 .addOnCompleteListener(databaseTask -> {
                                     if (databaseTask.isSuccessful()) {
                                         Log.d("FirebaseDebug", "User information stored successfully");
                                         Intent i = new Intent(C1.this, MainActivity.class);
                                         startActivity(i);
                                     } else {
-                                        Log.e("FirebaseDebug", "Failed to store user information", databaseTask.getException());
-                                        showErrorToast("Failed to store user information: " + databaseTask.getException().getMessage());
+                                        handleDatabaseError(databaseTask.getException());
                                     }
                                 });
-
                     } else {
-                        // If sign in fails, display a message to the user.
-                        Log.e("FirebaseDebug", "createUserWithEmailAndPassword:failure", task.getException());
-                        showErrorToast("Authentication failed: " + task.getException().getMessage());
+                        // If sign up fails, display a message to the user.
+                        handleRegistrationError(task.getException());
                     }
-                });
+                })
+                .addOnFailureListener(this::handleFailure);
+    }
+
+    private void handleRegistrationError(Exception exception) {
+        Log.e("FirebaseAuthError", "createUserWithEmailAndPassword:failure", exception);
+        showErrorToast("Registration failed: " + exception.getMessage());
+    }
+
+    private void handleDatabaseError(Exception exception) {
+        Log.e("FirebaseDatabaseError", "Failed to store user information", exception);
+        showErrorToast("Failed to store user information: " + exception.getMessage());
+    }
+
+    private void handleFailure(Exception exception) {
+        Log.e("FirebaseFailure", "Task failed", exception);
+        showErrorToast("Task failed: " + exception.getMessage());
     }
 
     private void showErrorToast(String errorMessage) {
