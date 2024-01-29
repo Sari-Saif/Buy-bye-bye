@@ -89,7 +89,6 @@ public class S3_Pop_up extends Activity {
                 Intent i = new Intent(S3_Pop_up.this , S3_Pop_up.class);
                 startActivity(i);
 
-                //TODO: refresh the S3 page after adding new stores
                 //  after adding its done back to main page
                 startActivity(new Intent(S3_Pop_up.this, S3.class));
 

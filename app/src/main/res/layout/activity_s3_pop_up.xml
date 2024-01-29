@@ -51,7 +51,7 @@
         android:layout_height="53dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Store name"
+        android:hint="Store name"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
