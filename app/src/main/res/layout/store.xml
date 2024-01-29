@@ -27,6 +27,7 @@
                 android:text="FakeStore"
                 android:textColor="@color/black"
                 android:textSize="26dp"
+                android:onClick="on_click_shop"
                 android:textStyle="bold"/>
         </LinearLayout>
 

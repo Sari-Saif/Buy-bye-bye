@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -71,6 +73,8 @@ public class S3 extends AppCompatActivity {
         move_to_S6_profile();
         
         retrive_store_list();
+
+        on_click_shop();
 
     }
 
@@ -124,6 +128,17 @@ public class S3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(S3.this, S6.class));
+            }
+        });
+    }
+
+    public void on_click_shop() {
+
+        TextView to_s4 = (TextView)findViewById(R.id.tvStoreName);
+        to_s4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(S3.this, S4.class));
             }
         });
     }
