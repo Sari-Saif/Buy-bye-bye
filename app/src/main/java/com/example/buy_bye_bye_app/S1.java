@@ -87,9 +87,10 @@ public class S1 extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Customer_user user1 = new Customer_user(et_emailS.getText().toString(), et_passwordS.getText().toString(), et_addressS.getText().toString(), et_Bank.getText().toString());
-                        FirebaseDatabase.getInstance().getReference("user").child("seller").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
-                        Intent i = new Intent(S1.this, S3.class);
+                        FirebaseDatabase.getInstance().getReference("user").child("Seller").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
+                        Intent i = new Intent(S1.this, MainActivity.class);
                         startActivity(i);
+
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.e("FirebaseDebug", "createUserWithEmail:failure", task.getException());
@@ -100,7 +101,7 @@ public class S1 extends AppCompatActivity {
     }
 
     public void checkEmailExistence(String emailToCheck) {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child("customer");
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child("seller");
         email_check = 0;
         userRef.orderByChild("email").equalTo(emailToCheck).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

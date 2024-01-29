@@ -54,7 +54,16 @@ public class Customer_user {
         this.visa = id;
     }
 
-
+    @Override
+    public String toString() {
+        return "Customer_user{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", visa='" + visa + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }
 
 
