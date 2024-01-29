@@ -54,11 +54,11 @@ public class C1 extends AppCompatActivity {
         et_visaC =findViewById(R.id.InputVisa);
 
         //TODO: check existence
-        checkEmailExistence(et_emailC.getText().toString());
-        while (email_check == 1)
-        {
-            checkEmailExistence(et_emailC.getText().toString());
-        }
+//        checkEmailExistence(et_emailC.getText().toString());
+//        while (email_check == 1)
+//        {
+//            checkEmailExistence(et_emailC.getText().toString());
+//        }
 
         mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString(), et_passwordC.getText().toString())
                 .addOnCompleteListener(this, task -> {
