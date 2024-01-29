@@ -35,8 +35,6 @@ public class C1 extends AppCompatActivity {
     private EditText et_visaC;
     private FirebaseAuth mAuth;
 
-    private int email_check;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,55 +52,53 @@ public class C1 extends AppCompatActivity {
         et_visaC =findViewById(R.id.InputVisa);
 
         //TODO: check existence
-//        checkEmailExistence(et_emailC.getText().toString());
-//        while (email_check == 1)
-//        {
-//            checkEmailExistence(et_emailC.getText().toString());
-//        }
+        //checkEmailExistence(email);
+        Log.d("FirebaseDebug", "email : " + et_emailC.getText().toString());
 
-        mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString(), et_passwordC.getText().toString())
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        Customer_user user1 = new Customer_user(et_emailC.getText().toString(), et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString());
-                        FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
-                        Log.d("FirebaseDebug" , "createUserWithEmail");
-                        Intent i = new Intent(C1.this, MainActivity.class);
-                        startActivity(i);
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.e("FirebaseDebug", "createUserWithEmail:failure", task.getException());
-                        showErrorToast("Authentication failed: " + task.getException().getMessage());
+        mAuth.createUserWithEmailAndPassword(et_emailC.getText().toString() , et_passwordC.getText().toString())
+                .addOnCompleteListener(this , new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Customer_user user1 = new Customer_user(et_emailC.getText().toString(), et_passwordC.getText().toString(), et_addressC.getText().toString(), et_visaC.getText().toString());
+                            FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
+                            Intent i = new Intent(C1.this , MainActivity.class);
+                            startActivity(i);
+                        } else {
+                            showErrorToast("Authentication failed.");
+                        }
                     }
+
                 });
 
     }
 
 
-    public void checkEmailExistence(String emailToCheck) {
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child("customer");
-        email_check = 0;
-        userRef.orderByChild("email").equalTo(emailToCheck).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Email already exists
-                    showErrorToast("Email already exists. Please choose a different email.");
-                    Log.d("FirebaseDebug", "Email already exists");
-                    email_check = 1;
-                } else {
-                    // Email does not exist, you can proceed
-                    Log.d("FirebaseDebug", "Email does not exist, adding new customer...");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle errors if any
-                Log.e("FirebaseDebug", "Error checking email existence: " + databaseError.getMessage());
-            }
-        });
-    }
-
+//    public int checkEmailExistence(String emailToCheck) {
+//
+//        int code = 0;
+//        myRef.orderByChild("email").equalTo(emailToCheck).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    // Email already exists
+//                    code = 1;
+//                    showErrorToast("Email already exists. Please choose a different email.");
+//                    Log.d("FirebaseDebug", "Email already exists");
+//                } else {
+//                    // Email does not exist, you can proceed
+//
+//                    Log.d("FirebaseDebug", "Email does not exist, adding new customer...");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                // Handle errors if any
+//                Log.e("FirebaseDebug", "Error checking email existence: " + databaseError.getMessage());
+//            }
+//        });
+//    }
 
     private void showErrorToast(String errorMessage) {
         // Display an error toast
