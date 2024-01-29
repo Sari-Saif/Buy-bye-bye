@@ -7,7 +7,7 @@
     tools:context=".S3">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/Add_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/Exit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exit"
@@ -37,27 +37,27 @@
         android:text="BuyAndbyebye My stores"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.115"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Profile"
+    <ImageView
+        android:id="@+id/image_Button"
+        android:layout_width="75dp"
+        android:layout_height="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024"
+        app:srcCompat="@drawable/user" />
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="367dp"
-        android:layout_height="568dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/StoreList"
+        android:layout_width="386dp"
+        android:layout_height="548dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
