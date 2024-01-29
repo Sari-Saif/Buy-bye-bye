@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,15 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class S1 extends AppCompatActivity {
-
     //et -> EditText
     //c-> client
     private EditText et_emailS;
     private EditText et_passwordS;
     private EditText et_addressS;
     private EditText et_Bank;
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
+    private FirebaseAuth database;
     private int email_check;
 
     @Override
@@ -33,10 +33,7 @@ public class S1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s1);
 
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference();
-
-        Reqister_Ok();
+        database = FirebaseAuth.getInstance();
 
     }
 
