@@ -67,7 +67,35 @@ public class S1 extends AppCompatActivity {
         });
 
     }
+    public void sign_up(View view)
+    {
+        et_emailS =(EditText) findViewById(R.id.InputUsername);
+        et_passwordS =findViewById(R.id.InputPassword);
+        et_addressS =findViewById(R.id.InputAddress);
+        et_Bank =findViewById(R.id.InputVisa);
 
+        //TODO: check existence
+        checkEmailExistence(et_emailS.getText().toString());
+        if (email_check == 1)
+        {
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(et_emailS.getText().toString(), et_passwordS.getText().toString())
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Customer_user user1 = new Customer_user(et_emailS.getText().toString(), et_passwordS.getText().toString(), et_addressS.getText().toString(), et_Bank.getText().toString());
+                        FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
+                        Intent i = new Intent(S1.this, MainActivity.class);
+                        startActivity(i);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.e("FirebaseDebug", "createUserWithEmail:failure", task.getException());
+                        showErrorToast("Authentication failed: " + task.getException().getMessage());
+                    }
+                });
+
+    }
 
 
 
