@@ -10,7 +10,7 @@
         android:id="@+id/C4_Store_Name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="<Store_name>"
+        android:text="Store_name"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -20,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
-
     <Button
         android:id="@+id/C4_Back_button"
         android:layout_width="wrap_content"
