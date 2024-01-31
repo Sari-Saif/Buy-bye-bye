@@ -7,10 +7,10 @@
     tools:context=".C3">
 
     <Button
-        android:id="@+id/Add_Button"
+        android:id="@+id/C4_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exit"
+        android:text="C4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"

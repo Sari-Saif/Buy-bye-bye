@@ -19,6 +19,12 @@
             android:name=".C6"
             android:exported="false" />
         <activity
+            android:name=".C5"
+            android:exported="false" />
+        <activity
+            android:name=".C4"
+            android:exported="false" />
+        <activity
             android:name=".C3"
             android:exported="false" />
         <activity
