@@ -88,7 +88,7 @@ public class S1 extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Customer_user user1 = new Customer_user(et_emailS.getText().toString(), et_passwordS.getText().toString(), et_addressS.getText().toString(), et_Bank.getText().toString());
                         FirebaseDatabase.getInstance().getReference("user").child("customer").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user1);
-                        Intent i = new Intent(S1.this, MainActivity.class);
+                        Intent i = new Intent(S1.this, S3.class);
                         startActivity(i);
                     } else {
                         // If sign in fails, display a message to the user.
