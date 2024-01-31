@@ -8,10 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
+
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class C3 extends AppCompatActivity {
@@ -36,6 +35,8 @@ public class C3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c3);
+
+        move_to_C4_profile();
         move_to_C6_profile();
         retrive_store_list();
     }
@@ -71,11 +72,23 @@ public class C3 extends AppCompatActivity {
    - move to C6 class
     */
     private void move_to_C6_profile() {
-        ImageView to_s6 = (ImageView) findViewById(R.id.image_Button);
-        to_s6.setOnClickListener(new View.OnClickListener(){
+        ImageView to_c6 = (ImageView) findViewById(R.id.image_Button);
+        to_c6.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(C3.this, C6.class));
+            }
+        });
+    }
+    /*
+- move to C4 class
+*/
+    private void move_to_C4_profile() {
+        Button to_c4 = (Button) findViewById(R.id.C4_Button);
+        to_c4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(C3.this, C4.class));
             }
         });
     }
