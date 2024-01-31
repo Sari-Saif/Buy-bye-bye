@@ -10,7 +10,7 @@
         android:id="@+id/C5_Store_Name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="<Store_name>"
+        android:text="Store_name"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
