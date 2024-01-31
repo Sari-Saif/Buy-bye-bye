@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:text="Username:"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/InputUsername"
+        app:layout_constraintBottom_toTopOf="@+id/InputEmail_Clogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/InputUsername"
+        android:id="@+id/InputEmail_Clogin"
         android:layout_width="408dp"
         android:layout_height="56dp"
         android:ems="10"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:text="Password:"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/InputPassword"
+        app:layout_constraintBottom_toTopOf="@+id/InputPassword_Clogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/InputPassword"
+        android:id="@+id/InputPassword_Clogin"
         android:layout_width="410dp"
         android:layout_height="54dp"
         android:ems="10"
@@ -82,6 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
+        android:onClick="sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
