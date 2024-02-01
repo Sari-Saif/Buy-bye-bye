@@ -47,7 +47,7 @@ public class C4 extends AppCompatActivity {
         adapter = new ProductAdapter(this, ProductsList);
         recyclerView.setAdapter(adapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Stores").child("FakeStore").child("Products");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Stores").child("Addidas").child("Products");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
