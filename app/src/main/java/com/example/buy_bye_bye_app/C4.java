@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +33,7 @@ public class C4 extends AppCompatActivity {
     //ValueEventListener eventListener;
 
     ProductAdapter adapter;
+    private TextView Store_Name;
 
 
     //@SuppressLint("MissingInflatedId")
@@ -38,6 +41,13 @@ public class C4 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c4);
+
+        Intent intent = getIntent();
+        String store_name = intent.getStringExtra("name");
+        Toast.makeText(C4.this, "store: " + store_name, Toast.LENGTH_SHORT).show();
+
+        Store_Name = findViewById(R.id.C4_Store_Name_textView);
+        Store_Name.setText(store_name);
 
         recyclerView = (RecyclerView)findViewById(R.id.C4_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -47,7 +57,7 @@ public class C4 extends AppCompatActivity {
         adapter = new ProductAdapter(this, ProductsList);
         recyclerView.setAdapter(adapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Stores").child("Addidas").child("Products");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Stores").child(store_name).child("Products");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
