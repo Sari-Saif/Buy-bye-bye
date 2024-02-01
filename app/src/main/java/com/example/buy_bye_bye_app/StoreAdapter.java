@@ -1,6 +1,9 @@
 package com.example.buy_bye_bye_app;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +55,15 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.MyViewHolder
             super(storeView);
 
             StoreName = storeView.findViewById(R.id.tvStoreName);
-        }
 
+            storeView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), S4.class);
+                    intent.putExtra("name" , StoreName.getText().toString());
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
     }
 }
