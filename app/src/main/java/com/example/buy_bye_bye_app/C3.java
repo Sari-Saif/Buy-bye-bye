@@ -55,6 +55,7 @@ public class C3 extends AppCompatActivity {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for(DataSnapshot d : snapshot.getChildren()) {
                     Store store = d.getValue(Store.class);
                     // if current.userID == store.userID :
