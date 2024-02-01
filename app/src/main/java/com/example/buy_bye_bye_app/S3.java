@@ -41,7 +41,8 @@ public class S3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s3);
 
-       // move_to_C4_profile();
+        mAuth = FirebaseAuth.getInstance();
+        // move_to_C4_profile();
         move_to_S6_profile();
         retrive_store_list();
     }
@@ -59,34 +60,34 @@ public class S3 extends AppCompatActivity {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    list.clear();
 
-                FirebaseUser currentUser = mAuth.getCurrentUser();                list.clear();
-                list.clear(); // Assuming 'list' is previously declared and initialized
+                    for (DataSnapshot storeSnapshot : snapshot.getChildren()) {
+                        DataSnapshot ownerIDSnapshot = storeSnapshot.child("OwnerID");
+                        String ownerID = ownerIDSnapshot.getValue(String.class);
+                        Log.d("sari", "ownerID: " + ownerID);
+                        Log.d("sari", "store ownerID: " + ownerID);
 
-                if (currentUser == null) {
-                    Log.d("sari", "Current user is null");
-                    return; // Exit if no user is logged in
-                }
-
-                String currentUserEmail = currentUser.getEmail(); // Can be null if the user does not have an email
-                for (DataSnapshot d : snapshot.getChildren()) {
-                    Store store = d.getValue(Store.class); // Assuming 'Store' is correctly mapped to your Firebase structure
-
-                    // Example condition, adjust according to your actual requirement
-                    String ownerID = d.child("OwnerID").getValue(String.class);
-                    if (currentUserEmail != null && ownerID != null && currentUserEmail.equals(ownerID)) {
-                        list.add(store);
+                        // Example condition, adjust according to your actual requirement
+                        if (ownerID.equals(currentUser.getUid())) {
+                            // Assuming you have a Store class with appropriate fields
+                            Store store = storeSnapshot.getValue(Store.class);
+                            list.add(store);
+                        }
                     }
-                }
-                adapter.notifyDataSetChanged();
+
+                    adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("sari", "Database error: " + error.getMessage());
             }
         });
+
     }
+
     /*
    - move to C6 class
     */
