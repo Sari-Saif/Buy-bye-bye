@@ -68,7 +68,6 @@ public class C1 extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
             }
 
             @Override
@@ -95,6 +94,12 @@ public class C1 extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(address) || TextUtils.isEmpty(visa) ) {
             Toast.makeText(C1.this, "Please enter all the parameters!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(emailList.contains(et_emailC.getText().toString()))
+        {
+            Toast.makeText(C1.this, "Email already exist.", Toast.LENGTH_SHORT).show();
             return;
         }
 
