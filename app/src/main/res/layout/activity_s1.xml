@@ -8,11 +8,11 @@
 
 
     <EditText
-        android:id="@+id/InputBank"
+        android:id="@+id/BankInput_s1"
         android:layout_width="374dp"
         android:layout_height="59dp"
         android:ems="10"
-        android:hint="Bank"
+        android:hint="Bank..."
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,12 +34,12 @@
         app:layout_constraintVertical_bias="0.582" />
 
     <EditText
-        android:id="@+id/InputAddress"
+        android:id="@+id/AddressInput_s1"
         android:layout_width="379dp"
         android:layout_height="58dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Address"
+        android:hint="Address..."
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,7 @@
         android:id="@+id/headerUsername"
         android:layout_width="116dp"
         android:layout_height="28dp"
-        android:text="Username:"
+        android:text="Email:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
@@ -97,12 +97,12 @@
         app:layout_constraintVertical_bias="0.134" />
 
     <EditText
-        android:id="@+id/InputUsername"
+        android:id="@+id/EmailInput_s1"
         android:layout_width="356dp"
         android:layout_height="58dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Username"
+        android:hint="Email..."
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,12 +112,12 @@
         app:layout_constraintVertical_bias="0.195" />
 
     <EditText
-        android:id="@+id/InputPassword"
+        android:id="@+id/PasswordInput_s1"
         android:layout_width="372dp"
         android:layout_height="60dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Password"
+        android:hint="Password..."
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
