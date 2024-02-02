@@ -110,7 +110,7 @@ public class S5 extends AppCompatActivity {
                         String imageUrl = downloadUri.toString();
 
                         // Create a Product object
-                        Product p = new Product(name, imageUrl, price, quantity);
+                        Product p = new Product(imageUrl, name, price, quantity);
 
                         // Update the database
                         ref.child(store_name).child("Products").child(name).setValue(p);
