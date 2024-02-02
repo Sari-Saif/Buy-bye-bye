@@ -1,6 +1,8 @@
 package com.example.buy_bye_bye_app;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +18,26 @@ import java.util.List;
 import android.os.Bundle;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHolder> {
 
     Context context;
     ArrayList<Product> ProductsList;
+    String imgURL;
+    String storename;
 
-    public ProductAdapter(Context context, ArrayList<Product> productsList) {
+
+    public ProductAdapter(Context context, ArrayList<Product> productsList, String storename) {
         this.context = context;
         ProductsList = productsList;
+        this.storename = storename;
     }
 
     @NonNull
@@ -44,6 +56,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
         holder.Name.setText(ProductsList.get(position).getName());
         holder.Price.setText(new_price);
         holder.Quantity.setText(new_quantity);
+
+
+        // Set a click listener to handle item clicks
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent
+                Intent intent = new Intent(v.getContext(), S4_pop.class);
+
+                // Put extras into the Intent
+                intent.putExtra("name", ProductsList.get(position).getName());
+                intent.putExtra("price", new_price);
+                intent.putExtra("quantity", new_quantity);
+
+                // Put the image URL as an extra
+                intent.putExtra("imageURL", ProductsList.get(position).getImage());
+                intent.putExtra("store_name", storename);
+
+                // Start the activity
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

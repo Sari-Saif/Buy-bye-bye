@@ -43,7 +43,7 @@ public class S4 extends AppCompatActivity {
 
         productlist = new ArrayList<>();
 
-        adapter = new ProductAdapter(this, productlist);
+        adapter = new ProductAdapter(this, productlist, store_name);
         rv.setAdapter(adapter);
 
         db = FirebaseDatabase.getInstance().getReference("Stores").child(store_name).child("Products");

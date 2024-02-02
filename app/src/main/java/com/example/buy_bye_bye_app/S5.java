@@ -142,12 +142,6 @@ public class S5 extends AppCompatActivity {
         if(requestCode == GALLERY_REQUEST_CODE && data != null) {
             Uri uri = data.getData();
             img.setImageURI(uri);
-
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 }
