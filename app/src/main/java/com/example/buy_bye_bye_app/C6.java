@@ -26,4 +26,9 @@ public class C6 extends AppCompatActivity {
             }
         });
     }
+
+    public void edit_profile(View view) {
+        Intent i = new Intent(C6.this, C9.class);
+        startActivity(i);
+    }
 }
