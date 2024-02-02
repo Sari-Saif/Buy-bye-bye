@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -22,6 +23,7 @@ public class S3_Pop_up extends Activity {
     Button done;
     private EditText store_name;
     private FirebaseDatabase database;
+    private FirebaseAuth mAuth;
 
 
 
@@ -29,6 +31,8 @@ public class S3_Pop_up extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s3_pop_up);
+
+        mAuth = FirebaseAuth.getInstance();
 
         move_to_S3_popUP_window();
 
@@ -72,6 +76,7 @@ public class S3_Pop_up extends Activity {
             @Override
             public void onClick(View view)
             {
+                mAuth = FirebaseAuth.getInstance();
 
                 store_name =(EditText) findViewById(R.id.Input_store_Name);
                 String store = store_name.getText().toString();
@@ -80,7 +85,7 @@ public class S3_Pop_up extends Activity {
                 //TODO: set into OwnerID random Values !!
                 Log.d("FirebaseDebug", "EditText value: " + store_name.getText().toString());
                 database.getInstance().getReference().child("Stores").child(store).child(
-                        "OwnerID").setValue("null");
+                        "OwnerID").setValue(mAuth.getCurrentUser().getUid());
 
 
                 // wait and ask yoad
