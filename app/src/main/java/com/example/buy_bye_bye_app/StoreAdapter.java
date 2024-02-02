@@ -21,6 +21,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.MyViewHolder
     Context context;
 
     ArrayList<Store> list;
+    String store_name;
 
     public StoreAdapter(Context context, ArrayList<Store> list) {
         this.context = context;
