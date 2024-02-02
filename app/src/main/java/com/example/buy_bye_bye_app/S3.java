@@ -101,4 +101,7 @@ public class S3 extends AppCompatActivity {
         });
     }
 
+    public void move_to_s3popup(View view) {
+        startActivity(new Intent(S3.this, S3_Pop_up.class));
+    }
 }
