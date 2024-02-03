@@ -60,7 +60,8 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.MyViewHolder
             storeView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), S4.class);
+                    // Intent intent = new Intent(v.getContext(), S4.class);
+                    //Intent intent = new Intent(v.getContext(), C4.class);
                     intent.putExtra("name" , StoreName.getText().toString());
                     v.getContext().startActivity(intent);
                 }

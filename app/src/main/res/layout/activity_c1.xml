@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Visa"
-        android:textColor="@color/gray"
+        android:hint="Visa"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.298"
@@ -40,8 +40,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Address"
-        android:textColor="@color/gray"
+        android:hint="Address"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.298"
@@ -86,10 +86,10 @@
         app:layout_constraintVertical_bias="0.042" />
 
     <TextView
-        android:id="@+id/headerUsername"
+        android:id="@+id/headerEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username:"
+        android:text="Email:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.169"
@@ -98,13 +98,13 @@
         app:layout_constraintVertical_bias="0.143" />
 
     <EditText
-        android:id="@+id/InputUsername"
+        android:id="@+id/InputEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Username"
-        android:textColor="@color/gray"
+        android:hint="email"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.298"
@@ -113,13 +113,13 @@
         app:layout_constraintVertical_bias="0.195" />
 
     <EditText
-        android:id="@+id/InputPassword"
+        android:id="@+id/InputPassword_Clogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:text="Password"
-        android:textColor="@color/gray"
+        android:hint="Password"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.288"
@@ -132,10 +132,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
+        android:onClick="sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.808" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

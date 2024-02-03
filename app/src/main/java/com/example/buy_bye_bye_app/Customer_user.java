@@ -65,5 +65,3 @@ public class Customer_user {
                 '}';
     }
 }
-
-

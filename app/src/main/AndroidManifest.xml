@@ -40,6 +40,21 @@
             android:name=".S3_Pop_up"
             android:exported="false" />
         <activity
+            android:name=".C9"
+            android:exported="false" />
+        <activity
+            android:name=".C7"
+            android:exported="false" />
+        <activity
+            android:name=".C6"
+            android:exported="false" />
+        <activity
+            android:name=".C5"
+            android:exported="false" />
+        <activity
+            android:name=".C4"
+            android:exported="false" />
+        <activity
             android:name=".C3"
             android:exported="false" />
         <activity
