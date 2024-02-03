@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +45,8 @@ public class S5 extends AppCompatActivity {
     private StorageReference storage_ref;
     private StorageReference storage_ref_2;
 
+    private TextView tv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,9 @@ public class S5 extends AppCompatActivity {
         setContentView(R.layout.activity_s5);
 
         store_name = getIntent().getStringExtra("name");
+
+        tv = findViewById(R.id.textView2);
+        tv.setText(store_name);
 
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("Stores");
@@ -122,6 +128,7 @@ public class S5 extends AppCompatActivity {
                         Intent i = new Intent(S5.this, S4.class);
                         i.putExtra("name", store_name);
                         startActivity(i);
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -147,6 +154,8 @@ public class S5 extends AppCompatActivity {
 
     public void cancel(View view) {
         Intent i = new Intent(S5.this, S4.class);
+        i.putExtra("name", store_name);
         startActivity(i);
+        finish();
     }
 }
