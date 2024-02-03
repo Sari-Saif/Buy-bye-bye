@@ -15,9 +15,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class S1 extends AppCompatActivity {
 
@@ -65,6 +65,7 @@ public class S1 extends AppCompatActivity {
      * listener to handle child nodes in the rtdb
      */
     private ChildEventListener childEventListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +156,8 @@ public class S1 extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        // removing listener to avoid memory leakage
         if (ref != null && childEventListener != null) {
             ref.removeEventListener(childEventListener);
         }
