@@ -54,7 +54,7 @@ public class C4 extends AppCompatActivity {
 
         ProductsList = new ArrayList<>();
 
-        adapter = new ProductAdapter(this, ProductsList);
+        adapter = new ProductAdapter(this, ProductsList, store_name);
         recyclerView.setAdapter(adapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Stores").child(store_name).child("Products");

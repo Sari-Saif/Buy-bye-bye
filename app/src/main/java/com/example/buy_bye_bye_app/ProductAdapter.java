@@ -34,7 +34,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
     String storename;
 
 
-    public ProductAdapter(Context context, ArrayList<Product> productsList, String storename) {
+    public  ProductAdapter(Context context, ArrayList<Product> productsList, String storename) {
         this.context = context;
         ProductsList = productsList;
         this.storename = storename;
@@ -43,8 +43,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.c4_item, parent, false);
-        return new myViewHolder(view);
+        Log.e("ABC", "START: " + parent.getContext().toString() + " :END");
+
+        if(parent.getContext().toString().contains("S4@")) {
+            View view = LayoutInflater.from(context).inflate(R.layout.s4_item, parent, false);
+            return new myViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(context).inflate(R.layout.c4_item, parent, false);
+            return new myViewHolder(view);
+        }
     }
 
     @Override
@@ -62,20 +69,27 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent
-                Intent intent = new Intent(v.getContext(), S4_pop.class);
 
-                // Put extras into the Intent
-                intent.putExtra("name", ProductsList.get(position).getName());
-                intent.putExtra("price", new_price);
-                intent.putExtra("quantity", new_quantity);
+                if (v.getContext().toString().contains("S4@")) {
+                    Intent intent = new Intent(v.getContext(), S4_pop.class);
 
-                // Put the image URL as an extra
-                intent.putExtra("imageURL", ProductsList.get(position).getImage());
-                intent.putExtra("store_name", storename);
+                    // Put extras into the Intent
+                    intent.putExtra("name", ProductsList.get(position).getName());
+                    intent.putExtra("price", new_price);
+                    intent.putExtra("quantity", new_quantity);
 
-                // Start the activity
-                v.getContext().startActivity(intent);
+                    // Put the image URL as an extra
+                    intent.putExtra("imageURL", ProductsList.get(position).getImage());
+                    intent.putExtra("store_name", storename);
+
+                    // Start the activity
+                    v.getContext().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(v.getContext(), C5.class);
+
+                    // Start the activity
+                    v.getContext().startActivity(intent);
+                }
             }
         });
     }
