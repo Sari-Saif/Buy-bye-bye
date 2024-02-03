@@ -1,25 +1,43 @@
 package com.example.buy_bye_bye_app;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
+import android.os.Bundle;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHolder> {
 
     Context context;
     ArrayList<Product> ProductsList;
+    String imgURL;
+    String storename;
 
-    public ProductAdapter(Context context, ArrayList<Product> productsList) {
+
+    public ProductAdapter(Context context, ArrayList<Product> productsList, String storename) {
         this.context = context;
         ProductsList = productsList;
+        this.storename = storename;
     }
 
     @NonNull
@@ -31,10 +49,35 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        holder.Image.setText(ProductsList.get(position).getImage());
+        //holder.Image.setText(ProductsList.get(position).getImage());
+        String new_price = ProductsList.get(position).getPrice() + "$";
+        String new_quantity = ProductsList.get(position).getQuantity() + " pieces";
+        Picasso.get().load(ProductsList.get(position).getImage()).into(holder.Image);
         holder.Name.setText(ProductsList.get(position).getName());
-        holder.Price.setText(ProductsList.get(position).getPrice());
-        holder.Quantity.setText(ProductsList.get(position).getQuantity());
+        holder.Price.setText(new_price);
+        holder.Quantity.setText(new_quantity);
+
+
+        // Set a click listener to handle item clicks
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent
+                Intent intent = new Intent(v.getContext(), S4_pop.class);
+
+                // Put extras into the Intent
+                intent.putExtra("name", ProductsList.get(position).getName());
+                intent.putExtra("price", new_price);
+                intent.putExtra("quantity", new_quantity);
+
+                // Put the image URL as an extra
+                intent.putExtra("imageURL", ProductsList.get(position).getImage());
+                intent.putExtra("store_name", storename);
+
+                // Start the activity
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -44,7 +87,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
 
     class myViewHolder extends RecyclerView.ViewHolder{
 
-        TextView Image;
+        ImageView Image;
         TextView Name;
         TextView Price;
         TextView Quantity;
@@ -52,7 +95,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            Image = (TextView) itemView.findViewById(R.id.C4_productImage);
+            Image = itemView.findViewById(R.id.C4_productImage);
             Name = (TextView) itemView.findViewById(R.id.C4_productName);
             Price = (TextView) itemView.findViewById(R.id.C4_productPrice);
             Quantity = (TextView) itemView.findViewById(R.id.C4_productQuantity);

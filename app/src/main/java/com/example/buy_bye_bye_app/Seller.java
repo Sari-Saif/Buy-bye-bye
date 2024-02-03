@@ -1,17 +1,17 @@
 package com.example.buy_bye_bye_app;
 
-public class Customer_user {
+public class Seller {
     private String email;
     private String password;
     private String address;
-    private String visa;
+    private String bank;
     private String id;
 
-    public Customer_user(String email, String password, String address, String visa) {
+    public Seller(String email, String password, String address, String visa) {
         this.email = email;
         this.password = password;
         this.address = address;
-        this.visa = visa;
+        this.bank = visa;
     }
 
     public String getEmail() {
@@ -38,12 +38,12 @@ public class Customer_user {
         this.address = address;
     }
 
-    public String getVisa() {
-        return visa;
+    public String getBank() {
+        return bank;
     }
 
-    public void setVisa(String visa) {
-        this.visa = visa;
+    public void setBank(String bank) {
+        this.bank = bank;
     }
 
     public String getId() {
@@ -51,7 +51,7 @@ public class Customer_user {
     }
 
     public void setId(String id) {
-        this.visa = id;
+        this.id = id;
     }
 
     @Override
@@ -60,8 +60,10 @@ public class Customer_user {
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
-                ", visa='" + visa + '\'' +
+                ", bank='" + bank + '\'' +
                 ", id='" + id + '\'' +
                 '}';
     }
 }
+
+
