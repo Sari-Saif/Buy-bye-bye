@@ -135,6 +135,7 @@ public class S2 extends AppCompatActivity {
                 }
                 Intent i = new Intent(S2.this, S3.class);
                 startActivity(i);
+                finish();
            } else {
                Toast.makeText(S2.this, "Incorrect email or password!", Toast.LENGTH_SHORT).show();
            }

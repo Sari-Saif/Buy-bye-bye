@@ -48,6 +48,7 @@
         android:id="@+id/image_Button"
         android:layout_width="75dp"
         android:layout_height="65dp"
+        android:onClick="move_to_S6_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.952"

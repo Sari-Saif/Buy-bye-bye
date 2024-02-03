@@ -147,6 +147,7 @@ public class S1 extends AppCompatActivity {
 
                 Intent i = new Intent(S1.this, MainActivity.class);
                 startActivity(i);
+                finish();
             } else {
                 Toast.makeText(S1.this, "Please enter valid information!!", Toast.LENGTH_SHORT).show();
             }

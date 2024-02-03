@@ -2,18 +2,12 @@ package com.example.buy_bye_bye_app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,43 +15,81 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.security.acl.Owner;
 import java.util.ArrayList;
-
 
 
 public class S3 extends AppCompatActivity {
 
-    RecyclerView rv;
-    DatabaseReference db;
-    StoreAdapter adapter;
-    ArrayList<Store> list;
+    /**
+     * this is the store's list UI element
+     */
+    private RecyclerView rv;
 
+    /**
+     * this is the ImageView UI element
+     */
+    private ImageView profile;
+
+    /**
+     * Firebase REAL-TIME reference
+     */
+    private DatabaseReference db;
+
+    /**
+     * adapter for getting the stores
+     */
+    private StoreAdapter adapter;
+
+    /**
+     * Firebase REAL-TIME
+     */
+    private FirebaseDatabase firebaseDatabase;
+
+    /**
+     * list for storring all the stores
+     */
+    private ArrayList<Store> list;
+
+    /**
+     * Firebase AUTHENTICATION
+     */
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s3);
 
-        mAuth = FirebaseAuth.getInstance();
-        // move_to_C4_profile();
-        move_to_S6_profile();
-        retrive_store_list();
-    }
-    private void retrive_store_list() {
+        // setting the UI elements
         rv = findViewById(R.id.StoreList);
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        db = firebaseDatabase.getReference("Stores");
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
+        profile = findViewById(R.id.image_Button);
 
+        // setting the DB
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        db = firebaseDatabase.getReference("Stores");
+        mAuth = FirebaseAuth.getInstance();
+
+        // setting the resources to retrieve the stores
         list = new ArrayList<>();
         adapter = new StoreAdapter(this, list);
         rv.setAdapter(adapter);
 
+        // onCreate, we will call the retrieving of the store's
+        retrieve_store_list();
+    }
+
+    /**
+     * this function handles the retrieving of the store's list of the current seller from the DB
+     */
+    private void retrieve_store_list() {
+
+        // adding the listener for the stores in the db
         db.addValueEventListener(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -66,8 +98,6 @@ public class S3 extends AppCompatActivity {
                     for (DataSnapshot storeSnapshot : snapshot.getChildren()) {
                         DataSnapshot ownerIDSnapshot = storeSnapshot.child("OwnerID");
                         String ownerID = ownerIDSnapshot.getValue(String.class);
-                        Log.d("sari", "ownerID: " + ownerID);
-                        Log.d("sari", "store ownerID: " + ownerID);
 
                         // Example condition, adjust according to your actual requirement
                         if (ownerID.equals(currentUser.getUid())) {
@@ -76,31 +106,28 @@ public class S3 extends AppCompatActivity {
                             list.add(store);
                         }
                     }
-
                     adapter.notifyDataSetChanged();
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("sari", "Database error: " + error.getMessage());
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
 
     }
 
-    /*
-   - move to C6 class
-    */
-    private void move_to_S6_profile() {
-        ImageView to_c6 = (ImageView) findViewById(R.id.image_Button);
-        to_c6.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(S3.this, S6.class));
-            }
-        });
+    /**
+     * this function moves to current seller user's profile
+     * @param view the `ImageView` element
+     */
+    public void move_to_S6_profile(View view) {
+        Intent i = new Intent(S3.this, S6.class);
+        startActivity(i);
+        finish();
     }
 
+    /**
+     * this function logging out the current seller user
+     * @param view the button "Exit"
+     */
     public void exit(View view) {
         mAuth.signOut();
 
@@ -110,7 +137,12 @@ public class S3 extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * this function moves to new windows for creating new store
+     * @param view the button "Add"
+     */
     public void move_to_s3popup(View view) {
         startActivity(new Intent(S3.this, S3_Pop_up.class));
+        finish();
     }
 }
