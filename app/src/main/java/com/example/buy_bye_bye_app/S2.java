@@ -119,7 +119,7 @@ public class S2 extends AppCompatActivity {
             return;
         }
 
-        // checking if entered email is already exists. if true, abort signup.
+        // checking if entered email is already exists. if false, abort login.
         if(!emaillist.contains(email)) {
             Toast.makeText(S2.this, "Email does not exists!!", Toast.LENGTH_SHORT).show();
             return;
