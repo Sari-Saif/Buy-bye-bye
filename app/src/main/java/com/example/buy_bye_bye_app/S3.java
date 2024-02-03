@@ -101,6 +101,15 @@ public class S3 extends AppCompatActivity {
         });
     }
 
+    public void exit(View view) {
+        mAuth.signOut();
+
+        Intent i = new Intent(S3.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();
+    }
+
     public void move_to_s3popup(View view) {
         startActivity(new Intent(S3.this, S3_Pop_up.class));
     }

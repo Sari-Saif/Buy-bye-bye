@@ -75,4 +75,9 @@ public class S4 extends AppCompatActivity {
         i.putExtra("name", store_name);
         startActivity(i);
     }
+
+    public void cancel(View view) {
+        Intent i = new Intent(S4.this, S3.class);
+        startActivity(i);
+    }
 }

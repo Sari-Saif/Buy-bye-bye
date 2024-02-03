@@ -26,6 +26,7 @@
         android:layout_width="89dp"
         android:layout_height="43dp"
         android:text="Cancel"
+        android:onClick="cancel_pop_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.099"

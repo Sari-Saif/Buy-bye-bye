@@ -42,6 +42,11 @@ public class S3_Pop_up extends Activity {
 
     }
 
+    public void cancel_pop_up() {
+        Intent i = new Intent(S3_Pop_up.this , S3.class);
+        startActivity(i);
+    }
+
     /*
      handling pop up and set position
      */

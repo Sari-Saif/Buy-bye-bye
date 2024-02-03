@@ -144,4 +144,9 @@ public class S5 extends AppCompatActivity {
             img.setImageURI(uri);
         }
     }
+
+    public void cancel(View view) {
+        Intent i = new Intent(S5.this, S4.class);
+        startActivity(i);
+    }
 }
