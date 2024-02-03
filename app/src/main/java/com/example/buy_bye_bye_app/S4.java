@@ -4,27 +4,43 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
+
 
 public class S4 extends AppCompatActivity {
 
+    /**
+     *
+     */
     private String store_name;
+
+    /**
+     *
+     */
     private RecyclerView rv;
+
+    /**
+     *
+     */
     private ArrayList<Product> productlist;
+
+    /**
+     *
+     */
     private DatabaseReference db;
+
+    /**
+     *
+     */
     private ProductAdapter adapter;
 
     @Override
@@ -60,9 +76,7 @@ public class S4 extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
@@ -74,10 +88,16 @@ public class S4 extends AppCompatActivity {
         Intent i = new Intent(S4.this, S5.class);
         i.putExtra("name", store_name);
         startActivity(i);
+        finish();
     }
 
+    /**
+     * this function cancels the current chosen store, and goes back to store list
+     * @param view the "cancel" button
+     */
     public void cancel(View view) {
         Intent i = new Intent(S4.this, S3.class);
         startActivity(i);
+        finish();
     }
 }

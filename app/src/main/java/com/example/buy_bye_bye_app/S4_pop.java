@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,8 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
@@ -43,11 +47,33 @@ public class S4_pop extends AppCompatActivity {
     private ImageView hold_img;
 
     private Button change_img;
+    private Bitmap bitmap;
+    private FirebaseStorage storage;
+    private StorageReference storage_ref;
+    private StorageReference storage_ref_2;
+
+    private DatabaseReference ref;
+
+    private FirebaseDatabase db;
+
+
+
+    private String new_price;
+    private String new_quantity;
+
+    private DatabaseReference storeProductRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s4_pop);
+
+        storage = FirebaseStorage.getInstance();
+        storage_ref_2 = storage.getReference();
+
+        db = FirebaseDatabase.getInstance();
+        ref = db.getReference("Stores");
 
         old_name = getIntent().getStringExtra("name");
         old_price = getIntent().getStringExtra("price");
@@ -105,17 +131,14 @@ public class S4_pop extends AppCompatActivity {
 
 
     public void change(View view) {
-        String new_price = hold_price.getText().toString();
-        String new_quantity = hold_quantity.getText().toString();
+        new_price = hold_price.getText().toString();
+        new_quantity = hold_quantity.getText().toString();
 
         if(new_price.isEmpty()) {
             new_price = old_price.replace("$", "");
         } if(new_quantity.isEmpty()) {
             new_quantity = old_quantity.replace(" pieces", "");
         }
-
-
-        DatabaseReference storeProductRef;
 
         storeProductRef = FirebaseDatabase.getInstance().getReference("Stores")
                 .child(store_name)
@@ -131,11 +154,62 @@ public class S4_pop extends AppCompatActivity {
                 .child("Quantity");
         storeProductRef.setValue(new_quantity);
 
+
+        bitmap = ((BitmapDrawable) hold_img.getDrawable()).getBitmap();
+
+        String product_name = old_name.replaceAll("\\s", "");
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        storage_ref = storage_ref_2.child(store_name).child(product_name + ".jpg");
+
+        UploadTask uploadTask = storage_ref.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Handle the failure of storage upload
+                Log.e("pic", e.toString(), e);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Storage upload success, now update the database
+                storage_ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri downloadUri) {
+                        // Get the download URL
+                        String imageUrl = downloadUri.toString();
+
+                        storeProductRef = FirebaseDatabase.getInstance().getReference("Stores")
+                                .child(store_name)
+                                .child("Products")
+                                .child(old_name)
+                                .child("image");
+                        storeProductRef.setValue(imageUrl);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Handle the failure of getting download URL
+                        e.printStackTrace();
+                    }
+                });
+            }
+        });
+
+
+
+
+
         Toast.makeText(S4_pop.this, "Product updated successfully!", Toast.LENGTH_SHORT).show();
 
 
 
-        Intent i = new Intent(S4_pop.this, S3.class);
+        Intent i = new Intent(S4_pop.this, S4.class);
+        i.putExtra("name", store_name);
         startActivity(i);
+        finish();
     }
 }
