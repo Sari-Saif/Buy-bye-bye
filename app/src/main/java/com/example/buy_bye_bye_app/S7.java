@@ -57,12 +57,6 @@ public class S7 extends AppCompatActivity {
         rv.setAdapter(adapter);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//
-//
-//    }
 
     public void cancel(View view) {
         Intent i = new Intent(S7.this, S6.class);

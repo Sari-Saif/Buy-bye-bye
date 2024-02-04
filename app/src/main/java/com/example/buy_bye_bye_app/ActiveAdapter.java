@@ -44,6 +44,7 @@ public class ActiveAdapter extends RecyclerView.Adapter<ActiveAdapter.MyViewHold
                 intent.putExtra("store_name", activeOrder.getStoreName());
                 intent.putExtra("customer_name", activeOrder.getCustomerName());
                 intent.putExtra("order_id", activeOrder.getOrderID());
+                intent.putExtra("order_id", activeOrder.getOrderID());
                 v.getContext().startActivity(intent);
             }
         });

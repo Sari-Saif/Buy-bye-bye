@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -95,5 +96,50 @@ public class S8 extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
 
+    }
+    public void cancel(View view) {
+        Intent i = new Intent(S8.this, S7.class);
+        startActivity(i);
+        finish();
+    }
+
+    public void accept(View view) {
+
+        String order_id = getIntent().getStringExtra("order_id");
+
+        // Get a reference to the "Orders" node
+        DatabaseReference ordersReference = FirebaseDatabase.getInstance().getReference("Orders");
+
+        // Get a reference to the current order in the "Active" node
+        DatabaseReference activeOrderReference = ordersReference.child("Active").child(order_id);
+
+        // Move the current order from "Active" to "History"
+        activeOrderReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Get the order data
+                ActiveOrder order = snapshot.getValue(ActiveOrder.class);
+
+                if (order != null) {
+                    // Get a reference to the "History" node
+                    DatabaseReference historyReference = ordersReference.child("History").child(order_id);
+
+                    // Set the order data in the "History" node
+                    historyReference.setValue(order);
+
+                    // Remove the order from the "Active" node
+                    activeOrderReference.removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle error if needed
+            }
+        });
+
+        Intent i = new Intent(S8.this, S7.class);
+        startActivity(i);
+        finish();
     }
 }
