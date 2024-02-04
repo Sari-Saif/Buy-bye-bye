@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -104,8 +107,9 @@ public class S8 extends AppCompatActivity {
     }
 
     public void accept(View view) {
+        Log.e("TEST222", "$entered function$");
 
-        String order_id = getIntent().getStringExtra("order_id");
+        String order_id = getIntent().getStringExtra("order_id").trim();
 
         // Get a reference to the "Orders" node
         DatabaseReference ordersReference = FirebaseDatabase.getInstance().getReference("Orders");
@@ -113,33 +117,57 @@ public class S8 extends AppCompatActivity {
         // Get a reference to the current order in the "Active" node
         DatabaseReference activeOrderReference = ordersReference.child("Active").child(order_id);
 
-        // Move the current order from "Active" to "History"
+        // Get the order data
         activeOrderReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Get the order data
-                ActiveOrder order = snapshot.getValue(ActiveOrder.class);
+                // Check if the order exists in "Active"
+                if (snapshot.exists()) {
+                    ActiveOrder order = snapshot.getValue(ActiveOrder.class);
 
-                if (order != null) {
                     // Get a reference to the "History" node
                     DatabaseReference historyReference = ordersReference.child("History").child(order_id);
 
-                    // Set the order data in the "History" node
-                    historyReference.setValue(order);
-
-                    // Remove the order from the "Active" node
-                    activeOrderReference.removeValue();
+                    // Move the order to "History"
+                    historyReference.setValue(order)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        // Remove the order from "Active"
+                                        activeOrderReference.removeValue()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            // Move to the next activity
+                                                            Intent i = new Intent(S8.this, S6.class);
+                                                            startActivity(i);
+                                                            finish();
+                                                        } else {
+                                                            // Handle removal from "Active" failure
+                                                            Log.e("ORDER_MOVE_ERROR", "Failed to remove order from Active");
+                                                        }
+                                                    }
+                                                });
+                                    } else {
+                                        // Handle moving to "History" failure
+                                        Log.e("ORDER_MOVE_ERROR", "Failed to move order to History");
+                                    }
+                                }
+                            });
+                } else {
+                    // Handle case where order doesn't exist in "Active"
+                    Log.e("ORDER_NOT_FOUND", "Order not found in Active");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Handle error if needed
+                Log.e("DATABASE_ERROR", "Error reading data from Active");
             }
         });
-
-        Intent i = new Intent(S8.this, S7.class);
-        startActivity(i);
-        finish();
     }
+
 }
