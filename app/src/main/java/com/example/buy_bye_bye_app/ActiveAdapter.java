@@ -36,6 +36,17 @@ public class ActiveAdapter extends RecyclerView.Adapter<ActiveAdapter.MyViewHold
         ActiveOrder activeOrder = list.get(position);
         holder.storename.setText(activeOrder.getStoreName());
         holder.orderid.setText(activeOrder.getOrderID());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), S8.class);
+                intent.putExtra("store_name", activeOrder.getStoreName());
+                intent.putExtra("customer_name", activeOrder.getCustomerName());
+                intent.putExtra("order_id", activeOrder.getOrderID());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -52,14 +63,6 @@ public class ActiveAdapter extends RecyclerView.Adapter<ActiveAdapter.MyViewHold
 
             storename = itemView.findViewById(R.id.tvStoreName);
             orderid = itemView.findViewById(R.id.tvOrderID);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), S8.class);
-                    v.getContext().startActivity(intent);
-                }
-            });
         }
     }
 }
