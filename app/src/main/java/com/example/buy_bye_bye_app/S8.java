@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class S8 extends AppCompatActivity {
     private TextView header;
+    private TextView totPrice;
     private Intent intent;
 
     private RecyclerView rv;
@@ -28,6 +29,8 @@ public class S8 extends AppCompatActivity {
     ActiveItemAdapter adapter;
 
     DatabaseReference databaseReference;
+
+    private int total_price;
 
 
     @Override
@@ -51,6 +54,9 @@ public class S8 extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders");
 
+
+        total_price = 0;
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -63,8 +69,12 @@ public class S8 extends AppCompatActivity {
                     if (currentOrderId != null && currentOrderId.equals(order_id)) {
                         for (DataSnapshot productSnapshot : orderSnapshot.child("Products").getChildren()) {
                             ActiveOrderItem y = productSnapshot.getValue(ActiveOrderItem.class);
+                            total_price += Integer.parseInt(y.getPrice());
                             list.add(y);
                         }
+                        // Update UI with the correct total_price here
+                        String tPrice = "Total order price: " + total_price + "$";
+                        totPrice.setText(tPrice);
                         break; // Exit the loop once products for the selected order are found
                     }
                 }
@@ -76,6 +86,10 @@ public class S8 extends AppCompatActivity {
 
             }
         });
+
+        String tPrice = "Total order price: " + total_price + "$";
+        totPrice = findViewById(R.id.textView15);
+        totPrice.setText(tPrice);
 
         rv = findViewById(R.id.recyclerView3);
         rv.setLayoutManager(new LinearLayoutManager(this));
