@@ -40,12 +40,19 @@ public class ActiveAdapter extends RecyclerView.Adapter<ActiveAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), S8.class);
-                intent.putExtra("store_name", activeOrder.getStoreName());
-                intent.putExtra("customer_name", activeOrder.getCustomerName());
-                intent.putExtra("order_id", activeOrder.getOrderID());
-                intent.putExtra("order_id", activeOrder.getOrderID());
-                v.getContext().startActivity(intent);
+                if(v.getContext().toString().contains("S7@")) {
+                    Intent intent = new Intent(v.getContext(), S8.class);
+                    intent.putExtra("store_name", activeOrder.getStoreName());
+                    intent.putExtra("customer_name", activeOrder.getCustomerName());
+                    intent.putExtra("order_id", activeOrder.getOrderID());
+                    v.getContext().startActivity(intent);
+                } else if(v.getContext().toString().contains("S6@")) {
+                    Intent intent = new Intent(v.getContext(), S10.class);
+                    intent.putExtra("store_name", activeOrder.getStoreName());
+                    intent.putExtra("customer_name", activeOrder.getCustomerName());
+                    intent.putExtra("order_id", activeOrder.getOrderID());
+                    v.getContext().startActivity(intent);
+                }
             }
         });
     }
