@@ -44,11 +44,10 @@ public class C4_pop_up extends AppCompatActivity {
         // save the amount textView for using later in plus & minus buttons
         amount = (TextView) findViewById(R.id.C4_pop_up_Amount);
 
-        // code for button plus ("+")
-        button_plus_action();
-
-        // code for button minus ("-")
-        button_minus_action();
+        // code for buttons
+        button_plus_action(); // plus ("+")
+        button_minus_action(); // minus ("-")
+        button_done_action(); // Done
     }
 
     private void button_plus_action(){
@@ -87,6 +86,18 @@ public class C4_pop_up extends AppCompatActivity {
                 else {
                     Toast.makeText(C4_pop_up.this, "You cannot buy less than 0 units...", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+
+
+    private void button_done_action()
+    {
+        Button done = (Button) findViewById(R.id.C4_pop_up_Button_Done);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
             }
         });
     }
