@@ -85,7 +85,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
                     // Start the activity
                     v.getContext().startActivity(intent);
                 } else {
-                    Intent intent = new Intent(v.getContext(), C5.class);
+                    Intent intent = new Intent(v.getContext(), C4_pop_up.class);
+                    // Put extras into the Intent
+                    intent.putExtra("product_name", ProductsList.get(position).getName());
+                    intent.putExtra("product_price", new_price);
+                    intent.putExtra("quantity", new_quantity);
+
+                    // Put the image URL as an extra
+                    //intent.putExtra("imageURL", ProductsList.get(position).getImage());
+                    intent.putExtra("store_name", storename);
 
                     // Start the activity
                     v.getContext().startActivity(intent);
