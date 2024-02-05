@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class C4_pop_up extends AppCompatActivity {
 
     String store_name;
@@ -97,7 +101,19 @@ public class C4_pop_up extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String userEmail = user.getEmail().toString();
+                String userEmailWithoutDot = userEmail.replace(".", "_");
+
+                if(Integer.parseInt(amount.getText().toString()) > 0) {
+                    database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Name").setValue(product_name);
+                    database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Price").setValue(product_price.replace("$", ""));
+                    database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Amount").setValue(amount.getText().toString());
+                }
+                else {
+                    Toast.makeText(C4_pop_up.this, "You cannot add to cart 0 units...", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

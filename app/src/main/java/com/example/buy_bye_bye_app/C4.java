@@ -123,6 +123,7 @@ public class C4 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 delete_cart();
+                startActivity(new Intent(C4.this, C3.class));
             }
         });
     }
