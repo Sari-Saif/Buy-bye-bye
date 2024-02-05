@@ -79,6 +79,7 @@ public class C4 extends AppCompatActivity {
         });
 
         move_to_buyCart_window();
+        button_back();
 
         // create Cart in Firebase
         create_cart();
@@ -104,5 +105,25 @@ public class C4 extends AppCompatActivity {
         database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("CustomerName").setValue(userEmail);
         database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("OrderID").setValue("IDIDIDIDIDID");
         database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("StoreName").setValue(Store_Name.getText().toString());
+    }
+
+    private void delete_cart()
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userEmail = user.getEmail().toString();
+        String userEmailWithoutDot = userEmail.replace(".", "_");
+
+        database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
+    }
+
+    private void button_back(){
+        Button back = (Button)findViewById(R.id.C4_Back_button);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete_cart();
+            }
+        });
     }
 }
