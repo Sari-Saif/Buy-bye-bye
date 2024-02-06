@@ -98,10 +98,6 @@ public class C5 extends AppCompatActivity {
                 else{
                     // get the cart values
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    //String CustomerName; //= database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("CustomerName").toString();
-                    //String OrderID; //= database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("OrderID").toString();
-                    //String StoreName; //= database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("StoreName").toString();
-
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Orders").child("Carts").child(userEmailWithoutDot);
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -120,6 +116,9 @@ public class C5 extends AppCompatActivity {
                                 database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Price").setValue(p.getPrice());
                                 database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Amount").setValue(p.getAmount());
                             }
+
+                            // delete the cart from Carts.
+                            database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
                         }
 
                         @Override
@@ -127,19 +126,6 @@ public class C5 extends AppCompatActivity {
 
                         }
                     });
-
-                    // copy them into the Active
-                    //database.getReference("Orders").child("Active").child(OrderID).child("CustomerName").setValue(CustomerName);
-                    //database.getReference("Orders").child("Active").child(OrderID).child("OrderID").setValue(OrderID);
-                    //database.getReference("Orders").child("Active").child(OrderID).child("StoreName").setValue(StoreName);
-                    //for (ProductInCart p : ProductsInCartList){
-                    //   database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Name").setValue(p.getName());
-                    //  database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Price").setValue(p.getPrice());
-                    //database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Amount").setValue(p.getAmount());
-                    //}
-
-                    // delete the cart from Carts.
-                    //database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
                 }
             }
         });
