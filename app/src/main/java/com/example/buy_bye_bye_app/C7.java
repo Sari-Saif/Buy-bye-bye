@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +24,8 @@ public class C7 extends AppCompatActivity {
     private ArrayList<ActiveOrder> list;
     DatabaseReference databaseReference;
     ActiveAdapter adapter;
+    private FirebaseAuth mAuth;
+    private String currentUserEmail = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +38,24 @@ public class C7 extends AppCompatActivity {
 
         adapter = new ActiveAdapter(this, list);
 
+
+        mAuth = FirebaseAuth.getInstance();
+        // Get the current user's email
+        if (mAuth.getCurrentUser() != null) {
+            currentUserEmail = mAuth.getCurrentUser().getEmail();
+        }
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
                 for(DataSnapshot x : snapshot.child("Active").getChildren()) {
-                    ActiveOrder y = x.getValue(ActiveOrder.class);
-                    list.add(y);
+
+                    ActiveOrder order = x.getValue(ActiveOrder.class);
+                    if (order != null && order.getOrderID() != null && !order.getOrderID().isEmpty() && order.getCustomerName() != null &&
+                            order.getCustomerName().equals(currentUserEmail)) {
+                        // Check if the order has any products before adding it to the list
+                        list.add(order);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
