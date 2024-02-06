@@ -7,14 +7,16 @@ public class ProductInCart {
 
     String Price; // unit price
 
-    int TotalCartPrice;
+    int TotalPrice;
+
+    public ProductInCart(){}
 
     public ProductInCart(String name, String amount, String price) {
         Name = name;
         Amount = amount;
         Price = price;
 
-        TotalCartPrice = Integer.parseInt(Amount) * Integer.parseInt(Price);
+        TotalPrice = Integer.parseInt(Amount) * Integer.parseInt(Price);
     }
 
     public String getName() {
@@ -41,11 +43,11 @@ public class ProductInCart {
         Price = price;
     }
 
-    public int getTotalCartPrice() {
-        return TotalCartPrice;
+    public int getTotalPrice() {
+        return TotalPrice;
     }
 
-    public void setTotalCartPrice(int totalCartPrice) {
-        TotalCartPrice = totalCartPrice;
+    public void setTotalPrice(int totalPrice) {
+        TotalPrice = totalPrice;
     }
 }

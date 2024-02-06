@@ -16,6 +16,11 @@ public class ProductInCartAdapter extends RecyclerView.Adapter<ProductInCartAdap
     Context context;
     ArrayList<ProductInCart> ProductsInCartList;
 
+    public ProductInCartAdapter(Context context, ArrayList<ProductInCart> productsInCartList) {
+        this.context = context;
+        ProductsInCartList = productsInCartList;
+    }
+
     @NonNull
     @Override
     public ProductInCartAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
