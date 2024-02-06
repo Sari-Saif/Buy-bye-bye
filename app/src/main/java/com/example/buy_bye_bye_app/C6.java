@@ -34,6 +34,7 @@ public class C6 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c6);
 
+        move_to_orders_pending_window();
 
         mAuth = FirebaseAuth.getInstance();
 

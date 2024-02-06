@@ -38,8 +38,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Orders Pending"
-        android:onClick="move_to_orders_pending_window"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.906"
