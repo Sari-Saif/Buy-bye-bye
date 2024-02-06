@@ -26,8 +26,8 @@ public class ProductInCartAdapter extends RecyclerView.Adapter<ProductInCartAdap
     @Override
     public void onBindViewHolder(@NonNull ProductInCartAdapter.myViewHolder holder, int position) {
         holder.Name.setText(ProductsInCartList.get(position).getName());
-        holder.Price.setText(ProductsInCartList.get(position).getPrice());
-        holder.Amount.setText(ProductsInCartList.get(position).getAmount());
+        holder.Price.setText("Unit Price: " + ProductsInCartList.get(position).getPrice() + "$");
+        holder.Amount.setText("Amount: " + ProductsInCartList.get(position).getAmount());
     }
 
     @Override
