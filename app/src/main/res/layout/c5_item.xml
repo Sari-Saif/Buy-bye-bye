@@ -34,13 +34,13 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/C5_item_productTotalPrice"
+            android:id="@+id/C5_item_productUnitPrice"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="129dp"
             android:layout_marginLeft="10dp"
-            android:text="TotalPrice"
+            android:text="UnitPrice"
             android:textSize="25sp" />
 
     </RelativeLayout>
