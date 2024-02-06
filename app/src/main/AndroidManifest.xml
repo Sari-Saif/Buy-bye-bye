@@ -15,6 +15,9 @@
         <activity
             android:name=".C8"
             android:exported="false" />
+       <activity
+            android:name=".C4_pop_up"
+            android:exported="false" />
         <activity
             android:name=".S10"
             android:exported="false" />
