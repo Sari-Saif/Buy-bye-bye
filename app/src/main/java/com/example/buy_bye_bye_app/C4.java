@@ -23,8 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class C4 extends AppCompatActivity {
 
@@ -97,13 +99,17 @@ public class C4 extends AppCompatActivity {
 
     private void create_cart()
     {
+        // use the email as a uniq cart for user at a time.
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userEmail = user.getEmail().toString();
         String userEmailWithoutDot = userEmail.replace(".", "_");
 
+        // generate random OrderID
+        String OrderID = getAlphaNumericString(32);
+
         database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("CustomerName").setValue(userEmail);
-        database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("OrderID").setValue("IDIDIDIDIDID");
+        database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("OrderID").setValue(OrderID);
         database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("StoreName").setValue(Store_Name.getText().toString());
     }
 
@@ -127,5 +133,19 @@ public class C4 extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private String getAlphaNumericString(int n)
+    {
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "0123456789";
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++)
+        {
+            int index = (int)(AlphaNumericString.length() * Math.random());
+            sb.append(AlphaNumericString.charAt(index));
+        }
+
+        return sb.toString();
     }
 }
