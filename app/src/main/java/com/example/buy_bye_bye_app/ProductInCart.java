@@ -1,3 +1,5 @@
+package com.example.buy_bye_bye_app;
+
 public class ProductInCart {
 
     String Name;
