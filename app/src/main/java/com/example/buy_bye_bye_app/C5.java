@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -119,6 +120,10 @@ public class C5 extends AppCompatActivity {
 
                             // delete the cart from Carts.
                             database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
+
+                            // back to the list of stores
+                            startActivity(new Intent(C5.this, C3.class));
+                            finish();
                         }
 
                         @Override
