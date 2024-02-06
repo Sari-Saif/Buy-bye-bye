@@ -24,5 +24,6 @@ public class ActiveOrder {
 
     public String getCustomerName() { return CustomerName; }
 
+
     public void setCustomerName(String customerName) { CustomerName = customerName; }
 }
