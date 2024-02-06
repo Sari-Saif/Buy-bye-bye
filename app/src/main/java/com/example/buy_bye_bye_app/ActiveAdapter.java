@@ -60,7 +60,15 @@ public class ActiveAdapter extends RecyclerView.Adapter<ActiveAdapter.MyViewHold
                     v.getContext().startActivity(intent);
                 }
 
+                else if(v.getContext().toString().contains("C7@")) {
+                    Intent intent = new Intent(v.getContext(), C9.class);
+                    intent.putExtra("store_name", activeOrder.getStoreName());
+                    intent.putExtra("order_id", activeOrder.getOrderID());
+                    v.getContext().startActivity(intent);
+                }else
+                {
 
+                }
 
             }
         });
