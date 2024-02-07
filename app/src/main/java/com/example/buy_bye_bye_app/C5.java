@@ -29,6 +29,7 @@ public class C5 extends AppCompatActivity {
     ArrayList<ProductInCart> ProductsInCartList;
     DatabaseReference databaseReference;
 
+
     ProductInCartAdapter adapter;
 
     FirebaseDatabase database;
@@ -42,6 +43,12 @@ public class C5 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c5);
+
+        // add the current store name
+        Intent intent = getIntent();
+        String store_name = intent.getStringExtra("name");
+        TextView textView = (TextView) findViewById(R.id.C5_Store_Name_textView);
+        textView.setText(store_name);
 
         totalCartPrice = 0;
 

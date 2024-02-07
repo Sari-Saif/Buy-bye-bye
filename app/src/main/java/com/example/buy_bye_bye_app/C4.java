@@ -92,7 +92,10 @@ public class C4 extends AppCompatActivity {
         nextbutton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(C4.this, C5.class));
+                Intent intent;
+                intent = new Intent(view.getContext(), C5.class);
+                intent.putExtra("name" , Store_Name.getText().toString());
+                startActivity(intent);
             }
         });
     }

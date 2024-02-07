@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,13 +32,15 @@ public class C3 extends AppCompatActivity {
     StoreAdapter adapter;
     ArrayList<Store> list;
 
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c3);
 
-        move_to_C4_profile();
+        //move_to_C4_profile();
         move_to_C6_profile();
         retrive_store_list();
     }
@@ -85,13 +88,28 @@ public class C3 extends AppCompatActivity {
     /*
 - move to C4 class
 */
-    private void move_to_C4_profile() {
-        Button to_c4 = (Button) findViewById(R.id.C4_Button);
-        to_c4.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(C3.this, C4.class));
-            }
-        });
+
+
+    /*
+      exit button into main activity
+   */
+    public void exit(View view) {
+        mAuth.signOut();
+
+        Intent i = new Intent(C3.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();
     }
+
+
+//    private void move_to_C4_profile() {
+//        Button to_c4 = (Button) findViewById(R.id.C4_Button);
+//        to_c4.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(C3.this, C4.class));
+//            }
+//        });
+//    }
 }
