@@ -52,6 +52,7 @@ public class C4_pop_up extends AppCompatActivity {
         button_plus_action(); // plus ("+")
         button_minus_action(); // minus ("-")
         button_done_action(); // Done
+        button_cancel_action(); // Cancel
     }
 
     private void button_plus_action(){
@@ -73,34 +74,37 @@ public class C4_pop_up extends AppCompatActivity {
             }
         });
     }
-
-
     private void button_minus_action(){
         Button minus = (Button) findViewById(R.id.C4_pop_up_Button_Minus);
-        minus.setOnClickListener(new View.OnClickListener() {
+        minus.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 int curr_amount = Integer.parseInt(amount.getText().toString());
 
                 // can minus one just if number bigger than 0...
-                if(curr_amount > 0) {
+                if(curr_amount > 0)
+                {
                     curr_amount--;
                     amount.setText(String.valueOf(curr_amount));
                 }
-                else {
+                else
+                {
                     Toast.makeText(C4_pop_up.this, "You cannot buy less than 0 units...", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-
     private void button_done_action()
     {
         Button done = (Button) findViewById(R.id.C4_pop_up_Button_Done);
-        done.setOnClickListener(new View.OnClickListener() {
+        done.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String userEmail = user.getEmail().toString();
@@ -110,10 +114,26 @@ public class C4_pop_up extends AppCompatActivity {
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Name").setValue(product_name);
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Price").setValue(product_price.replace("$", ""));
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Amount").setValue(amount.getText().toString());
+                   //Done the Buy operation - done by simcha !!!
+                    finish();
+
                 }
-                else {
+                else
+                {
                     Toast.makeText(C4_pop_up.this, "You cannot add to cart 0 units...", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+    }
+    private  void  button_cancel_action()
+    {
+        Button button =(Button) findViewById(R.id.C4_pop_up_Button_Cancel);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
             }
         });
     }

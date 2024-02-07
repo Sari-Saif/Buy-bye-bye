@@ -79,7 +79,8 @@ public class C5 extends AppCompatActivity {
                     totalCartPrice += product_in_cart.getTotalPrice();
                 }
                 TextView totalCartPrice_textView = (TextView)findViewById(R.id.C5_TotalPriceOfCart);
-                totalCartPrice_textView.setText(String.valueOf(totalCartPrice));
+
+                totalCartPrice_textView.setText("Total cart Price : " + String.valueOf(totalCartPrice)+ " $");
                 adapter.notifyDataSetChanged();
             }
 
@@ -92,6 +93,7 @@ public class C5 extends AppCompatActivity {
 
         // buttons
         button_buy();
+        button_back();
     }
 
 
@@ -141,5 +143,16 @@ public class C5 extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void button_back()
+    {
+        Button button = (Button) findViewById(R.id.C5_Back_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 }

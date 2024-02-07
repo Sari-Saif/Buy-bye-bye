@@ -44,7 +44,7 @@ public class ProductInCart {
     }
 
     public int getTotalPrice() {
-        return TotalPrice;
+        return Integer.parseInt(this.Amount) * Integer.parseInt(this.Price);
     }
 
     public void setTotalPrice(int totalPrice) {
