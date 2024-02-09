@@ -40,6 +40,9 @@ public class C3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c3);
 
+
+        mAuth = FirebaseAuth.getInstance();
+
         //move_to_C4_profile();
         move_to_C6_profile();
         retrive_store_list();
@@ -93,7 +96,7 @@ public class C3 extends AppCompatActivity {
     /*
       exit button into main activity
    */
-    public void exit(View view) {
+    public void ExitToMainActivity(View view) {
         mAuth.signOut();
 
         Intent i = new Intent(C3.this, MainActivity.class);
