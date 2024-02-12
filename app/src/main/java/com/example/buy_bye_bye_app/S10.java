@@ -89,8 +89,8 @@ public class S10 extends AppCompatActivity {
     }
 
     public void cancel(View view) {
-        Intent i = new Intent(S10.this, S6.class);
-        startActivity(i);
+//        Intent i = new Intent(S10.this, S6.class);
+//        startActivity(i);
         finish();
     }
 }
