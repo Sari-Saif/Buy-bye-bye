@@ -78,6 +78,10 @@ public class C5 extends AppCompatActivity {
                 // delete the cart from Carts.
                 database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
 
+                // back to the list of stores
+                databaseReference.removeEventListener(event2);
+                startActivity(new Intent(C5.this, C3.class));
+                finish();
             }
 
             @Override
