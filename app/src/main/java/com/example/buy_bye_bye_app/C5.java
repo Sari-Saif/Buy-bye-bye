@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 
 public class C5 extends AppCompatActivity {
 
@@ -29,6 +30,9 @@ public class C5 extends AppCompatActivity {
     ArrayList<ProductInCart> ProductsInCartList;
     DatabaseReference databaseReference;
 
+    //bag?
+    ValueEventListener event;
+    ValueEventListener event2;
 
     ProductInCartAdapter adapter;
 
@@ -52,6 +56,36 @@ public class C5 extends AppCompatActivity {
 
         totalCartPrice = 0;
 
+        //bag?
+        event = new ValueEventListener() {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String CustomerName = snapshot.child("CustomerName").getValue(String.class);
+                String OrderID = snapshot.child("OrderID").getValue(String.class);
+                String StoreName = snapshot.child("StoreName").getValue(String.class);
+
+                // copy them into the Active
+                database.getReference("Orders").child("Active").child(OrderID).child("CustomerName").setValue(CustomerName);
+                database.getReference("Orders").child("Active").child(OrderID).child("OrderID").setValue(OrderID);
+                database.getReference("Orders").child("Active").child(OrderID).child("StoreName").setValue(StoreName);
+                for (ProductInCart p : ProductsInCartList){
+                    database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Name").setValue(p.getName());
+                    database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Price").setValue(p.getPrice());
+                    database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Amount").setValue(p.getAmount());
+                }
+
+                // delete the cart from Carts.
+                database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+
         // save the userEmail
         database = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -67,7 +101,10 @@ public class C5 extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+
+
+        //bag2?
+        event2 = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ProductsInCartList.clear();
@@ -88,7 +125,8 @@ public class C5 extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        };
+        databaseReference.addValueEventListener(event2);
 
 
         // buttons
@@ -109,37 +147,38 @@ public class C5 extends AppCompatActivity {
                     // get the cart values
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Orders").child("Carts").child(userEmailWithoutDot);
-                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            // get the values from the  Cart
-                            String CustomerName = snapshot.child("CustomerName").getValue(String.class);
-                            String OrderID = snapshot.child("OrderID").getValue(String.class);
-                            String StoreName = snapshot.child("StoreName").getValue(String.class);
-
-                            // copy them into the Active
-                            database.getReference("Orders").child("Active").child(OrderID).child("CustomerName").setValue(CustomerName);
-                            database.getReference("Orders").child("Active").child(OrderID).child("OrderID").setValue(OrderID);
-                            database.getReference("Orders").child("Active").child(OrderID).child("StoreName").setValue(StoreName);
-                            for (ProductInCart p : ProductsInCartList){
-                                database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Name").setValue(p.getName());
-                                database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Price").setValue(p.getPrice());
-                                database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Amount").setValue(p.getAmount());
-                            }
-
-                            // delete the cart from Carts.
-                            database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
-
-                            // back to the list of stores
-                            startActivity(new Intent(C5.this, C3.class));
-                            finish();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+//                    event = new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            // get the values from the  Cart
+//                            String CustomerName = snapshot.child("CustomerName").getValue(String.class);
+//                            String OrderID = snapshot.child("OrderID").getValue(String.class);
+//                            String StoreName = snapshot.child("StoreName").getValue(String.class);
+//
+//                            // copy them into the Active
+//                            database.getReference("Orders").child("Active").child(OrderID).child("CustomerName").setValue(CustomerName);
+//                            database.getReference("Orders").child("Active").child(OrderID).child("OrderID").setValue(OrderID);
+//                            database.getReference("Orders").child("Active").child(OrderID).child("StoreName").setValue(StoreName);
+//                            for (ProductInCart p : ProductsInCartList){
+//                                database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Name").setValue(p.getName());
+//                                database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Price").setValue(p.getPrice());
+//                                database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Amount").setValue(p.getAmount());
+//                            }
+//
+//                            // delete the cart from Carts.
+//                            database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
+//
+//                            // back to the list of stores
+//                            //startActivity(new Intent(C5.this, C3.class));
+//                            //finish();
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    };
+                    ref.addListenerForSingleValueEvent(event);
                 }
             }
         });
@@ -150,6 +189,7 @@ public class C5 extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                databaseReference.removeEventListener(event2);
                 finish();
             }
         });
