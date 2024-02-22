@@ -24,10 +24,14 @@ public class S7 extends AppCompatActivity {
     DatabaseReference databaseReference;
     ActiveAdapter adapter;
 
+    ArrayList<String> store_names;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s7);
+
+        store_names = getIntent().getStringArrayListExtra("store_name_list");
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders");
 
@@ -41,7 +45,9 @@ public class S7 extends AppCompatActivity {
                 list.clear();
                 for(DataSnapshot x : snapshot.child("Active").getChildren()) {
                     ActiveOrder y = x.getValue(ActiveOrder.class);
-                    list.add(y);
+                    if(store_names.contains(y.getStoreName())) {
+                        list.add(y);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -60,6 +66,7 @@ public class S7 extends AppCompatActivity {
 
     public void cancel(View view) {
         Intent i = new Intent(S7.this, S6.class);
+        i.putStringArrayListExtra("store_name_list", store_names);
         startActivity(i);
     }
 }

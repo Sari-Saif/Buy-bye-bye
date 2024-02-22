@@ -24,10 +24,14 @@ public class S6 extends AppCompatActivity {
     private ArrayList<ActiveOrder> list;
     private DatabaseReference databaseReference;
     private ActiveAdapter adapter;
+
+    ArrayList<String> store_names;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s6);
+
+        store_names = getIntent().getStringArrayListExtra("store_name_list");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -43,7 +47,9 @@ public class S6 extends AppCompatActivity {
                 list.clear();
                 for(DataSnapshot x : snapshot.child("History").getChildren()) {
                     ActiveOrder y = x.getValue(ActiveOrder.class);
-                    list.add(y);
+                    if(store_names.contains(y.getStoreName())) {
+                        list.add(y);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -66,12 +72,16 @@ public class S6 extends AppCompatActivity {
 
     public void edit_profile(View view) {
         Intent i = new Intent(S6.this, S9.class);
+        i.putStringArrayListExtra("store_name_list", store_names);
         startActivity(i);
+        finish();
     }
 
     public void new_orders(View view) {
         Intent i = new Intent(S6.this, S7.class);
+        i.putStringArrayListExtra("store_name_list", store_names);
         startActivity(i);
+        finish();
     }
 
     public void exit(View view) {

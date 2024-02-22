@@ -22,27 +22,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 
 public class C5 extends AppCompatActivity {
-
     RecyclerView recyclerView;
     ArrayList<ProductInCart> ProductsInCartList;
     DatabaseReference databaseReference;
-
-
+    ValueEventListener event;
     ProductInCartAdapter adapter;
-
     FirebaseDatabase database;
     FirebaseUser user;
     String userEmail;
     String userEmailWithoutDot;
-
     int totalCartPrice;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c5);
+
 
         // add the current store name
         Intent intent = getIntent();
@@ -50,24 +49,32 @@ public class C5 extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.C5_Store_Name_textView);
         textView.setText(store_name);
 
+
+        // update in real time for total cart price
         totalCartPrice = 0;
 
-        // save the userEmail
+
+        // save the user info (help to get into the correct cart)
         database = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userEmail = user.getEmail().toString();
         userEmailWithoutDot = userEmail.replace(".", "_");
 
+
+        // handle the list of products in cart
         recyclerView = (RecyclerView)findViewById(R.id.C5_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         ProductsInCartList = new ArrayList<>();
-
         adapter = new ProductInCartAdapter(this, ProductsInCartList);
         recyclerView.setAdapter(adapter);
 
+
+        // save reference for products in the current user cart.
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+
+
+        // event save in variable to remove it from listener when exit the activity.
+        event = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ProductsInCartList.clear();
@@ -86,9 +93,9 @@ public class C5 extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-        });
+        };
+        databaseReference.addValueEventListener(event);
 
 
         // buttons
@@ -97,6 +104,13 @@ public class C5 extends AppCompatActivity {
     }
 
 
+    /*
+    * function for buy button
+    * copy the cart from Carts branch into Active branch (firebase)
+    * and then delete the cart.
+    * after user buy something he get out from the store.
+    * and back to list of store.
+    * */
     private void button_buy(){
         Button buy = (Button) findViewById(R.id.C5_Buy_button);
         buy.setOnClickListener(new View.OnClickListener() {
@@ -131,28 +145,34 @@ public class C5 extends AppCompatActivity {
                             database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
 
                             // back to the list of stores
+                            databaseReference.removeEventListener(event);
                             startActivity(new Intent(C5.this, C3.class));
                             finish();
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
                         }
                     });
                 }
             }
         });
     }
+
+
+    /*
+    * function for back button.
+    * remove the db event listener and destroy the activity
+    * */
     private void button_back()
     {
         Button button = (Button) findViewById(R.id.C5_Back_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                databaseReference.removeEventListener(event);
                 finish();
             }
         });
-
     }
 }

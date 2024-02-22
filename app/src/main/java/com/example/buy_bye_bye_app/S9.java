@@ -107,6 +107,7 @@ public class S9 extends AppCompatActivity {
 
     public void cancel(View view) {
         Intent i = new Intent(S9.this , S6.class);
+        i.putStringArrayListExtra("store_name_list", getIntent().getStringArrayListExtra("store_name_list"));
         startActivity(i);
         finish();
     }

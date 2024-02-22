@@ -55,6 +55,9 @@ public class S3 extends AppCompatActivity {
      */
     private FirebaseAuth mAuth;
 
+    ArrayList<String> store_names;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,8 @@ public class S3 extends AppCompatActivity {
 
         // onCreate, we will call the retrieving of the store's
         retrieve_store_list();
+
+        store_names = new ArrayList<>();
     }
 
     /**
@@ -94,6 +99,7 @@ public class S3 extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     FirebaseUser currentUser = mAuth.getCurrentUser();
                     list.clear();
+                    store_names.clear();
 
                     for (DataSnapshot storeSnapshot : snapshot.getChildren()) {
                         DataSnapshot ownerIDSnapshot = storeSnapshot.child("OwnerID");
@@ -104,6 +110,7 @@ public class S3 extends AppCompatActivity {
                             // Assuming you have a Store class with appropriate fields
                             Store store = storeSnapshot.getValue(Store.class);
                             list.add(store);
+                            store_names.add(store.getStoreName());
                         }
                     }
                     adapter.notifyDataSetChanged();
@@ -120,6 +127,7 @@ public class S3 extends AppCompatActivity {
      */
     public void move_to_S6_profile(View view) {
         Intent i = new Intent(S3.this, S6.class);
+        i.putStringArrayListExtra("store_name_list", store_names);
         startActivity(i);
         finish();
     }
