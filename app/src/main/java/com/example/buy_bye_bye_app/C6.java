@@ -32,36 +32,43 @@ public class C6 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_c6);
+        setContentView(R.layout.activity_c6); // Set the content view to your activity's layout
 
+        // Custom method to navigate to the orders pending window
         move_to_orders_pending_window();
-
+        // Initialize Firebase Authentication instance
         mAuth = FirebaseAuth.getInstance();
-
+        // Get a reference to the "Orders/History" node in Firebase Database
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders/History");
 
         list = new ArrayList<>();
-
+        // Get the current user's email if they are logged in
         adapter = new ActiveAdapter(this, list);
 
         // Get the current user's email
         if (mAuth.getCurrentUser() != null) {
             currentUserEmail = mAuth.getCurrentUser().getEmail();
         }
+        // Add a listener to the database reference to listen for data changes
         databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
                 list.clear();
-                for(DataSnapshot orderSnapshot : snapshot.getChildren()) {
+                for(DataSnapshot orderSnapshot : snapshot.getChildren())
+                {
                     // Assuming ActiveOrder class has a field for StoreName and Products
                     ActiveOrder order = orderSnapshot.getValue(ActiveOrder.class);
+
                     if (order != null && order.getOrderID() != null && !order.getOrderID().isEmpty() && order.getCustomerName() != null &&
-                            order.getCustomerName().equals(currentUserEmail)) {
+                            order.getCustomerName().equals(currentUserEmail))
+                    {
                         // Check if the order has any products before adding it to the list
                         list.add(order);
                     }
                 }
+                // Notify the adapter that the data set has changed to refresh the list view
                 adapter.notifyDataSetChanged();
             }
 
