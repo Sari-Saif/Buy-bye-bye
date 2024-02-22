@@ -1,130 +1,156 @@
 package com.example.buy_bye_bye_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-import java.util.List;
-
-
-
 
 
 public class S3 extends AppCompatActivity {
 
-    Button add;
+    /**
+     * this is the store's list UI element
+     */
+    private RecyclerView rv;
 
-    RecyclerView rv;
-    DatabaseReference db;
-    StoreAdapter adapter;
-    ArrayList<Store> list;
+    /**
+     * this is the ImageView UI element
+     */
+    private ImageView profile;
+
+    /**
+     * Firebase REAL-TIME reference
+     */
+    private DatabaseReference db;
+
+    /**
+     * adapter for getting the stores
+     */
+    private StoreAdapter adapter;
+
+    /**
+     * Firebase REAL-TIME
+     */
+    private FirebaseDatabase firebaseDatabase;
+
+    /**
+     * list for storring all the stores
+     */
+    private ArrayList<Store> list;
+
+    /**
+     * Firebase AUTHENTICATION
+     */
+    private FirebaseAuth mAuth;
+
+    ArrayList<String> store_names;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s3);
 
-        add = (Button) findViewById(R.id.Add_Button);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), S3_Pop_up.class);
-                startActivity(i);
-            }
-        });
-
-        // S6
-        move_to_S6_profile();
-        
-        retrive_store_list();
-
-    }
-
-
-    private void retrive_store_list() {
+        // setting the UI elements
         rv = findViewById(R.id.StoreList);
-        db = FirebaseDatabase.getInstance().getReference("Stores");
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
+        profile = findViewById(R.id.image_Button);
 
+        // setting the DB
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        db = firebaseDatabase.getReference("Stores");
+        mAuth = FirebaseAuth.getInstance();
+
+        // setting the resources to retrieve the stores
         list = new ArrayList<>();
         adapter = new StoreAdapter(this, list);
         rv.setAdapter(adapter);
 
+        // onCreate, we will call the retrieving of the store's
+        retrieve_store_list();
+
+        store_names = new ArrayList<>();
+    }
+
+    /**
+     * this function handles the retrieving of the store's list of the current seller from the DB
+     */
+    private void retrieve_store_list() {
+
+        // adding the listener for the stores in the db
         db.addValueEventListener(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot d : snapshot.getChildren()) {
-                    Store store = d.getValue(Store.class);
-                    // if current.userID == store.userID :
-                    list.add(store);
-                }
-                adapter.notifyDataSetChanged();
-            }
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    list.clear();
+                    store_names.clear();
 
+                    for (DataSnapshot storeSnapshot : snapshot.getChildren()) {
+                        DataSnapshot ownerIDSnapshot = storeSnapshot.child("OwnerID");
+                        String ownerID = ownerIDSnapshot.getValue(String.class);
+
+                        // Example condition, adjust according to your actual requirement
+                        if (ownerID.equals(currentUser.getUid())) {
+                            // Assuming you have a Store class with appropriate fields
+                            Store store = storeSnapshot.getValue(Store.class);
+                            list.add(store);
+                            store_names.add(store.getStoreName());
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+            }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
+
     }
 
-    /*
-    - "Add" Button  operation
+    /**
+     * this function moves to current seller user's profile
+     * @param view the `ImageView` element
      */
-    private void move_to_S3_pop_window() {
-        Button nextbutton = (Button) findViewById(R.id.Add_Button);
-        nextbutton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(S3.this, S3_Pop_up.class));
-            }
-        });
+    public void move_to_S6_profile(View view) {
+        Intent i = new Intent(S3.this, S6.class);
+        i.putStringArrayListExtra("store_name_list", store_names);
+        startActivity(i);
+        finish();
     }
-    /*
-   - move to S6 class
-    */
-    private void move_to_S6_profile() {
-        ImageView to_s6 = (ImageView) findViewById(R.id.image_Button);
-        to_s6.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(S3.this, S6.class));
-            }
-        });
+
+    /**
+     * this function logging out the current seller user
+     * @param view the button "Exit"
+     */
+    public void exit(View view) {
+        mAuth.signOut();
+
+        Intent i = new Intent(S3.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();
+    }
+
+    /**
+     * this function moves to new windows for creating new store
+     * @param view the button "Add"
+     */
+    public void move_to_s3popup(View view) {
+        startActivity(new Intent(S3.this, S3_Pop_up.class));
+        finish();
     }
 }
