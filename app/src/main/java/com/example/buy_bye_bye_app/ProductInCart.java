@@ -7,12 +7,12 @@ package com.example.buy_bye_bye_app;
 public class ProductInCart {
 
     // Fields to store the product's name, amount, and unit price
-   public String Name;
-   public String Amount;
-   private String Price; // unit price
+  String Name;
+  String Amount;
+  String Price; // unit price
 
     // Calculated field to store the total price of the product based on the amount and unit price
-    public int TotalPrice;
+    int TotalPrice;
     /**
      * Default constructor for initializing a ProductInCart object without setting its properties.
      * Useful for situations where product attributes are set post object creation.

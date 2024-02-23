@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ProductInCartAdapter extends RecyclerView.Adapter<ProductInCartAdapter.myViewHolder> {
 
     // Context in which the adapter is being used
-   private Context context;
+    Context context;
 
    // List of ProductInCart objects to be displayed
     ArrayList<ProductInCart> ProductsInCartList;

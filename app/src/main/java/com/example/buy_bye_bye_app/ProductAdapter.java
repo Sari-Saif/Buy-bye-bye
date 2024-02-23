@@ -31,10 +31,10 @@ import com.squareup.picasso.Picasso;
  */
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHolder> {
 
-    private Context context;// Context in which the RecyclerView is used
-    private ArrayList<Product> ProductsList;// List of Product objects to be displayed
-    private String imgURL;
-    private String storename;// Name of the store, used for passing to intents
+     Context context;// Context in which the RecyclerView is used
+     ArrayList<Product> ProductsList;// List of Product objects to be displayed
+     String imgURL;
+     String storename;// Name of the store, used for passing to intents
 
 
     /**
