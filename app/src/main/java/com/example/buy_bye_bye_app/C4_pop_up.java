@@ -114,8 +114,7 @@ public class C4_pop_up extends AppCompatActivity {
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Name").setValue(product_name);
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Price").setValue(product_price.replace("$", ""));
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Amount").setValue(amount.getText().toString());
-                   //Done the Buy operation - done by simcha !!!
-                    finish();
+                    finish();// Closes the pop-up
 
                 }
                 else

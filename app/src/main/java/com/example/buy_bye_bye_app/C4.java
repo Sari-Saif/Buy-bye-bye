@@ -27,16 +27,22 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * Activity class C4 for displaying a list of products from a specific store.
+ * Allows users to view products, add them to a cart, and navigate to other activities.
+ */
 public class C4 extends AppCompatActivity {
 
+    // RecyclerView to display the list of products
     RecyclerView recyclerView;
+    // List to hold product data
     ArrayList<Product> ProductsList;
+    // Database reference to access product data
     DatabaseReference databaseReference;
 
-    //ValueEventListener eventListener;
-
+    // Adapter for RecyclerView
     ProductAdapter adapter;
+    // TextView to display the store's name
     private TextView Store_Name;
 
 
@@ -46,10 +52,13 @@ public class C4 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c4);
 
+        // Retrieve the store name passed from the previous activity
         Intent intent = getIntent();
         String store_name = intent.getStringExtra("name");
+        // Display the store name as a toast
         Toast.makeText(C4.this, "store: " + store_name, Toast.LENGTH_SHORT).show();
 
+        // Initialize views
         Store_Name = findViewById(R.id.C4_Store_Name_textView);
         Store_Name.setText(store_name);
 
@@ -58,11 +67,13 @@ public class C4 extends AppCompatActivity {
 
         ProductsList = new ArrayList<>();
 
+        // Initialize product list and adapter
         adapter = new ProductAdapter(this, ProductsList, store_name);
         recyclerView.setAdapter(adapter);
 
+        // Set database reference to the specific store's products
         databaseReference = FirebaseDatabase.getInstance().getReference("Stores").child(store_name).child("Products");
-
+        // Add value event listener to fetch product data
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -80,13 +91,15 @@ public class C4 extends AppCompatActivity {
             }
         });
 
+        // Setup navigation and cart management
         move_to_buyCart_window();
         button_back();
-
         // create Cart in Firebase
         create_cart();
     }
-
+    /**
+     * Navigates to the buy cart window when the corresponding button is clicked.
+     */
     private void move_to_buyCart_window(){
         Button nextbutton = (Button) findViewById(R.id.C4_Cart_button);
         nextbutton.setOnClickListener(new View.OnClickListener(){
@@ -99,7 +112,9 @@ public class C4 extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Creates a new cart in Firebase for the current user.
+     */
     private void create_cart()
     {
         // use the email as a uniq cart for user at a time.
@@ -116,6 +131,9 @@ public class C4 extends AppCompatActivity {
         database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("StoreName").setValue(Store_Name.getText().toString());
     }
 
+    /**
+     * Deletes the current user's cart from Firebase.
+     */
     private void delete_cart()
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -123,9 +141,12 @@ public class C4 extends AppCompatActivity {
         String userEmail = user.getEmail().toString();
         String userEmailWithoutDot = userEmail.replace(".", "_");
 
+        // Remove the cart from Firebase
         database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
     }
-
+    /**
+     * Handles navigation back to the previous activity and deletes the current cart.
+     */
     private void button_back(){
         Button back = (Button)findViewById(R.id.C4_Back_button);
         back.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +158,11 @@ public class C4 extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Generates a random alphanumeric string.
+     * @param n Length of the string.
+     * @return The generated string.
+     */
     private String getAlphaNumericString(int n)
     {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "0123456789";
