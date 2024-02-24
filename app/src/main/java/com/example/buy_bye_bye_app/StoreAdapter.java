@@ -74,6 +74,20 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.MyViewHolder
     public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
         Store store = list.get(position);
         holder.StoreName.setText(store.getStoreName());
+
+        int sum_of_ratings = Integer.parseInt(store.getSum_ratings());
+        int total_raters = Integer.parseInt(store.getTotal_raters());
+
+        double store_rate = 0.0;
+        if(total_raters == 0) {
+            holder.Rating.setText(String.format("%.1f", store_rate));
+        } else {
+            store_rate = (double) sum_of_ratings / total_raters;
+            holder.Rating.setText(String.format("%.1f", store_rate));
+        }
+
+
+
     }
 
     /**
@@ -93,12 +107,14 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.MyViewHolder
 
         // TextView for displaying the store's name
         TextView StoreName;
+        TextView Rating;
 
         public MyViewHolder(@NotNull View storeView) {
             super(storeView);
 
             // Initialize the TextView by finding it by its ID
             StoreName = storeView.findViewById(R.id.tvStoreName);
+            Rating = storeView.findViewById(R.id.tvRating);
 
             // Set an OnClickListener for the entire store item view
             storeView.setOnClickListener(new View.OnClickListener() {
