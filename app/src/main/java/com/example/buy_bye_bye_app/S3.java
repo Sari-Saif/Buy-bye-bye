@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -16,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class S3 extends AppCompatActivity {
@@ -57,6 +61,8 @@ public class S3 extends AppCompatActivity {
 
     ArrayList<String> store_names;
 
+    private SearchView search_stores;
+
 
 
     @Override
@@ -69,6 +75,22 @@ public class S3 extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         profile = findViewById(R.id.image_Button);
+
+        // setting the search bar for searching stores in list
+        search_stores = findViewById(R.id.search_stores);
+        search_stores.clearFocus();
+        search_stores.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
         // setting the DB
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -84,6 +106,21 @@ public class S3 extends AppCompatActivity {
         retrieve_store_list();
 
         store_names = new ArrayList<>();
+    }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<Store> filteredList = new ArrayList<>();
+        for(Store item : list) {
+            if(item.getStoreName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
     }
 
     /**

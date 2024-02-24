@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,9 @@ public class C4 extends AppCompatActivity {
     // TextView to display the store's name
     private TextView Store_Name;
 
+    private SearchView search_products;
+
+
 
     //@SuppressLint("MissingInflatedId")
     @Override
@@ -54,6 +58,23 @@ public class C4 extends AppCompatActivity {
 
         // Retrieve the store name passed from the previous activity
         Intent intent = getIntent();
+
+        // setting the search bar for searching stores in list
+        search_products = findViewById(R.id.search_products);
+        search_products.clearFocus();
+        search_products.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
         String store_name = intent.getStringExtra("name");
         // Display the store name as a toast
         Toast.makeText(C4.this, "store: " + store_name, Toast.LENGTH_SHORT).show();
@@ -97,6 +118,22 @@ public class C4 extends AppCompatActivity {
         // create Cart in Firebase
         create_cart();
     }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<Product> filteredList = new ArrayList<>();
+        for(Product item : ProductsList) {
+            if(item.getName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
+    }
+
     /**
      * Navigates to the buy cart window when the corresponding button is clicked.
      */

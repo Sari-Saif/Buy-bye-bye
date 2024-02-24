@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +37,9 @@ public class S6 extends AppCompatActivity {
     private ActiveAdapter adapter;
     // ArrayList to store names of stores to filter orders
     ArrayList<String> store_names;
+
+    private SearchView search_history;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,22 @@ public class S6 extends AppCompatActivity {
 
         // Retrieve the list of store names passed from the previous activity
         store_names = getIntent().getStringArrayListExtra("store_name_list");
+
+        // setting the search bar for searching stores in list
+        search_history = findViewById(R.id.search_history);
+        search_history.clearFocus();
+        search_history.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         // Get a reference to the "Orders" node in Firebase
@@ -77,6 +98,27 @@ public class S6 extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
     }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<ActiveOrder> filteredList = new ArrayList<>();
+        for(ActiveOrder item : list) {
+            if(item.getStoreName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+            if(item.getOrderID().trim().toLowerCase().contains(text.toLowerCase())) {
+                if(!filteredList.contains(item)) {
+                    filteredList.add(item);
+                }
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
+    }
+
     /**
      * Navigates back to the S3 activity.
      */

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,13 +31,33 @@ public class C6 extends AppCompatActivity {
     private DatabaseReference databaseReference;// Reference to the database for retrieving orders
     private ActiveAdapter adapter;// Adapter for the RecyclerView
     private String currentUserEmail = null; // Email of the currently logged in user
+
+    private SearchView search_history;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c6); // Set the content view to the activity's layout
 
+        // setting the search bar for searching stores in list
+        search_history = findViewById(R.id.search_history);
+        search_history.clearFocus();
+        search_history.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
         // Initialize buttons and their click listeners for navigation and actions
         move_to_orders_pending_window();// Navigate to the orders pending window
+
 
         // Initialize Firebase Authentication instance
         mAuth = FirebaseAuth.getInstance();
@@ -88,12 +109,35 @@ public class C6 extends AppCompatActivity {
     }
 
     /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<ActiveOrder> filteredList = new ArrayList<>();
+        for(ActiveOrder item : list) {
+            if(item.getStoreName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+            if(item.getOrderID().trim().toLowerCase().contains(text.toLowerCase())) {
+                if(!filteredList.contains(item)) {
+                    filteredList.add(item);
+                }
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
+    }
+
+    /**
      * Navigates back to the previous activity when the back button is pressed.
      */
     public void back(View view) {
         Intent i = new Intent(C6.this, C3.class);
         startActivity(i);
     }
+
+
+
     /**
      * Navigates to the orders pending window.
      */

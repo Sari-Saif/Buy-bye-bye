@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +40,9 @@ public class C3 extends AppCompatActivity {
     // FirebaseAuth instance for handling authentication
     private FirebaseAuth mAuth;
 
+    private SearchView search_stores;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,42 @@ public class C3 extends AppCompatActivity {
         // Initialize FirebaseAuth instance
         mAuth = FirebaseAuth.getInstance();
 
+        // setting the search bar for searching stores in list
+        search_stores = findViewById(R.id.search_stores);
+        search_stores.clearFocus();
+        search_stores.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
         // Function calls to navigate to profile and retrieve store list
         move_to_C6_profile();
         retrive_store_list();
     }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<Store> filteredList = new ArrayList<>();
+        for(Store item : list) {
+            if(item.getStoreName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
+    }
+
     /**
      * Retrieves and displays a list of stores from Firebase.
      */

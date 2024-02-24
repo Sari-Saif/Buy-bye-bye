@@ -36,6 +36,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
      String imgURL;
      String storename;// Name of the store, used for passing to intents
 
+    /**
+     * this function updates the list of items in case of filter by text
+     * @param filteredList new list to show
+     */
+    public void setFilteredList(ArrayList<Product> filteredList) {
+        this.ProductsList = filteredList;
+        notifyDataSetChanged();
+    }
 
     /**
      * Constructor for the ProductAdapter.

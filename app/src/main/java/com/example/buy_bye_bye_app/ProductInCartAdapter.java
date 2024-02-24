@@ -23,6 +23,15 @@ public class ProductInCartAdapter extends RecyclerView.Adapter<ProductInCartAdap
     ArrayList<ProductInCart> ProductsInCartList;
 
     /**
+     * this function updates the list of items in case of filter by text
+     * @param filteredList new list to show
+     */
+    public void setFilteredList(ArrayList<ProductInCart> filteredList) {
+        this.ProductsInCartList = filteredList;
+        notifyDataSetChanged();
+    }
+
+    /**
      * Constructor for the ProductInCartAdapter.
      *
      * @param context The current context.

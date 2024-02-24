@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Adapter class for displaying a list of stores in a RecyclerView.
  * This adapter is responsible for handling the layout and interaction of each store item within the RecyclerView.
@@ -27,6 +29,15 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.MyViewHolder
     // List of Store objects to be displayed
     private ArrayList<Store> list;
     String store_name;
+
+    /**
+     * this function updates the list of items in case of filter by text
+     * @param filteredList new list to show
+     */
+    public void setFilteredList(ArrayList<Store> filteredList) {
+        this.list = filteredList;
+        notifyDataSetChanged();
+    }
 
     /**
      * Constructor for the StoreAdapter.

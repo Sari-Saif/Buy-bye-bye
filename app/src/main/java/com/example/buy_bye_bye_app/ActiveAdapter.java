@@ -26,6 +26,16 @@ public class ActiveAdapter extends RecyclerView.Adapter<ActiveAdapter.MyViewHold
     Context context;
     // List of active orders to display
     ArrayList<ActiveOrder> list;
+
+    /**
+     * this function updates the list of items in case of filter by text
+     * @param filteredList new list to show
+     */
+    public void setFilteredList(ArrayList<ActiveOrder> filteredList) {
+        this.list = filteredList;
+        notifyDataSetChanged();
+    }
+
     /**
      * Constructor for ActiveAdapter.
      *

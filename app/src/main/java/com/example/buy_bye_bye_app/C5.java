@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,9 @@ public class C5 extends AppCompatActivity {
   private String userEmailWithoutDot;
   private int totalCartPrice;
 
+  private SearchView search_cart;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,23 @@ public class C5 extends AppCompatActivity {
 
         // Retrieve and display the store name from the previous activity
         Intent intent = getIntent();
+
+        // setting the search bar for searching stores in list
+        search_cart = findViewById(R.id.search_cart);
+        search_cart.clearFocus();
+        search_cart.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
         String store_name = intent.getStringExtra("name");
         TextView textView = (TextView) findViewById(R.id.C5_Store_Name_textView);
         textView.setText(store_name);
@@ -104,6 +125,21 @@ public class C5 extends AppCompatActivity {
         // Setup button actions
         button_buy();
         button_back();
+    }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<ProductInCart> filteredList = new ArrayList<>();
+        for(ProductInCart item : ProductsInCartList) {
+            if(item.getName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
     }
 
 
