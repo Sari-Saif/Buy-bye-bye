@@ -45,15 +45,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
 
+    <SearchView
+        android:id="@+id/search_products"
+        android:layout_width="310dp"
+        android:layout_height="39dp"
+        android:background="@drawable/search_view_bg"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Products"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.109" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/C4_recyclerView"
-        android:layout_width="383dp"
-        android:layout_height="575dp"
+        android:layout_width="361dp"
+        android:layout_height="513dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.378" />
+        app:layout_constraintVertical_bias="0.623" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
