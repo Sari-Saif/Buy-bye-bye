@@ -30,7 +30,7 @@ public class C7 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_s7);// Set the layout for the activity
+        setContentView(R.layout.activity_c7);// Set the layout for the activity
 
         // Initialize Firebase Database reference to the "Orders" node
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders");
@@ -72,7 +72,7 @@ public class C7 extends AppCompatActivity {
         });
 
         // Setup the RecyclerView with a LinearLayoutManager and the adapter
-        rv = findViewById(R.id.recyclerView2);
+        rv = findViewById(R.id.recyclerView_c7);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
     }
