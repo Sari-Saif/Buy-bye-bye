@@ -12,18 +12,20 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-
+/**
+ * Pop-up activity class C4_pop_up for handling product quantity adjustments and adding them to the cart.
+ */
 public class C4_pop_up extends AppCompatActivity {
 
+    // Store and product details
     String store_name;
     String product_name;
-
     String product_price;
     String quantity;
 
+    // TextViews for displaying product name, price, and quantity
     TextView product_name_textView;
     TextView product_price_textView;
-
     TextView amount;
 
 
@@ -32,35 +34,37 @@ public class C4_pop_up extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_c4_pop_up);
 
-        // get variables from C4
+        // Retrieve product details passed from the previous activity
         store_name = getIntent().getStringExtra("store_name");
         product_name = getIntent().getStringExtra("product_name");
         product_price = getIntent().getStringExtra("product_price");
         quantity = getIntent().getStringExtra("quantity");
 
-        // update textView-s for the right spesific poduct
+        // Initialize and set TextViews for product name and price
         product_name_textView = (TextView) findViewById(R.id.C4_pop_up_ProductName);
         product_name_textView.setText(product_name);
 
         product_price_textView = (TextView) findViewById(R.id.C4_pop_up_ProductPrice);
         product_price_textView.setText(product_price);
 
-        // save the amount textView for using later in plus & minus buttons
+        // Reference to the TextView displaying the current product quantity selected
         amount = (TextView) findViewById(R.id.C4_pop_up_Amount);
 
-        // code for buttons
-        button_plus_action(); // plus ("+")
-        button_minus_action(); // minus ("-")
-        button_done_action(); // Done
-        button_cancel_action(); // Cancel
+        // Setup button click listeners
+        button_plus_action(); // Handles increasing product quantity
+        button_minus_action(); // Handles decreasing product quantity
+        button_done_action(); // Confirms the addition of the product to the cart
+        button_cancel_action(); // Cancels the operation
     }
-
+    /**
+     * Increases the product quantity by 1, not exceeding the available stock.
+     */
     private void button_plus_action(){
         Button plus = (Button)findViewById(R.id.C4_pop_up_Button_Plus);
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int q = Integer.parseInt(quantity.split("\\s+")[0]); // example "12 pieces" --> "12"
+                int q = Integer.parseInt(quantity.split("\\s+")[0]); // Extracts numerical quantity from a string like "12 pieces"
                 int curr_amount = Integer.parseInt(amount.getText().toString());
 
                 // add 1 if the total quantity is grater or equal to amount
@@ -74,6 +78,9 @@ public class C4_pop_up extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Decreases the product quantity by 1, ensuring it does not go below 0.
+     */
     private void button_minus_action(){
         Button minus = (Button) findViewById(R.id.C4_pop_up_Button_Minus);
         minus.setOnClickListener(new View.OnClickListener()
@@ -96,7 +103,9 @@ public class C4_pop_up extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Confirms the addition of the product with the specified quantity to the user's cart.
+     */
     private void button_done_action()
     {
         Button done = (Button) findViewById(R.id.C4_pop_up_Button_Done);
@@ -111,11 +120,11 @@ public class C4_pop_up extends AppCompatActivity {
                 String userEmailWithoutDot = userEmail.replace(".", "_");
 
                 if(Integer.parseInt(amount.getText().toString()) > 0) {
+                    // Updates the cart in Firebase with the selected product details
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Name").setValue(product_name);
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Price").setValue(product_price.replace("$", ""));
                     database.getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products").child(product_name).child("Amount").setValue(amount.getText().toString());
-                   //Done the Buy operation - done by simcha !!!
-                    finish();
+                    finish();// Closes the pop-up
 
                 }
                 else
@@ -125,6 +134,9 @@ public class C4_pop_up extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Cancels the operation and closes the pop-up.
+     */
     private  void  button_cancel_action()
     {
         Button button =(Button) findViewById(R.id.C4_pop_up_Button_Cancel);

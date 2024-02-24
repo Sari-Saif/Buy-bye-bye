@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,28 +20,51 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-
+/**
+ * Activity for displaying the history of active orders associated with the current user.
+ */
 public class C6 extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private RecyclerView rv;
-    private ArrayList<ActiveOrder> list;
-    private DatabaseReference databaseReference;
-    private ActiveAdapter adapter;
-    // Class field for currentUserEmail
-    private String currentUserEmail = null;
+    private FirebaseAuth mAuth;// Firebase Authentication instance for user authentication
+    private RecyclerView rv;// RecyclerView for displaying the list of active orders
+    private ArrayList<ActiveOrder> list;// ArrayList to hold active orders
+    private DatabaseReference databaseReference;// Reference to the database for retrieving orders
+    private ActiveAdapter adapter;// Adapter for the RecyclerView
+    private String currentUserEmail = null; // Email of the currently logged in user
+
+    private SearchView search_history;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_c6); // Set the content view to your activity's layout
+        setContentView(R.layout.activity_c6); // Set the content view to the activity's layout
 
-        // Custom method to navigate to the orders pending window
-        move_to_orders_pending_window();
+        // setting the search bar for searching stores in list
+        search_history = findViewById(R.id.search_history);
+        search_history.clearFocus();
+        search_history.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
+        // Initialize buttons and their click listeners for navigation and actions
+        move_to_orders_pending_window();// Navigate to the orders pending window
+
+
         // Initialize Firebase Authentication instance
         mAuth = FirebaseAuth.getInstance();
         // Get a reference to the "Orders/History" node in Firebase Database
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders/History");
 
+        // Initialize the list and adapter for active orders
         list = new ArrayList<>();
         // Get the current user's email if they are logged in
         adapter = new ActiveAdapter(this, list);
@@ -49,18 +73,17 @@ public class C6 extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
             currentUserEmail = mAuth.getCurrentUser().getEmail();
         }
-        // Add a listener to the database reference to listen for data changes
+        // Listen for changes in the database to retrieve active orders
         databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
-                list.clear();
+                list.clear();// Clear the list to avoid duplicate entries
                 for(DataSnapshot orderSnapshot : snapshot.getChildren())
                 {
-                    // Assuming ActiveOrder class has a field for StoreName and Products
                     ActiveOrder order = orderSnapshot.getValue(ActiveOrder.class);
-
+                    // Add the order to the list if it belongs to the current user
                     if (order != null && order.getOrderID() != null && !order.getOrderID().isEmpty() && order.getCustomerName() != null &&
                             order.getCustomerName().equals(currentUserEmail))
                     {
@@ -78,22 +101,46 @@ public class C6 extends AppCompatActivity {
             }
         });
 
+        // Setup RecyclerView with a LinearLayoutManager and the adapter
         rv = findViewById(R.id.show_history_C);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
 
     }
 
-    /*
-      back button logic
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<ActiveOrder> filteredList = new ArrayList<>();
+        for(ActiveOrder item : list) {
+            if(item.getStoreName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+            if(item.getOrderID().trim().toLowerCase().contains(text.toLowerCase())) {
+                if(!filteredList.contains(item)) {
+                    filteredList.add(item);
+                }
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
+    }
+
+    /**
+     * Navigates back to the previous activity when the back button is pressed.
      */
     public void back(View view) {
         Intent i = new Intent(C6.this, C3.class);
         startActivity(i);
     }
-    /*
-      order list button
-    */
+
+
+
+    /**
+     * Navigates to the orders pending window.
+     */
     private void move_to_orders_pending_window(){
         Button orders_pending = (Button) findViewById(R.id.C6_OrdersPending_button);
         orders_pending.setOnClickListener(new View.OnClickListener(){
@@ -104,22 +151,23 @@ public class C6 extends AppCompatActivity {
         });
     }
 
-    /*
-      edite profile logic button
-    */
+    /**
+     * Navigates to the edit profile activity.
+     */
     public void edit_profile(View view) {
-        Intent i = new Intent(C6.this, C9.class);
+        Intent i = new Intent(C6.this, C9.class);// Intent to navigate to C9 activity
         startActivity(i);
     }
-    /*
-        exit button into main activity
+
+    /**
+     * Signs out the current user and exits to the main activity.
      */
     public void exit(View view) {
-        mAuth.signOut();
+        mAuth.signOut();// Sign out the current user
 
         Intent i = new Intent(C6.this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
-        finish();
+        finish();// Finish the current activity
     }
 }

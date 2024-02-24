@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,18 +24,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.EventListener;
-
+/**
+ * Activity C5 for viewing and managing a user's shopping cart.
+ * Allows users to see their products added to the cart, their total price, and proceed to buy.
+ */
 public class C5 extends AppCompatActivity {
-    RecyclerView recyclerView;
-    ArrayList<ProductInCart> ProductsInCartList;
-    DatabaseReference databaseReference;
-    ValueEventListener event;
-    ProductInCartAdapter adapter;
-    FirebaseDatabase database;
-    FirebaseUser user;
-    String userEmail;
-    String userEmailWithoutDot;
-    int totalCartPrice;
+  private RecyclerView recyclerView;
+  private ArrayList<ProductInCart> ProductsInCartList;
+  private DatabaseReference databaseReference;
+  private ValueEventListener event;
+  private ProductInCartAdapter adapter;
+  private FirebaseDatabase database;
+  private FirebaseUser user;
+  private String userEmail;
+  private String userEmailWithoutDot;
+  private int totalCartPrice;
+
+  private SearchView search_cart;
+
 
 
     @Override
@@ -43,8 +50,25 @@ public class C5 extends AppCompatActivity {
         setContentView(R.layout.activity_c5);
 
 
-        // add the current store name
+        // Retrieve and display the store name from the previous activity
         Intent intent = getIntent();
+
+        // setting the search bar for searching stores in list
+        search_cart = findViewById(R.id.search_cart);
+        search_cart.clearFocus();
+        search_cart.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
         String store_name = intent.getStringExtra("name");
         TextView textView = (TextView) findViewById(R.id.C5_Store_Name_textView);
         textView.setText(store_name);
@@ -54,7 +78,7 @@ public class C5 extends AppCompatActivity {
         totalCartPrice = 0;
 
 
-        // save the user info (help to get into the correct cart)
+        // Initialize components and Firebase references
         database = FirebaseDatabase.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         userEmail = user.getEmail().toString();
@@ -73,7 +97,7 @@ public class C5 extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders").child("Carts").child(userEmailWithoutDot).child("Products");
 
 
-        // event save in variable to remove it from listener when exit the activity.
+        // Event listener to update the cart UI in real-time
         event = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -98,19 +122,30 @@ public class C5 extends AppCompatActivity {
         databaseReference.addValueEventListener(event);
 
 
-        // buttons
+        // Setup button actions
         button_buy();
         button_back();
     }
 
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<ProductInCart> filteredList = new ArrayList<>();
+        for(ProductInCart item : ProductsInCartList) {
+            if(item.getName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
 
-    /*
-    * function for buy button
-    * copy the cart from Carts branch into Active branch (firebase)
-    * and then delete the cart.
-    * after user buy something he get out from the store.
-    * and back to list of store.
-    * */
+        adapter.setFilteredList(filteredList);
+    }
+
+
+    /**
+     * Handles the buy operation by moving the cart to an active order and then deleting the cart.
+     */
     private void button_buy(){
         Button buy = (Button) findViewById(R.id.C5_Buy_button);
         buy.setOnClickListener(new View.OnClickListener() {
@@ -120,18 +155,17 @@ public class C5 extends AppCompatActivity {
                     Toast.makeText(C5.this, "You cannot buy 0 products...", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    // get the cart values
+                    // Process to copy the cart into the Active orders section and then delete the cart
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Orders").child("Carts").child(userEmailWithoutDot);
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            // get the values from the  Cart
+                            // Copy cart details to Active orders
                             String CustomerName = snapshot.child("CustomerName").getValue(String.class);
                             String OrderID = snapshot.child("OrderID").getValue(String.class);
                             String StoreName = snapshot.child("StoreName").getValue(String.class);
 
-                            // copy them into the Active
                             database.getReference("Orders").child("Active").child(OrderID).child("CustomerName").setValue(CustomerName);
                             database.getReference("Orders").child("Active").child(OrderID).child("OrderID").setValue(OrderID);
                             database.getReference("Orders").child("Active").child(OrderID).child("StoreName").setValue(StoreName);
@@ -141,12 +175,16 @@ public class C5 extends AppCompatActivity {
                                 database.getReference("Orders").child("Active").child(OrderID).child("Products").child(p.getName()).child("Amount").setValue(p.getAmount());
                             }
 
-                            // delete the cart from Carts.
+                            // Delete the cart and navigate back to the store list
                             database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
-
-                            // back to the list of stores
                             databaseReference.removeEventListener(event);
-                            startActivity(new Intent(C5.this, C3.class));
+
+                            Intent intent = new Intent(C5.this, rateStore.class);
+                            intent.putExtra(
+                                    "store_name",
+                                    getIntent().getStringExtra("name")
+                            );
+                            startActivity(intent);
                             finish();
                         }
 
@@ -159,11 +197,9 @@ public class C5 extends AppCompatActivity {
         });
     }
 
-
-    /*
-    * function for back button.
-    * remove the db event listener and destroy the activity
-    * */
+    /**
+     * Handles navigation back to the store list and removes the event listener.
+     */
     private void button_back()
     {
         Button button = (Button) findViewById(R.id.C5_Back_button);

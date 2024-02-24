@@ -18,84 +18,58 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * An Android Activity class for user registration, specifically designed for seller accounts.
+ * It demonstrates the integration of Firebase Authentication and Realtime Database for managing user data.
+ */
 public class S1 extends AppCompatActivity {
 
-    /**
-     * email input object
-     */
-    private EditText et_emailS;
+    // EditText fields for user inputs: email, password, address, and bank information.
+    private EditText et_emailS;// email input object
+    private EditText et_passwordS;// password input object
+    private EditText et_addressS;// address input object
+    private EditText et_Bank;// bank input object
 
-    /**
-     * password input object
-     */
-    private EditText et_passwordS;
+    // Firebase components for authentication and database operations.
+    private FirebaseAuth database;// Firebase AUTHENTICATION
+    private FirebaseDatabase db;// Firebase REAL-TIME
+    private DatabaseReference ref;// Firebase REAL-TIME reference
 
-    /**
-     * address input object
-     */
-    private EditText et_addressS;
+    // A list to store emails from the database to prevent duplicate registrations.
+    private List<String> emaillist;// listener to handle child nodes in the RTDB
 
-    /**
-     * band input object
-     */
-    private EditText et_Bank;
-
-    /**
-     * Firebase AUTHENTICATION
-     */
-    private FirebaseAuth database;
-
-    /**
-     * Firebase REAL-TIME
-     */
-    private FirebaseDatabase db;
-
-    /**
-     * Firebase REAL-TIME reference
-     */
-    private DatabaseReference ref;
-
-    /**
-     * will hold all emails for checking if the entered email is already exists
-     */
-    private List<String> emaillist;
-
-    /**
-     * listener to handle child nodes in the rtdb
-     */
     private ChildEventListener childEventListener;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_s1);
+        setContentView(R.layout.activity_s1);// Setting the layout for the activity
 
-        // setting UI input object's reference
+        // Initializing EditText fields with their respective IDs from the layout.
         et_emailS = findViewById(R.id.InputUsername);
         et_passwordS = findViewById(R.id.InputPassword);
         et_addressS = findViewById(R.id.InputAddress);
         et_Bank = findViewById(R.id.InputBank);
 
-        // setting DB
+        // Initializing Firebase database and authentication instances.
         db = FirebaseDatabase.getInstance();
         ref = db.getReference("users").child("sellers");
         database = FirebaseAuth.getInstance();
 
-        // setting array list to save emails
+        // Initializing the email list to track existing emails.
         emaillist = new ArrayList<>();
 
-        // adding listener to the email values
+        // Setting up a ChildEventListener to populate the email list from the database.
         childEventListener = new ChildEventListener() {
 
             // handling existing emails
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String email = snapshot.child("email").getValue().toString();
-                emaillist.add(email);
+                String email = snapshot.child("email").getValue().toString();// Fetching email from snapshot
+                emaillist.add(email);// Adding email to the list
             }
-
+            // Other ChildEventListener methods are not utilized but are required to be overridden.
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
 
@@ -109,46 +83,47 @@ public class S1 extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         };
 
-        // listener for the sellers
+        // Attaching the ChildEventListener to the database reference.
         ref.addChildEventListener(childEventListener);
     }
 
     /**
-     * this function handles the sign up of the seller (realtime + authentication)
-     * @param view the signup button in S1 UI
+     * Handles the seller sign-up process, including input validation and Firebase integration for authentication and data storage.
+     * @param view The view (button) that triggers this method upon click.
      */
     public void sign_up(View view) {
-
-        // getting values of all entered information
+        // Retrieving and trimming user input from EditText fields.
         String email = et_emailS.getText().toString().trim();
         String password = et_passwordS.getText().toString().trim();
         String address = et_addressS.getText().toString().trim();
         String bank = et_Bank.getText().toString().trim();
 
-        // all fields are must, checking for empty
+        // Checking for empty fields and providing feedback.
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(address) || TextUtils.isEmpty(bank) ) {
             Toast.makeText(S1.this, "Please enter all the parameters!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // checking if entered email is already exists. if true, abort signup.
+        // Checking for duplicate email and providing feedback.
         if(emaillist.contains(email)) {
             Toast.makeText(S1.this, "Email already exist!!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // else, all is fine, add the user to the AUTH + RTDB
+        // If all validations pass, proceed with Firebase Authentication to create a new user.
         database.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
+                // Creating a Seller object and saving it to the Realtime Database under the user's UID.
                 Seller s = new Seller(email, password, address, bank);
                 ref.child(database.getCurrentUser().getUid()).setValue(s);
 
+                // Shows a success message and navigates to the MainActivity
                 Toast.makeText(S1.this, "New Seller Registered!", Toast.LENGTH_SHORT).show();
-
                 Intent i = new Intent(S1.this, MainActivity.class);
                 startActivity(i);
                 finish();
             } else {
+                // Shows an error message if the registration fails
                 Toast.makeText(S1.this, "Please enter valid information!!", Toast.LENGTH_SHORT).show();
             }
         });

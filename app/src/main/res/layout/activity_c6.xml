@@ -45,6 +45,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.128" />
 
+    <SearchView
+        android:id="@+id/search_history"
+        android:layout_width="310dp"
+        android:layout_height="39dp"
+        android:background="@drawable/search_view_bg"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search History Orders"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.319" />
+
     <TextView
         android:id="@+id/C6_Header2_textView"
         android:layout_width="wrap_content"
@@ -57,16 +71,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.233" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/show_history_C"
-        android:layout_width="377dp"
-        android:layout_height="337dp"
+        android:layout_width="301dp"
+        android:layout_height="364dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
-
+        app:layout_constraintVertical_bias="0.762" />
 
     <Button
         android:id="@+id/C6_Exit_button"
