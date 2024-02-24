@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_mainactivity"
     tools:context=".MainActivity">
 
     <TextView
@@ -44,7 +45,8 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.155" />
+
+        app:layout_constraintVertical_bias="0.154" />
 
     <TextView
         android:id="@+id/textView_seller_register"
