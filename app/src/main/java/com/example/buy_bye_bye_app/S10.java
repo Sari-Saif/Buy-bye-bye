@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,12 +30,32 @@ public class S10 extends AppCompatActivity {
     private int total_price;
     private TextView totPrice;
 
+    private SearchView search_history_list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_s10);
 
         intent = getIntent();
+
+
+        // setting the search bar for searching stores in list
+        search_history_list = findViewById(R.id.search_history_list);
+        search_history_list.clearFocus();
+        search_history_list.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
 
         String customer_name = intent.getStringExtra("customer_name");
         String store_name = intent.getStringExtra("store_name");
@@ -86,6 +108,21 @@ public class S10 extends AppCompatActivity {
         rv = findViewById(R.id.history);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
+    }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<ActiveOrderItem> filteredList = new ArrayList<>();
+        for(ActiveOrderItem item : list) {
+            if(item.getName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
     }
 
     public void cancel(View view) {

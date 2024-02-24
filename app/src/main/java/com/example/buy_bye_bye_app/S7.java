@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +35,8 @@ public class S7 extends AppCompatActivity {
     // ArrayList to store names of stores, used to filter orders.
     ArrayList<String> store_names;
 
+    private SearchView search_active;
+
     /**
      * onCreate is called when the activity is starting.
      * It initializes the activity, sets up the RecyclerView and its adapter, and starts listening to Firebase for data changes.
@@ -45,6 +49,23 @@ public class S7 extends AppCompatActivity {
 
         // Retrieves a list of store names passed from the previous activity.
         store_names = getIntent().getStringArrayListExtra("store_name_list");
+
+        // setting the search bar for searching stores in list
+        search_active = findViewById(R.id.search_active);
+        search_active.clearFocus();
+        search_active.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
         // Gets a reference to the "Orders" node in the Firebase database.
         databaseReference = FirebaseDatabase.getInstance().getReference("Orders");
         // Initializes the list to store active orders.
@@ -84,6 +105,26 @@ public class S7 extends AppCompatActivity {
         rv = findViewById(R.id.recyclerView2);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
+    }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<ActiveOrder> filteredList = new ArrayList<>();
+        for(ActiveOrder item : list) {
+            if(item.getStoreName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+            if(item.getOrderID().trim().toLowerCase().contains(text.toLowerCase())) {
+                if(!filteredList.contains(item)) {
+                    filteredList.add(item);
+                }
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
     }
 
 

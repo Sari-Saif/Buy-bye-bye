@@ -32,6 +32,16 @@ public class ActiveItemAdapter extends RecyclerView.Adapter<ActiveItemAdapter.My
     ArrayList<ActiveOrderItem> list;
     // Store name to query for product images
     String storename;
+
+    /**
+     * this function updates the list of items in case of filter by text
+     * @param filteredList new list to show
+     */
+    public void setFilteredList(ArrayList<ActiveOrderItem> filteredList) {
+        this.list = filteredList;
+        notifyDataSetChanged();
+    }
+
     /**
      * Constructor for ActiveItemAdapter.
      *

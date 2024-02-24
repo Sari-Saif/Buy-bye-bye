@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +39,9 @@ public class S4 extends AppCompatActivity {
     // Adapter for the RecyclerView to display products.
     private ProductAdapter adapter;
 
+    private SearchView search_products;
+
+
     /**
      * Called when the activity is starting.
      * Initializes the activity, the RecyclerView and its adapter, and starts listening to Firebase for product data.
@@ -48,6 +54,22 @@ public class S4 extends AppCompatActivity {
 
         // Retrieves the name of the store passed from the previous activity.
         store_name = getIntent().getStringExtra("name");
+
+        // setting the search bar for searching stores in list
+        search_products = findViewById(R.id.search_products);
+        search_products.clearFocus();
+        search_products.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
         // Sets the store name in the TextView.
         TextView store = findViewById(R.id.textView3);
@@ -87,6 +109,21 @@ public class S4 extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
+    }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<Product> filteredList = new ArrayList<>();
+        for(Product item : productlist) {
+            if(item.getName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
     }
 
     /**

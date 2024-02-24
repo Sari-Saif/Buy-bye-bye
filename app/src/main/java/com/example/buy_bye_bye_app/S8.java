@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,6 +41,8 @@ public class S8 extends AppCompatActivity {
 
     private int total_price;
 
+    private SearchView search_active_list;
+
 
 
     @Override
@@ -48,6 +52,23 @@ public class S8 extends AppCompatActivity {
 
 
         intent = getIntent();
+
+        // setting the search bar for searching stores in list
+        search_active_list = findViewById(R.id.search_active_list);
+        search_active_list.clearFocus();
+        search_active_list.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+
 
         String customer_name = intent.getStringExtra("customer_name");
         String store_name = intent.getStringExtra("store_name");
@@ -105,6 +126,22 @@ public class S8 extends AppCompatActivity {
         rv.setAdapter(adapter);
 
     }
+
+    /**
+     * this function filters the recycle view element
+     * @param text the filter text
+     */
+    private void filterList(String text) {
+        ArrayList<ActiveOrderItem> filteredList = new ArrayList<>();
+        for(ActiveOrderItem item : list) {
+            if(item.getName().trim().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setFilteredList(filteredList);
+    }
+
     public void cancel(View view) {
         //Intent i = new Intent(S8.this, S7.class);
         //i.putStringArrayListExtra("store_name_list", getIntent().getStringArrayListExtra("store_name_list"));
