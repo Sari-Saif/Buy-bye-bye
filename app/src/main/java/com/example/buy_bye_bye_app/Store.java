@@ -8,6 +8,17 @@ package com.example.buy_bye_bye_app;
 public class Store {
     // Field to store the name of the store
     String StoreName;
+    String sum_ratings;
+    String total_raters;
+
+    public String getSum_ratings() {
+        return sum_ratings;
+    }
+
+    public String getTotal_raters() {
+        return total_raters;
+    }
+
     /**
      * Retrieves the name of the store.
      *

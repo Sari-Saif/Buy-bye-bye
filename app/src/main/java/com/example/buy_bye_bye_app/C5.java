@@ -178,7 +178,13 @@ public class C5 extends AppCompatActivity {
                             // Delete the cart and navigate back to the store list
                             database.getReference("Orders").child("Carts").child(userEmailWithoutDot).removeValue();
                             databaseReference.removeEventListener(event);
-                            startActivity(new Intent(C5.this, C3.class));
+
+                            Intent intent = new Intent(C5.this, rateStore.class);
+                            intent.putExtra(
+                                    "store_name",
+                                    getIntent().getStringExtra("name")
+                            );
+                            startActivity(intent);
                             finish();
                         }
 
