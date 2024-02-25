@@ -25,6 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class S8 extends AppCompatActivity {
     private TextView header;
@@ -39,10 +43,11 @@ public class S8 extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
+    boolean ok = true;
+
     private int total_price;
 
     private SearchView search_active_list;
-
 
 
     @Override
@@ -82,12 +87,12 @@ public class S8 extends AppCompatActivity {
 
         adapter = new ActiveItemAdapter(this, list, store_name);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Orders");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-        total_price = 0;
+        total_price = 1;
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Orders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
@@ -149,123 +154,209 @@ public class S8 extends AppCompatActivity {
         finish();
     }
 
-    public void accept(View view) {
-        String orderID = getIntent().getStringExtra("order_id");
+    public interface CheckCallback {
+        void onResult(boolean result);
+    }
 
-        databaseReference.child("Active").child(orderID).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void check(String orderID, CheckCallback callback) {
+        DatabaseReference orderRef = databaseReference.child("Orders").child("Active").child(orderID);
+
+        AtomicBoolean ok = new AtomicBoolean(true);
+        AtomicInteger productCounter = new AtomicInteger(0);
+
+        orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String storeName = dataSnapshot.child("StoreName").getValue(String.class);
+                Log.d("Product1", "storeName: " + storeName);
 
-                    ActiveOrder order = snapshot.getValue(ActiveOrder.class);
-                    String storename = order.getStoreName();
+                DataSnapshot productsSnapshot = dataSnapshot.child("Products");
 
-                    for(ActiveOrderItem item : list) {
-                        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference()
-                                .child("Stores")
-                                .child(storename)
-                                .child("Products")
-                                .child(item.getName());
-                        productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-                                    String quantityStr  = snapshot.child("quantity").getValue(String.class);
-                                    if (quantityStr  != null) {
-                                        // Handle the quantity value
+                for (DataSnapshot productSnapshot : productsSnapshot.getChildren()) {
+                    String productName = productSnapshot.child("Name").getValue(String.class);
+                    String amount = productSnapshot.child("Amount").getValue(String.class);
 
-                                        int quantity = Integer.parseInt(quantityStr);
-                                        int amount = Integer.parseInt(item.getAmount()); // Assuming you have item object
-                                        int newQuantity = quantity - amount;
+                    DatabaseReference storeRef = databaseReference.child("Stores").child(storeName).child("Products").child(productName);
 
-                                        if (newQuantity >= 0) {
+                    storeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot storeDataSnapshot) {
+                            String storeQuantity = storeDataSnapshot.child("quantity").getValue(String.class);
 
-                                            productsRef.child("quantity").setValue(String.valueOf(newQuantity))
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void unused) {
-                                                            Log.d("Quantity", "Quantity updated successfully");
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.e("Quantity", "Failed to update quantity", e);
-                                                        }
-                                                    });
-                                        }
+                            int orderedQuantity = Integer.parseInt(amount);
+                            int availableQuantity = Integer.parseInt(storeQuantity);
 
-                                        Log.d("Quantity", "The quantity of " + item.getName() + " in " + storename + " is: " + quantity);
-                                    } else {
-                                        // Handle case where quantity is null
-                                        Log.e("Quantity", "Quantity is null for " + item.getName() + " in " + storename);
-                                    }
-                                } else {
-                                    // Handle case where product doesn't exist in the store
-                                    Log.e("Quantity", item.getName() + " does not exist in " + storename);
-                                }
+                            Log.d("Product1", "orderedQuantity: " + orderedQuantity + ", availableQuantity: " + availableQuantity);
+
+                            if (availableQuantity < orderedQuantity) {
+                                Log.d("Product1", "Store Name: " + storeName + ", Product Name: " + productName +
+                                        ", Ordered Quantity: " + amount + ", Available Quantity: " + storeQuantity +
+                                        " - Insufficient quantity in the store.");
+                                Toast.makeText(S8.this, "Ordered Quantity: " + amount + ", Available Quantity: " + storeQuantity, Toast.LENGTH_SHORT).show();
+                                ok.set(false);
                             }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                // Handle database operation cancellation
-                                Log.e("Quantity", "Database operation cancelled: " + error.getMessage());
+                            // Increment the product counter
+                            int count = productCounter.incrementAndGet();
+
+                            // Check if all products have been processed
+                            if (count == productsSnapshot.getChildrenCount()) {
+                                // Inform the callback with the final result
+                                callback.onResult(ok.get());
                             }
-                        });
-                    }
+                        }
 
-
-
-                    // Move the order to the "History" section
-                    databaseReference.child("History").child(orderID).setValue(snapshot.getValue())
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    // Order moved to history successfully, now remove it from the "Active" section
-                                    databaseReference.child("Active").child(orderID).removeValue()
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-//                                                    Intent i = new Intent(S8.this, S6.class);
-//                                                    startActivity(i);
-                                                    finish();
-                                                    // Order removed from "Active" successfully
-                                                    // You may provide some feedback to the user here
-                                                    Log.d("acceptOrder", "Order moved to history successfully");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    // Handle failure to remove the order from "Active"
-                                                    Log.e("acceptOrder", "Error removing order from Active", e);
-                                                    // You may provide feedback to the user here
-                                                }
-                                            });
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // Handle failure to move the order to "History"
-                                    Log.e("acceptOrder", "Error moving order to History", e);
-                                    // You may provide feedback to the user here
-                                }
-                            });
-                } else {
-                    // Handle case where the order doesn't exist in the "Active" section
-                    Log.e("acceptOrder", "Order not found in Active section");
-                    // You may provide feedback to the user here
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e("Product1", "Error: " + databaseError.getMessage());
+                            // Inform the callback with an error result
+                            callback.onResult(false);
+                        }
+                    });
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle database operation cancellation
-                Log.e("acceptOrder", "Database operation cancelled: " + error.getMessage());
-                // You may provide feedback to the user here
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("Product1", "Error: " + databaseError.getMessage());
+                // Inform the callback with an error result
+                callback.onResult(false);
             }
         });
+    }
+
+    public void accept(View view) {
+
+        String orderID = getIntent().getStringExtra("order_id");
+
+        final boolean[] arg = new boolean[1];
+        check(orderID, new CheckCallback() {
+            @Override
+            public void onResult(boolean result) {
+                arg[0] = result;
+                Log.d("Product1", "arg is: " + arg[0]);
+
+                if (arg[0])
+                {
+                    databaseReference.child("Orders").child("Active").child(orderID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+
+                                ActiveOrder order = snapshot.getValue(ActiveOrder.class);
+                                String storename = order.getStoreName();
+
+                                for(ActiveOrderItem item : list) {
+                                    DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference()
+                                            .child("Stores")
+                                            .child(storename)
+                                            .child("Products")
+                                            .child(item.getName());
+                                    productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()) {
+                                                String quantityStr  = snapshot.child("quantity").getValue(String.class);
+                                                if (quantityStr  != null) {
+                                                    // Handle the quantity value
+
+                                                    int quantity = Integer.parseInt(quantityStr);
+                                                    int amount = Integer.parseInt(item.getAmount()); // Assuming you have item object
+                                                    int newQuantity = quantity - amount;
+
+                                                    if (newQuantity >= 0) {
+
+                                                        productsRef.child("quantity").setValue(String.valueOf(newQuantity))
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void unused) {
+                                                                        Log.d("Quantity", "Quantity updated successfully");
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Log.e("Quantity", "Failed to update quantity", e);
+                                                                    }
+                                                                });
+                                                    }
+
+                                                    Log.d("Quantity", "The quantity of " + item.getName() + " in " + storename + " is: " + quantity);
+                                                } else {
+                                                    // Handle case where quantity is null
+                                                    Log.e("Quantity", "Quantity is null for " + item.getName() + " in " + storename);
+                                                }
+                                            } else {
+                                                // Handle case where product doesn't exist in the store
+                                                Log.e("Quantity", item.getName() + " does not exist in " + storename);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            // Handle database operation cancellation
+                                            Log.e("Quantity", "Database operation cancelled: " + error.getMessage());
+                                        }
+                                    });
+                                }
+
+
+
+                                // Move the order to the "History" section
+                                databaseReference.child("Orders").child("History").child(orderID).setValue(snapshot.getValue())
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                // Order moved to history successfully, now remove it from the "Active" section
+                                                databaseReference.child("Orders").child("Active").child(orderID).removeValue()
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+//                                                    Intent i = new Intent(S8.this, S6.class);
+//                                                    startActivity(i);
+                                                                finish();
+                                                                // Order removed from "Active" successfully
+                                                                // You may provide some feedback to the user here
+                                                                Log.d("acceptOrder", "Order moved to history successfully");
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                // Handle failure to remove the order from "Active"
+                                                                Log.e("acceptOrder", "Error removing order from Active", e);
+                                                                // You may provide feedback to the user here
+                                                            }
+                                                        });
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Handle failure to move the order to "History"
+                                                Log.e("acceptOrder", "Error moving order to History", e);
+                                                // You may provide feedback to the user here
+                                            }
+                                        });
+                            } else {
+                                // Handle case where the order doesn't exist in the "Active" section
+                                Log.e("acceptOrder", "Order not found in Active section");
+                                // You may provide feedback to the user here
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Handle database operation cancellation
+                            Log.e("acceptOrder", "Database operation cancelled: " + error.getMessage());
+                            // You may provide feedback to the user here
+                        }
+                    });
+                }
+
+            }
+        });
+
     }
 
 
