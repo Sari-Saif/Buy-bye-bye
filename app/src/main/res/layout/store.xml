@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="6dp"
     android:elevation="6dp"
+    app:cardBackgroundColor="@color/clearWhite"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -20,7 +21,7 @@
             android:layout_marginLeft="8dp"
             android:text="Store name"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/Peach1"
             android:textSize="26dp"
             android:textStyle="bold" />
     </LinearLayout>
