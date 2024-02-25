@@ -115,6 +115,10 @@ public class S3_Pop_up extends Activity {
                         "OwnerID").setValue(mAuth.getCurrentUser().getUid());
                 database.getInstance().getReference().child("Stores").child(store).child(
                         "StoreName").setValue(store_name.getText().toString());
+                database.getInstance().getReference().child("Stores").child(store).child(
+                        "sum_ratings").setValue("0");
+                database.getInstance().getReference().child("Stores").child(store).child(
+                        "total_raters").setValue("0");
 
                 // Intent to refresh the pop-up or return to the main page (S3 Activity) after adding the store.
                 Intent i = new Intent(S3_Pop_up.this , S3_Pop_up.class);

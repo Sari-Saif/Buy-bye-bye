@@ -9,21 +9,31 @@
     app:cardBackgroundColor="@color/clearWhite"
     app:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp">
 
         <TextView
             android:id="@+id/tvStoreName"
-            android:layout_width="match_parent"
+            android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:text="Store name"
             android:textAlignment="center"
             android:textColor="@color/Peach1"
             android:textSize="26dp"
             android:textStyle="bold" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRating"
+            android:layout_width="101dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/tvStoreName"
+            android:text="9"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
