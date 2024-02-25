@@ -4,73 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bye"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textview_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="casual"
         android:text="@string/Header_mainActivity"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button_seller_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintVertical_bias="0.379" />
 
     <Button
         android:id="@+id/button_customer_login"
         android:layout_width="388dp"
         android:layout_height="106dp"
-        android:text="Login as a customer"
-        android:textSize="34sp"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="cursive"
+        android:text="Customer Login"
+        android:textSize="48sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.695"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.873" />
 
     <Button
         android:id="@+id/button_seller_login"
         android:layout_width="381dp"
         android:layout_height="102dp"
-        android:text="Login as a seller"
-        android:textSize="34sp"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="cursive"
+        android:text="Seller Login"
+        android:textSize="48sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.155" />
+        app:layout_constraintVertical_bias="0.111" />
 
     <TextView
         android:id="@+id/textView_seller_register"
         android:layout_width="299dp"
         android:layout_height="24dp"
-        android:text="Register as a seller"
+        android:text="Seller Register"
         android:textAlignment="center"
+        android:textColor="@color/linkblue"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/button_customer_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_seller_login"
-        app:layout_constraintVertical_bias="0.118" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView_customer_register"
         android:layout_width="299dp"
         android:layout_height="24dp"
         android:layout_marginTop="11dp"
-        android:text="Register as a customer"
+        android:text="Customer Register"
         android:textAlignment="center"
+        android:textColor="@color/linkblue"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_customer_login"
         app:layout_constraintVertical_bias="0.0" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

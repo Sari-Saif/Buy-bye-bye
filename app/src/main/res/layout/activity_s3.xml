@@ -4,17 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stores"
     tools:context=".S3">
 
     <Button
         android:id="@+id/Add_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
         android:onClick="move_to_s3popup"
+        android:text="Add"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="casual"
+        android:textSize="24sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
@@ -23,6 +28,10 @@
         android:id="@+id/Exit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="casual"
+        app:cornerRadius="@dimen/cardview_default_radius"
+        android:textSize="24sp"
         android:text="Exit"
         android:onClick="exit"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,13 +45,17 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BuyAndbyebye My stores"
+        android:fontFamily="casual"
+        android:text="My Stores"
+        android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.051" />
 
     <ImageView
         android:id="@+id/image_Button"
