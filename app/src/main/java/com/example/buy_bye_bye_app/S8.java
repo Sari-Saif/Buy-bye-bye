@@ -39,12 +39,11 @@ public class S8 extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
+    boolean ok = true;
+
     private int total_price;
 
     private SearchView search_active_list;
-
-    private int ok;
-
 
 
     @Override
@@ -54,8 +53,6 @@ public class S8 extends AppCompatActivity {
 
 
         intent = getIntent();
-
-        ok = 0;
 
         // setting the search bar for searching stores in list
         search_active_list = findViewById(R.id.search_active_list);
@@ -86,12 +83,12 @@ public class S8 extends AppCompatActivity {
 
         adapter = new ActiveItemAdapter(this, list, store_name);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Orders");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         total_price = 1;
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Orders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
@@ -153,12 +150,12 @@ public class S8 extends AppCompatActivity {
         finish();
     }
 
-
-    public void accept(View view) {
+    public boolean check(String orderID)
+    {
 
         Log.d("Product1", "enter func");
 
-        String orderID = getIntent().getStringExtra("order_id");
+
 
         // Construct the path to the Order node for the specified OrderID
         DatabaseReference orderRef = databaseReference.child("Orders").child("Active").child(orderID);
@@ -169,11 +166,6 @@ public class S8 extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // Get store name
                 String storeName = dataSnapshot.child("StoreName").getValue(String.class);
-                if (storeName == null) {
-                    Log.d("Product1", "Store name is null");
-                    ok = 0;
-                }
-
 
                 Log.d("Product1", "storeName: " + storeName);
 
@@ -189,33 +181,28 @@ public class S8 extends AppCompatActivity {
                     Log.d("Product1", "name: " + productName + ", amount: " + amount);
 
                     // Check if the product exists in the store
-                    DatabaseReference storeRef = databaseReference.child("stores").child(storeName).child("Products").child(productName);
+                    DatabaseReference storeRef = databaseReference.child("Stores").child(storeName).child("Products").child(productName);
 
                     storeRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot storeDataSnapshot) {
-                            // Check if the product exists in the store
-                            if (storeDataSnapshot.exists()) {
-                                // Get the available quantity in the store
-                                String storeQuantity = storeDataSnapshot.child("Quantity").getValue(String.class);
+                            // Get the available quantity in the store
+                            String storeQuantity = storeDataSnapshot.child("quantity").getValue(String.class);
 
-                                // Compare the ordered quantity with the available quantity
-                                int orderedQuantity = Integer.parseInt(amount);
-                                int availableQuantity = Integer.parseInt(storeQuantity);
+                            // Compare the ordered quantity with the available quantity
+                            int orderedQuantity = Integer.parseInt(amount);
+                            int availableQuantity = Integer.parseInt(storeQuantity);
 
-                                Log.d("Product1", "orderedQuantity: " + orderedQuantity + ", availableQuantity: " + availableQuantity);
+                            Log.d("Product1", "orderedQuantity: " + orderedQuantity + ", availableQuantity: " + availableQuantity);
 
-                                if (availableQuantity < orderedQuantity) {
-                                    // You don't have enough quantity in the store
-                                    Log.d("Product1", "Store Name: " + storeName + ", Product Name: " + productName +
-                                            ", Ordered Quantity: " + amount + ", Available Quantity: " + storeQuantity +
-                                            " - Insufficient quantity in the store.");
-                                    Toast.makeText(S8.this, "Ordered Quantity: " + amount + ", Available Quantity: " + storeQuantity, Toast.LENGTH_SHORT).show();
-                                    ok = 0;
-                                }
-                            } else {
-                                // The product does not exist in the store
-                                Log.d("Product1", "Product " + productName + " does not exist in the store.");
+                            if (availableQuantity < orderedQuantity) {
+                                // You don't have enough quantity in the store
+                                Log.d("Product1", "Store Name: " + storeName + ", Product Name: " + productName +
+                                        ", Ordered Quantity: " + amount + ", Available Quantity: " + storeQuantity +
+                                        " - Insufficient quantity in the store.");
+                                Toast.makeText(S8.this, "Ordered Quantity: " + amount + ", Available Quantity: " + storeQuantity, Toast.LENGTH_SHORT).show();
+                                ok = false;
+                                return;
                             }
                         }
 
@@ -235,15 +222,20 @@ public class S8 extends AppCompatActivity {
             }
         });
 
-        Log.d("Product1", "ok ? " + ok);
+        return ok;
 
-        if(ok == 0)
-        {
-            finish();
-            return;
-        }
+    }
 
-        databaseReference.child("Active").child(orderID).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void accept(View view) {
+
+        String orderID = getIntent().getStringExtra("order_id");
+
+        boolean arg = check(orderID);
+        Log.d("Product1" , "arg is: " +  arg);
+        if (!arg)
+            return;;
+
+        databaseReference.child("Orders").child("Active").child(orderID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -308,12 +300,12 @@ public class S8 extends AppCompatActivity {
 
 
                     // Move the order to the "History" section
-                    databaseReference.child("History").child(orderID).setValue(snapshot.getValue())
+                    databaseReference.child("Orders").child("History").child(orderID).setValue(snapshot.getValue())
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     // Order moved to history successfully, now remove it from the "Active" section
-                                    databaseReference.child("Active").child(orderID).removeValue()
+                                    databaseReference.child("Orders").child("Active").child(orderID).removeValue()
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
