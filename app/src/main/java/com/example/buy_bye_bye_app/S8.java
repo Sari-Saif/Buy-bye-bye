@@ -43,6 +43,8 @@ public class S8 extends AppCompatActivity {
 
     private SearchView search_active_list;
 
+    private int ok;
+
 
 
     @Override
@@ -52,6 +54,8 @@ public class S8 extends AppCompatActivity {
 
 
         intent = getIntent();
+
+        ok = 0;
 
         // setting the search bar for searching stores in list
         search_active_list = findViewById(R.id.search_active_list);
@@ -85,7 +89,7 @@ public class S8 extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Orders");
 
 
-        total_price = 0;
+        total_price = 1;
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,8 +153,95 @@ public class S8 extends AppCompatActivity {
         finish();
     }
 
+
     public void accept(View view) {
+
+        Log.d("Product1", "enter func");
+
         String orderID = getIntent().getStringExtra("order_id");
+
+        // Construct the path to the Order node for the specified OrderID
+        DatabaseReference orderRef = databaseReference.child("Orders").child("Active").child(orderID);
+
+        // Retrieve the data
+        orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Get store name
+                String storeName = dataSnapshot.child("StoreName").getValue(String.class);
+                if (storeName == null) {
+                    Log.d("Product1", "Store name is null");
+                    ok = 0;
+                }
+
+
+                Log.d("Product1", "storeName: " + storeName);
+
+                // Get products node
+                DataSnapshot productsSnapshot = dataSnapshot.child("Products");
+
+                // Iterate through each product under the specified OrderID
+                for (DataSnapshot productSnapshot : productsSnapshot.getChildren()) {
+                    // Get product information
+                    String productName = productSnapshot.child("Name").getValue(String.class);
+                    String amount = productSnapshot.child("Amount").getValue(String.class);
+
+                    Log.d("Product1", "name: " + productName + ", amount: " + amount);
+
+                    // Check if the product exists in the store
+                    DatabaseReference storeRef = databaseReference.child("stores").child(storeName).child("Products").child(productName);
+
+                    storeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot storeDataSnapshot) {
+                            // Check if the product exists in the store
+                            if (storeDataSnapshot.exists()) {
+                                // Get the available quantity in the store
+                                String storeQuantity = storeDataSnapshot.child("Quantity").getValue(String.class);
+
+                                // Compare the ordered quantity with the available quantity
+                                int orderedQuantity = Integer.parseInt(amount);
+                                int availableQuantity = Integer.parseInt(storeQuantity);
+
+                                Log.d("Product1", "orderedQuantity: " + orderedQuantity + ", availableQuantity: " + availableQuantity);
+
+                                if (availableQuantity < orderedQuantity) {
+                                    // You don't have enough quantity in the store
+                                    Log.d("Product1", "Store Name: " + storeName + ", Product Name: " + productName +
+                                            ", Ordered Quantity: " + amount + ", Available Quantity: " + storeQuantity +
+                                            " - Insufficient quantity in the store.");
+                                    Toast.makeText(S8.this, "Ordered Quantity: " + amount + ", Available Quantity: " + storeQuantity, Toast.LENGTH_SHORT).show();
+                                    ok = 0;
+                                }
+                            } else {
+                                // The product does not exist in the store
+                                Log.d("Product1", "Product " + productName + " does not exist in the store.");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle any errors that may occur
+                            Log.e("Product1", "Error: " + databaseError.getMessage());
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle any errors that may occur
+                Log.e("Product1", "Error: " + databaseError.getMessage());
+            }
+        });
+
+        Log.d("Product1", "ok ? " + ok);
+
+        if(ok == 0)
+        {
+            finish();
+            return;
+        }
 
         databaseReference.child("Active").child(orderID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
