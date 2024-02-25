@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="@color/clearWhite"
     android:elevation="6dp"
     app:cardUseCompatPadding="true">
 
@@ -22,6 +23,7 @@
         <TextView
             android:id="@+id/C4_productName"
             android:layout_width="120dp"
+            android:textColor="@color/Peach1"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
@@ -34,6 +36,7 @@
         <TextView
             android:id="@+id/C4_productPrice"
             android:layout_width="120dp"
+            android:textColor="@color/Peach1"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/C4_productImage"
             android:layout_below="@id/C4_productName"
@@ -44,6 +47,7 @@
         <TextView
             android:id="@+id/C4_productQuantity"
             android:layout_width="120dp"
+            android:textColor="@color/Peach1"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/C4_productImage"
             android:layout_below="@id/C4_productPrice"

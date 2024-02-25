@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/stores"
     tools:context=".C5">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Store_name"
         android:textAlignment="center"
+        android:fontFamily="casual"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your shopping cart"
+        android:fontFamily="casual"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -39,6 +43,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
+        android:textSize="20sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="casual"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.046"
@@ -49,6 +58,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Buy"
+        android:textSize="20sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="casual"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.956"
@@ -56,13 +69,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/C5_recyclerView"
-        android:layout_width="355dp"
-        android:layout_height="495dp"
+        android:layout_width="383dp"
+        android:layout_height="482dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
+        app:layout_constraintVertical_bias="0.762" />
 
     <SearchView
         android:id="@+id/search_cart"
@@ -76,7 +89,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138" />
+        app:layout_constraintVertical_bias="0.213" />
 
     <TextView
         android:id="@+id/C5_TotalPriceOfCart"
@@ -85,6 +98,8 @@
         android:layout_marginBottom="36dp"
         android:text="Total cart price"
         android:textSize="20sp"
+        android:fontFamily="casual"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
