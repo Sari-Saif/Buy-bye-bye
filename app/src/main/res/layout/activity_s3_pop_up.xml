@@ -4,15 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pop_bg_s3"
+    android:background="@drawable/pop"
     tools:context=".S3_Pop_up">
 
 
     <TextView
         android:id="@+id/text_store_name"
-        android:layout_width="158dp"
-        android:layout_height="40dp"
+        android:layout_width="405dp"
+        android:layout_height="36dp"
         android:text="Creating a new store"
+        android:fontFamily="casual"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.379"
@@ -23,53 +27,52 @@
 
     <Button
         android:id="@+id/cancel"
-        android:layout_width="89dp"
-        android:layout_height="43dp"
-        android:text="Cancel"
+        android:layout_width="149dp"
+        android:layout_height="59dp"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="casual"
         android:onClick="cancel_pop_up"
+        android:text="Cancel"
+        android:textSize="20sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.992" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <Button
         android:id="@+id/done_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/Peach"
         android:text="Done"
+        android:textSize="20sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
+        android:fontFamily="casual"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.976" />
 
     <EditText
         android:id="@+id/Input_store_Name"
-        android:layout_width="352dp"
-        android:layout_height="53dp"
+        android:layout_width="287dp"
+        android:layout_height="41dp"
+        android:background="@color/clearWhite"
         android:ems="10"
         android:hint="Store name"
         android:inputType="text"
-        android:textColor="@color/black"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449" />
+        app:layout_constraintVertical_bias="0.302" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="356dp"
-        android:layout_height="47dp"
-        android:text="Store name: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.377" />
 </androidx.constraintlayout.widget.ConstraintLayout>
