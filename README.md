@@ -25,9 +25,18 @@ When the seller approves an order - it makes its way to the customer!
 * Click [here](https://link_to_video) to learn how to use the app as a Seller.
 
 ## The planning
-
+The planning of the application and the method of work described here were carried out throughout the semester.
 
 ### The Initiation Document
+In this document we were asked to design the purpose of the application, and to characterize two named processes for each type of user. After discussion, the following requirements were decided:
+  * Buyer
+    * will be able to buy a product (choose a store -> choose a product -> add to basket -> payment)
+    * will be able to rate a store (selection of a store -> rating)
+
+* Familiar
+    * will be able to sell a product (creating a store -> creating a product)
+    * will be able to confirm and manage orders (login to profile -> view pending orders -> select an order -> confirm the order)
+
 
 ### The Requirements document
 
