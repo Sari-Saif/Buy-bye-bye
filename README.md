@@ -10,8 +10,13 @@
 * [The Initiation Document](#the-initiation-document)
 * [The Requierment Document](#the-requirements-document)
 * [Charts](#charts)
+* [App prototype sketch](#app-prototype-sketch)
+* [Database](#databse)
 
 [The implementation](#the-implementation)
+* [Architectural patterns](#architectural-patterns)
+* [Working with Git](#working-with-git)
+* [Languages & Tools](#languages-&-tools)
 
 
 ## About the project
@@ -97,13 +102,17 @@ Click [here](./submissions/task3.pdf) to view the **Charts Document**
 
 ### App prototype sketch
 
+
 ### Databse
 
 ## The implementation
 
+### Architectural patterns
+
 ### Working with Git
 
-### Languages and tools
+### Languages & tools
+
 <div align="center">
  <code><img height="40" width="40" src="./readme_pictures/andorid_studio_icon.png"></code>
  <code><img height="40" width="40" src="./readme_pictures/Java_icon.png"></code>
