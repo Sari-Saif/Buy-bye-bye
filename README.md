@@ -10,8 +10,13 @@
 * [The Initiation Document](#the-initiation-document)
 * [The Requierment Document](#the-requirements-document)
 * [Charts](#charts)
+* [App prototype sketch](#app-prototype-sketch)
+* [Database](#databse)
 
 [The implementation](#the-implementation)
+* [Architectural patterns](#architectural-patterns)
+* [Working with Git](#working-with-git)
+* [Languages & Tools](#languages--tools)
 
 
 ## About the project
@@ -96,14 +101,34 @@ It contains seven planning charts that we used during the work.
 Click [here](./submissions/task3.pdf) to view the **Charts Document**
 
 ### App prototype sketch
+In addition to the above diagrams, we prepared a general diagram simulating the pages in the application. Using this diagram we could easily navigate during the work and understand "where we are". This diagram is also the explanation for the names we gave to the windows in the code.
+
+<div align="center"><img src="./readme_pictures/Screen_tree.png"></div>
+
+Click [here](https://app.diagrams.net/#G10Ej_V39katLq-yU0P34w2P1Stv7QUacc) to view the chart in more depth.
 
 ### Databse
+We decided to use firebase real time database for the application.<br />
+Below is the structure of the database:
+
+<div align="center"><img src="./readme_pictures/db_structure.png"></div>
 
 ## The implementation
+The implementation process was **Agile** style.<br />
+We started implementing the high requirements in the code, like everything needed for the buying process.<br />
+After that we added the other requirements such as store rating, search, editing (of personal details, product details, etc.).<br />
+At the end we also added UI/UX design.
+
+### Architectural patterns
+Our project is built as **MVVM**. The reason is that we worked with visual studio, and it enables this relatively easily (every UI element to be an object, which makes the business extremely easy).
 
 ### Working with Git
+Working with Git was very convenient. At the beginning of the work when all the windows were not yet linked, we worked in separate customer and seller branches. After they have been merged, each new feature is created in a new branch and only after it has been tested is it merged into main.
 
-### Languages and tools
+<div align="center"><img width=400 src="./readme_pictures/working_with_git.png"></div>
+
+### Languages & tools
+
 <div align="center">
  <code><img height="40" width="40" src="./readme_pictures/andorid_studio_icon.png"></code>
  <code><img height="40" width="40" src="./readme_pictures/Java_icon.png"></code>
