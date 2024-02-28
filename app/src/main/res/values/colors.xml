@@ -3,4 +3,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FFDEDEDE</color>
+    <color name="secondary_text">#3F51B5</color>
+    <color name="primary_text">#000000</color>
+    <color name="background_color">#FFFFFF</color> <!-- White background -->
+    <!-- new background -->
+    <color name="Peach">#F0e5a98d</color>
+    <color name="banana">#fffbea</color>
+    <color name="Skyblue">#c3dfe4</color>
+    <color name="linkblue">#0006cc</color>
+    <color name="clearWhite">#E0d3d3d3</color>
+    <color name="Peach1">#c27c2a</color>
+    <color name="my_yellow">#FFFF00</color>
+
+
 </resources>

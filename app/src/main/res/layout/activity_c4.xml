@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/purple_blue_bg"
     tools:context=".C4">
 
     <TextView
         android:id="@+id/C4_Store_Name_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="37dp"
+        android:fontFamily="casual"
         android:text="Store_name"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -26,6 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
+        android:textSize="20sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="casual"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
@@ -38,6 +45,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cart"
+        android:textSize="20sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
+        android:backgroundTint="@color/Peach"
+        android:fontFamily="casual"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -50,6 +61,8 @@
         android:layout_width="310dp"
         android:layout_height="39dp"
         android:background="@drawable/search_view_bg"
+        android:backgroundTint="@color/background_color"
+
         android:iconifiedByDefault="false"
         android:queryHint="Search Products"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,17 +70,18 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.109" />
+        app:layout_constraintVertical_bias="0.106" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/C4_recyclerView"
-        android:layout_width="361dp"
-        android:layout_height="513dp"
+        android:layout_width="398dp"
+        android:layout_height="527dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.623" />
+        app:layout_constraintVertical_bias="0.612" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

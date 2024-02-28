@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="6dp"
     android:elevation="6dp"
+    app:cardBackgroundColor="@color/clearWhite"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
@@ -14,24 +15,25 @@
 
         <TextView
             android:id="@+id/tvStoreName"
-            android:layout_width="0dp"
+            android:layout_width="8dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Store name"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="26dp"
+            android:textColor="@color/linkblue"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvOrderID"
-            android:layout_width="0dp"
+            android:layout_width="8dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Order ID"
+
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="26dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
     </LinearLayout>
 

@@ -124,7 +124,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.myViewHo
                     intent.putExtra("quantity", new_quantity);
 
                     // Put the image URL as an extra
-                    //intent.putExtra("imageURL", ProductsList.get(position).getImage());
+                    intent.putExtra("imageURL", ProductsList.get(position).getImage());
                     intent.putExtra("store_name", storename);
 
                     // Start the activity

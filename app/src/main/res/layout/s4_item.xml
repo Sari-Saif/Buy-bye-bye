@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/clearWhite"
     app:cardCornerRadius="6dp"
     android:elevation="6dp"
     app:cardUseCompatPadding="true">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,22 +28,24 @@
             android:layout_toEndOf="@+id/C4_productImage"
             android:layout_toRightOf="@id/C4_productImage"
             android:text="Name"
+            android:textColor="@color/linkblue"
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/C4_productPrice"
             android:layout_width="120dp"
+            android:textColor="@color/linkblue"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/C4_productImage"
             android:layout_below="@id/C4_productName"
             android:text="Price"
             android:textSize="25sp"
             android:layout_marginLeft="10dp"/>
-
         <TextView
             android:id="@+id/C4_productQuantity"
             android:layout_width="120dp"
+            android:textColor="@color/linkblue"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/C4_productImage"
             android:layout_below="@id/C4_productPrice"
