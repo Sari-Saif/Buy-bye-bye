@@ -37,6 +37,7 @@ In this document we were asked to design the purpose of the application, and to 
     * will be able to sell a product (creating a store -> creating a product)
     * will be able to confirm and manage orders (login to profile -> view pending orders -> select an order -> confirm the order)
 
+Click [here](./submissions/task1.pdf) to view the initiation document
 
 ### The Requirements document
 
