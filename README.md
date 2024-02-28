@@ -108,10 +108,19 @@ In addition to the above diagrams, we prepared a general diagram simulating the 
 Click [here](https://app.diagrams.net/#G10Ej_V39katLq-yU0P34w2P1Stv7QUacc) to view the chart in more depth.
 
 ### Databse
+We decided to use firebase real time database for the application.<br />
+Below is the structure of the database:
+
+<div align="center"><img src="./readme_pictures/db_structure.png"></div>
 
 ## The implementation
+The implementation process was **Agile** style.<br />
+We started implementing the high requirements in the code, like everything needed for the buying process.<br />
+After that we added the other requirements such as store rating, search, editing (of personal details, product details, etc.).<br />
+At the end we also added UI/UX design.
 
 ### Architectural patterns
+Our project is built as **MVVM**. The reason is that we worked with visual studio, and it enables this relatively easily (every UI element to be an object, which makes the business extremely easy).
 
 ### Working with Git
 
