@@ -37,9 +37,20 @@ In this document we were asked to design the purpose of the application, and to 
     * will be able to sell a product (creating a store -> creating a product)
     * will be able to confirm and manage orders (login to profile -> view pending orders -> select an order -> confirm the order)
 
-Click [here](./submissions/task1.pdf) to view the initiation document
+Click [here](./submissions/task1.pdf) to view the **Initiation Document**
 
 ### The Requirements document
+After the initiation phase, we had to break down the requirements and break them down into achievable sub-requirements according to the SMART model.
+
+<div align="center"><img width=400 src="./readme_pictures/smart_model.png"> </div>
+
+The requirements are divided into two types:
+* functional
+* non-functional.
+
+Each of the requirements has its type, and its subtype specified.
+
+Click [here](./submissions/task2.pdf) to view the **Requirements Document**
 
 ### Charts
 
