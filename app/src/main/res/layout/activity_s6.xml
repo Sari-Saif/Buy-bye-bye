@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stores"
+    android:background="@drawable/purple_blue_bg"
     tools:context=".S6">
 
     <!--
@@ -30,6 +30,7 @@
         android:fontFamily="casual"
         android:text="Buy-And-Bye-Bye"
         android:textSize="24sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,6 +80,7 @@
         android:background="@drawable/search_view_bg"
         android:iconifiedByDefault="false"
         android:queryHint="Search History Orders"
+        android:backgroundTint="@color/background_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -93,6 +95,7 @@
         android:fontFamily="casual"
         android:text="Sales History"
         android:textSize="24sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.462"

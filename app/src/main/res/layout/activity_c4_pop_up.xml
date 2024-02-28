@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pop"
+    android:background="@drawable/purple_blue_bg_blurb"
     tools:context=".C4_pop_up">
 
     <TextView
@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/Peach"
         android:text="Product_Name"
+        android:textColor="@color/white"
+
         android:textAlignment="center"
         android:fontFamily="casual"
         android:textSize="24sp"
@@ -31,6 +33,8 @@
         android:layout_height="wrap_content"
         android:text="Price"
         android:textSize="20sp"
+        android:textColor="@color/white"
+
         android:fontFamily="casual"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +85,8 @@
         android:text="0"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -118,6 +124,8 @@
         android:layout_height="wrap_content"
         android:text="Add to Cart"
         android:fontFamily="casual"
+        android:textColor="@color/white"
+
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
