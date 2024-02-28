@@ -1,6 +1,7 @@
-# Buy-bye-bye
+# Buy&Bye-Bye
 
 ## About the project
+This is the final project in the software engineering course. In the course we learned how a software life cycle is conducted, starting from the initiation to the production. Throughout the course we implemented an application for Android which is a kind of illustration of the process of working on projects in the real world. The application we chose is an information system that manages stores, sellers, buyers, orders and everything related to them.
 
 ## The App
 
