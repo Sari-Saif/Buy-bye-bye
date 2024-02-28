@@ -16,7 +16,7 @@
 [The implementation](#the-implementation)
 * [Architectural patterns](#architectural-patterns)
 * [Working with Git](#working-with-git)
-* [Languages & Tools](#languages-&-tools)
+* [Languages & Tools](#languages--tools)
 
 
 ## About the project
@@ -101,7 +101,9 @@ It contains seven planning charts that we used during the work.
 Click [here](./submissions/task3.pdf) to view the **Charts Document**
 
 ### App prototype sketch
+In addition to the above diagrams, we prepared a general diagram simulating the pages in the application. Using this diagram we could easily navigate during the work and understand "where we are". This diagram is also the explanation for the names we gave to the windows in the code.
 
+Click [here](https://app.diagrams.net/#G10Ej_V39katLq-yU0P34w2P1Stv7QUacc) to view the chart.
 
 ### Databse
 
