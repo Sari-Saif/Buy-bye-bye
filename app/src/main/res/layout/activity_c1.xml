@@ -5,100 +5,112 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bye"
+    android:background="@drawable/purple_blue_bg"
     tools:context=".C1">
 
     <TextView
         android:id="@+id/headerC1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
+        android:fontFamily="monospace"
         android:text="Customer Register"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.074" />
-
-    <EditText
-        android:id="@+id/InputEmail"
-        android:layout_width="405dp"
-        android:layout_height="60dp"
-        android:background="@color/clearWhite"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <EditText
         android:id="@+id/InputVisa"
-        android:layout_width="405dp"
+        android:layout_width="305dp"
         android:layout_height="60dp"
-        android:background="@color/clearWhite"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
         android:hint="Visa"
         android:inputType="text"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771" />
+        app:layout_constraintVertical_bias="0.776" />
 
     <EditText
-        android:id="@+id/InputAddress"
-        android:layout_width="405dp"
+        android:id="@+id/InputEmail"
+        android:layout_width="305dp"
         android:layout_height="60dp"
-        android:background="@color/clearWhite"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:hint="Address"
+        android:hint="Email"
         android:inputType="text"
-        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintVertical_bias="0.411" />
 
     <EditText
         android:id="@+id/InputPassword_Clogin"
-        android:layout_width="405dp"
+        android:layout_width="305dp"
         android:layout_height="60dp"
-        android:background="@color/clearWhite"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
         android:hint="Password"
         android:inputType="text"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.377" />
+        app:layout_constraintVertical_bias="0.53" />
+
+    <EditText
+        android:id="@+id/InputAddress"
+        android:layout_width="305dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rounded_corner"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="text"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.655" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="244dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/Peach"
-        android:fontFamily="cursive"
+        android:fontFamily="monospace"
         android:onClick="sign_up"
         android:text="Register"
         android:textSize="35sp"
         app:cornerRadius="@dimen/cardview_default_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.938" />
+        app:layout_constraintVertical_bias="0.953" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="148dp"
+        android:layout_height="187dp"
+        app:layout_constraintBottom_toTopOf="@+id/InputEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerC1"
+        app:srcCompat="@drawable/user" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
