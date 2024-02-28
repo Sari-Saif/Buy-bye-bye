@@ -28,14 +28,14 @@
             android:layout_toEndOf="@+id/C4_productImage"
             android:layout_toRightOf="@id/C4_productImage"
             android:text="Name"
-            android:textColor="@color/Peach1"
+            android:textColor="@color/linkblue"
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/C4_productPrice"
             android:layout_width="120dp"
-            android:textColor="@color/Peach1"
+            android:textColor="@color/linkblue"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/C4_productImage"
             android:layout_below="@id/C4_productName"
@@ -45,7 +45,7 @@
         <TextView
             android:id="@+id/C4_productQuantity"
             android:layout_width="120dp"
-            android:textColor="@color/Peach1"
+            android:textColor="@color/linkblue"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/C4_productImage"
             android:layout_below="@id/C4_productPrice"

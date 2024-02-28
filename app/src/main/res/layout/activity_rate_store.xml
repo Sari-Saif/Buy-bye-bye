@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pop"
+    android:background="@drawable/purple_blue_bg_blurb"
     tools:context=".rateStore">
 
     <TextView
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="Rate this store"
+        android:textColor="@color/white"
 
         android:fontFamily="casual"
         android:textSize="24sp"
@@ -35,7 +36,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.396" />
+        app:layout_constraintVertical_bias="0.372" />
 
     <Button
         android:id="@+id/button1Star"
@@ -46,10 +47,10 @@
         android:text="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintHorizontal_bias="0.157"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.396" />
+        app:layout_constraintVertical_bias="0.372" />
 
     <Button
         android:id="@+id/button4Stars"
@@ -57,16 +58,15 @@
         android:layout_height="70dp"
         android:layout_marginTop="132dp"
         android:background="@drawable/starts"
+        android:backgroundTint="@color/my_yellow"
         android:onClick="four_stars"
         android:text="4"
-        android:backgroundTint="@color/my_yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.374"
+        app:layout_constraintHorizontal_bias="0.294"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.378"
- />
+        app:layout_constraintVertical_bias="0.412" />
 
     <Button
         android:id="@+id/button5Stars"
@@ -78,10 +78,9 @@
         android:text="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintHorizontal_bias="0.668"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.489" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button3Stars"
@@ -93,7 +92,7 @@
         android:text="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintHorizontal_bias="0.817"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.234" />

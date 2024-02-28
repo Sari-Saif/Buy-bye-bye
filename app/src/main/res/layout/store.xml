@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="Store name"
             android:textAlignment="center"
-            android:textColor="@color/Peach1"
+            android:textColor="@color/linkblue"
             android:textSize="26dp"
             android:textStyle="bold" />
 

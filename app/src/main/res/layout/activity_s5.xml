@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/pop"
     android:layout_height="match_parent"
+    android:background="@drawable/purple_blue_bg"
+
     tools:context=".S5">
 
     <TextView
@@ -13,8 +14,10 @@
         android:layout_height="wrap_content"
         android:text="Store Name"
         android:fontFamily="casual"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:cornerRadius="@dimen/cardview_default_radius"
+        android:textColor="@color/white"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -26,61 +29,64 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a Product"
         android:fontFamily="casual"
-        android:textSize="20sp"
+        android:text="Create a Product"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         app:cornerRadius="@dimen/cardview_default_radius"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintVertical_bias="0.011" />
 
     <EditText
         android:id="@+id/editTextText"
-        android:layout_width="399dp"
-        android:layout_height="45dp"
+        android:layout_width="305dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:inputType="text"
         android:hint="Name"
-
-        android:background="@color/clearWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.283"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.205" />
-
-    <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="399dp"
-        android:layout_height="45dp"
-        android:ems="10"
         android:inputType="text"
-        android:hint="Price"
-        android:background="@color/clearWhite"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.283"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357" />
+        app:layout_constraintVertical_bias="0.198" />
 
     <EditText
         android:id="@+id/editTextText3"
-        android:layout_width="399dp"
-        android:layout_height="45dp"
+        android:layout_width="305dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:inputType="text"
         android:hint="Quantity"
-        android:background="@color/clearWhite"
+        android:inputType="text"
+        android:textSize="20sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.283"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.493" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="305dp"
+        android:layout_height="60dp"
+        android:background="@drawable/rounded_corner"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="text"
+        android:textSize="20sp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35" />
 
     <Button
         android:id="@+id/button7"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stores"
+    android:background="@drawable/purple_blue_bg"
     tools:context=".C5">
 
     <TextView
@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:text="Store_name"
         android:textAlignment="center"
+        android:textColor="@color/white"
+
         android:fontFamily="casual"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -28,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your shopping cart"
+        android:textColor="@color/white"
         android:fontFamily="casual"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -82,6 +85,7 @@
         android:layout_width="310dp"
         android:layout_height="39dp"
         android:background="@drawable/search_view_bg"
+        android:backgroundTint="@color/background_color"
         android:iconifiedByDefault="false"
         android:queryHint="Search Cart"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,6 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
         android:text="Total cart price"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:fontFamily="casual"
         android:textStyle="bold"
