@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+
 /**
  * Pop-up activity class C4_pop_up for handling product quantity adjustments and adding them to the cart.
  */
@@ -27,6 +30,8 @@ public class C4_pop_up extends AppCompatActivity {
     TextView product_name_textView;
     TextView product_price_textView;
     TextView amount;
+    private ImageView hold_img;
+
 
 
     @Override
@@ -39,6 +44,11 @@ public class C4_pop_up extends AppCompatActivity {
         product_name = getIntent().getStringExtra("product_name");
         product_price = getIntent().getStringExtra("product_price");
         quantity = getIntent().getStringExtra("quantity");
+
+
+        // Load the product image using Picasso
+        hold_img = findViewById(R.id.c4_pop_item_image);
+        Picasso.get().load(getIntent().getStringExtra("imageURL")).into(hold_img);
 
         // Initialize and set TextViews for product name and price
         product_name_textView = (TextView) findViewById(R.id.C4_pop_up_ProductName);
