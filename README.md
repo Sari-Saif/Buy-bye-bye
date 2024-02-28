@@ -123,6 +123,9 @@ At the end we also added UI/UX design.
 Our project is built as **MVVM**. The reason is that we worked with visual studio, and it enables this relatively easily (every UI element to be an object, which makes the business extremely easy).
 
 ### Working with Git
+Working with Git was very convenient. At the beginning of the work when all the windows were not yet linked, we worked in separate customer and seller branches. After they have been merged, each new feature is created in a new branch and only after it has been tested is it merged into main.
+
+<div align="center"><img width=400 src="./readme_pictures/working_with_git.png"></div>
 
 ### Languages & tools
 
