@@ -53,6 +53,15 @@ Each of the requirements has its type, and its subtype specified.
 Click [here](./submissions/task2.pdf) to view the **Requirements Document**
 
 ### Charts
+This assignment was the last for the semester.<br />
+It contains seven planning charts that we used during the work.
+* ERD
+* State Machine Diagram
+* Use Case Diagram
+* Activity Diagram
+* Class Diagram
+* Object Diagram
+* Sequence Diagram
 
 ### App prototype sketch
 
