@@ -1,5 +1,19 @@
 # Buy&Bye-Bye
 
+[About the project](#about-the-project)
+
+[The App](#the-app)
+* [Who is it for](#who-is-it-for)
+* [How to use](#how-to-use)
+
+[The planning](#the-planning)
+* [The Initiation Document](#the-initiation-document)
+* [The Requierment Document](#the-requirements-document)
+* [Charts](#charts)
+
+[The implementation](#the-implementation)
+
+
 ## About the project
 This is the final project in the software engineering course. In the course we learned how a software life cycle is conducted, starting from the initiation to the production. Throughout the course we implemented an application for Android which is a kind of illustration of the process of working on projects in the real world. The application we chose is an information system that manages stores, sellers, buyers, orders and everything related to them.
 
