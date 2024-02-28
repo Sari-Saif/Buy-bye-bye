@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stores"
+    android:background="@drawable/purple_blue_bg"
     tools:context=".C8">
 
     <TextView
@@ -14,6 +14,7 @@
         android:fontFamily="casual"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,6 +32,8 @@
         android:background="@drawable/search_view_bg"
         android:iconifiedByDefault="false"
         android:queryHint="Search Shopping List"
+        android:backgroundTint="@color/background_color"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -55,6 +58,7 @@
         android:text="ToatlPrice"
         android:fontFamily="casual"
         android:textSize="24sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

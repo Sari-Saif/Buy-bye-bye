@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/stores"
+    android:background="@drawable/purple_blue_bg"
     tools:context=".S10">
 
     <TextView
@@ -13,6 +13,7 @@
         android:layout_height="86dp"
         android:fontFamily="casual"
         android:text="TextView"
+        android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -29,6 +30,7 @@
         android:layout_width="310dp"
         android:layout_height="39dp"
         android:background="@drawable/search_view_bg"
+        android:backgroundTint="@color/background_color"
         android:iconifiedByDefault="false"
         android:queryHint="Search History Order Items"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,6 +56,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="casual"
         android:text="TextView"
+        android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
