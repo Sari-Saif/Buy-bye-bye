@@ -42,7 +42,7 @@ Click [here](./submissions/task1.pdf) to view the **Initiation Document**
 ### The Requirements document
 After the initiation phase, we had to break down the requirements and break them down into achievable sub-requirements according to the SMART model.
 
-<div align="center"><img width=400 src="./readme_pictures/smart_model.png"> </div>
+<div align="center"><img width=400 src="./readme_pictures/smart_model.png"></div>
 
 The requirements are divided into two types:
 * functional
@@ -55,13 +55,31 @@ Click [here](./submissions/task2.pdf) to view the **Requirements Document**
 ### Charts
 This assignment was the last for the semester.<br />
 It contains seven planning charts that we used during the work.
-* ERD
-* State Machine Diagram
-* Use Case Diagram
-* Activity Diagram
-* Class Diagram
-* Object Diagram
-* Sequence Diagram
+
+#### ERD
+<div align="center"><img width=400 src="./readme_pictures/ERD.png"></div>
+
+#### State Machine Diagram
+<div align="center"><img width=400 src="./readme_pictures/State_Machine_Diagram.png"></div>
+
+#### Use Case Diagram
+<div align="center"><img width=400 src="./readme_pictures/Use_Case_Diagram.png"></div>
+
+#### Activity Diagram
+<div align="center"><img width=400 src="./readme_pictures/Activity_Diagram.png"></div>
+
+#### Class Diagram
+<div align="center"><img width=400 src="./readme_pictures/Class_Diagram.png"></div>
+
+#### Object Diagram
+<div align="center"><img width=400 src="./readme_pictures/Object_Diagram.png"></div>
+
+#### Sequence Diagram
+<div align="center"><img width=400 src="./readme_pictures/Sequence_Diagram.png"></div>
+
+<br />
+
+Click [here](./submissions/task3.pdf) to view the **Charts Document**
 
 ### App prototype sketch
 
