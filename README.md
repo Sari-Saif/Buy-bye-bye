@@ -21,7 +21,7 @@
 * [Languages & Tools](#languages--tools)
 
 ## Author
-- [@Sari Saif](https://github.com/Sari-Saif) - Team Leader.
+- [@Sari Saif](https://github.com/Sari-Saif) 
 - [@Simcha Teich](https://github.com/SimchaTeich)
 - [@Yoad Tamar](https://github.com/YoadTamar)
 - [@Lior Vinman](https://github.com/liorvi35)
