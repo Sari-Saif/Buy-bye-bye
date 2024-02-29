@@ -21,9 +21,11 @@
 * [Languages & Tools](#languages--tools)
 
 ## Authors
+- [@Yoad Tamar](https://github.com/YoadTamar)
+
+## others
 - [@Simcha Teich](https://github.com/SimchaTeich)
 - [@Sari Saif](https://github.com/Sari-Saif)
-- [@Yoad Tamar](https://github.com/YoadTamar)
 - [@Lior Vinman](https://github.com/liorvi35)
 
 ## About the project
