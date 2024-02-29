@@ -114,7 +114,7 @@ In addition to the above diagrams, we prepared a general diagram simulating the 
 
 Click [here](https://app.diagrams.net/#G10Ej_V39katLq-yU0P34w2P1Stv7QUacc) to view the chart in more depth.
 
-### Databse
+### Database
 We decided to use Firebase real time database (RTDB) for the application.<br/>
 Below is the structure of the database:
 
