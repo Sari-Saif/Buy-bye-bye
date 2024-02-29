@@ -20,44 +20,44 @@
 * [Working with Git](#working-with-git)
 * [Languages & Tools](#languages--tools)
 
-## Author
-- [@Sari Saif](https://github.com/Sari-Saif) 
-- [@Simcha Teich](https://github.com/SimchaTeich)
-- [@Yoad Tamar](https://github.com/YoadTamar)
-- [@Lior Vinman](https://github.com/liorvi35)
+## Authors
+- Sari Saif (Team Leader): <a href="https://github.com/Sari-Saif">GitHub</a>, <a href="https://www.linkedin.com/in/sari-saif-b4872a16b/">LinkedIn</a>.
+- Simcha Teich: <a href="https://github.com/SimchaTeich">Github</a>, <a href="https://www.linkedin.com/in/simcha-teich/">LinkedIn<a/>.
+- Yoad Tamar: <a href="https://github.com/YoadTamar">Github</a>, <a href="http://www.linkedin.com/in/yoad-tamar-73562a2b4">LinkedIn</a>.
+- Lior Vinman: <a href="https://github.com/liorvi35">Github</a>, <a href="https://www.linkedin.com/in/liorvinman/">LinkedIn</a>.
 
 ## About the project
-This is the final project in the software engineering course. In the course we learned how a software life cycle is conducted, starting from the initiation to the production. Throughout the course we implemented an application for Android which is a kind of illustration of the process of working on projects in the real world. The application we chose is an information system that manages stores, sellers, buyers, orders and everything related to them.
+This is the final project in the "Software Engineering" course at Ariel University. In this course we have learned about how a software development life cycle (SDLC) is conducted with CI/CD pipelines. Starting from the initiation at the developer's IDE to the production at the custormer enviroment. Throughout the course we have implemented an application for Android (using Android Studio) based phones which is a kind of illustration of the process of working on projects in the real industry world. The application we chose is an information system that manages stores, sellers, buyers, orders and everything related to them.
 
 ## The App
 
 <div align="center"><img height="250" width="250" src="./readme_pictures/Buy&Bye-Bye_icon.png"></div>
 
 ### Who is it for
-The application is intended for anyone interested in buying or selling something.<br />
-Got a toy you're too sorry to throw away?<br />
-Are you the owner of a neighborhood grocery store and want to expand in Mobile?<br />
-Do you want to buy something without leaving the house?<br />
+The application is intended for anyone interested in buying or selling something.<br/>
+Got a toy you're too sorry to throw away?<br/>
+Are you the owner of a neighborhood grocery store and want to expand in Mobile?<br/>
+Do you want to buy something without leaving the house?<br/>
 
-If you answered yes to any of these questions - the app is for you!
+If you answered yes to any of these questions - this app is just for you!
 
 ### How to use
-The application is intended for two types of users - sellers and buyers.<br />
-Each seller can have as many stores as he wants, and each store will have any products he chooses.<br />
-With the customers, each customer can shop at any store, order products and wait for the order to be confirmed.<br />
+The application is intended for two types of users - sellers and buyers.<br/>
+Each seller can have as many stores as he wants, and each store will have any products he chooses.<br/>
+With the customers, each customer can shop at any store, order products and wait for the order to be confirmed.<br/>
 When the seller approves an order - it makes its way to the customer!
 
 * Click [here](https://link_to_video) to learn how to use the app as a Buyer.
 * Click [here](https://link_to_video) to learn how to use the app as a Seller.
 
 ## The planning
-The planning of the application and the method of work described here were carried out throughout the semester.
+The planning of the application and the methods of our work that were carried out throughout the semester, described here.
 
 ### The Initiation Document
 In this document we were asked to design the purpose of the application, and to characterize two main processes for each type of user. After discussion, the following requirements were decided:
   * Buyer
-    * will be able to buy a product (choose a store -> choose a product -> add to basket -> payment)
-    * will be able to rate a store (selection of a store -> rating)
+    * will be able to buy a product (choose a store -> choose a product -> add to basket -> make a purchase)
+    * will be able to rate a store (after the purchase is compleate -> rating)
 
 * Seller
     * will be able to sell a product (creating a store -> creating a product)
@@ -79,7 +79,7 @@ Each of the requirements has its type, and its subtype specified.
 Click [here](./submissions/task2.pdf) to view the **Requirements Document**
 
 ### Charts
-This assignment was the last for the semester.<br />
+This assignment was the last for the semester.<br/>
 It contains seven planning charts that we used during the work.
 
 #### ERD
@@ -103,34 +103,34 @@ It contains seven planning charts that we used during the work.
 #### Sequence Diagram
 <div align="center"><img width=400 src="./readme_pictures/Sequence_Diagram.png"></div>
 
-<br />
+<br/>
 
 Click [here](./submissions/task3.pdf) to view the **Charts Document**
 
 ### App prototype sketch
-In addition to the above diagrams, we prepared a general diagram simulating the pages in the application. Using this diagram we could easily navigate during the work and understand "where we are". This diagram is also the explanation for the names we gave to the windows in the code.
+In addition to the above diagrams, we prepared a general diagram simulating the pages in the application. Using this diagram we could easily navigate during the work and understand "where we are". This diagram is also the (important) explanation for the names we gave to the windows in the code.
 
 <div align="center"><img src="./readme_pictures/Screen_tree.png"></div>
 
 Click [here](https://app.diagrams.net/#G10Ej_V39katLq-yU0P34w2P1Stv7QUacc) to view the chart in more depth.
 
 ### Databse
-We decided to use firebase real time database for the application.<br />
+We decided to use Firebase real time database (RTDB) for the application.<br/>
 Below is the structure of the database:
 
 <div align="center"><img src="./readme_pictures/db_structure.png"></div>
 
 ## The implementation
-The implementation process was **Agile** style.<br />
-We started implementing the high requirements in the code, like everything needed for the buying process.<br />
-After that we added the other requirements such as store rating, search, editing (of personal details, product details, etc.).<br />
-At the end we also added UI/UX design.
+The implementation process was using the **Agile** style and techniques.<br />
+We started implementing the high requirements in the code, like everything needed for the buying process.<br/>
+After that we added the other requirements such as store rating, search, editing (of personal details, product details, etc.).<br/>
+At the end we also added UI/UX design and human engineering elements.
 
 ### Architectural patterns
-Our project is built as **MVVM**. The reason is that we worked with visual studio, and it enables this relatively easily (every UI element to be an object, which makes the business extremely easy).
+Our project is built as **MVVM**. The reason is that we worked with Android Studio, and it enables this relatively easily - every UI element (i.e., a layout) to be an object (i.e, a Java class), which makes the business extremely easy.
 
 ### Working with Git
-Working with Git was very convenient. At the beginning of the work when all the windows were not yet linked, we worked in separate customer and seller branches. After they have been merged, each new feature is created in a new branch and only after it has been tested is it merged into main.
+Working with Git was very convenient. At the beginning of the work when all the windows were not yet linked, we worked in separate customer and seller branches. After they have been merged (PR), each new feature was created in a new branch and only after it has been tested on the local repository, it was merged into the master branch.
 
 <div align="center"><img width=400 src="./readme_pictures/working_with_git.png"></div>
 
