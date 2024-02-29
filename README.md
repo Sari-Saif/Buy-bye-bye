@@ -21,14 +21,10 @@
 * [Languages & Tools](#languages--tools)
 
 ## Author
-- [@Yoad Tamar](https://github.com/YoadTamar)
-
-### some help 
-- [@Lior Vinman](https://github.com/liorvi35)
-
-### bad ui !!! 
+- [@Sari Saif](https://github.com/Sari-Saif) - Team Leader.
 - [@Simcha Teich](https://github.com/SimchaTeich)
-- [@Sari Saif](https://github.com/Sari-Saif)
+- [@Yoad Tamar](https://github.com/YoadTamar)
+- [@Lior Vinman](https://github.com/liorvi35)
 
 ## About the project
 This is the final project in the software engineering course. In the course we learned how a software life cycle is conducted, starting from the initiation to the production. Throughout the course we implemented an application for Android which is a kind of illustration of the process of working on projects in the real world. The application we chose is an information system that manages stores, sellers, buyers, orders and everything related to them.
