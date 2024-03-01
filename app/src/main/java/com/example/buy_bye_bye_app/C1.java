@@ -85,7 +85,7 @@ public class C1 extends AppCompatActivity {
 
     }
 
-    public void sign_up(View view) {
+    public void sign_up_costumer(View view) {
 
         String email = et_emailC.getText().toString().trim();
         String password = et_passwordC.getText().toString().trim();
@@ -131,6 +131,12 @@ public class C1 extends AppCompatActivity {
             myRef.removeEventListener(childEventListener);
         }
     }
+
+    public void back_c1_main(View view)
+    {
+        finish();
+    }
+
 
 
 }

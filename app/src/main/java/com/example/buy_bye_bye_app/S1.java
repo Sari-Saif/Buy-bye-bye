@@ -91,7 +91,7 @@ public class S1 extends AppCompatActivity {
      * Handles the seller sign-up process, including input validation and Firebase integration for authentication and data storage.
      * @param view The view (button) that triggers this method upon click.
      */
-    public void sign_up(View view) {
+    public void sign_up_seller(View view) {
         // Retrieving and trimming user input from EditText fields.
         String email = et_emailS.getText().toString().trim();
         String password = et_passwordS.getText().toString().trim();
@@ -137,5 +137,9 @@ public class S1 extends AppCompatActivity {
         if (ref != null && childEventListener != null) {
             ref.removeEventListener(childEventListener);
         }
+    }
+
+    public void back_s1_main(View view) {
+        finish();
     }
 }

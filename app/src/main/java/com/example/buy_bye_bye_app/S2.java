@@ -99,7 +99,7 @@ public class S2 extends AppCompatActivity {
      * Handles the login operation when the login button is clicked.
      * @param view The view (button) that was clicked.
      */
-    public void sign_in(View view) {
+    public void sign_in_seller(View view) {
 
         // Retrieve and trim input from EditText fields
         String email = et_emailS2.getText().toString().trim();
@@ -154,5 +154,9 @@ public class S2 extends AppCompatActivity {
         if (myRef != null && childEventListener != null) {
             myRef.removeEventListener(childEventListener);// Remove the listener to prevent memory leaks
         }
+    }
+
+    public void back_s2_main(View view) {
+        finish();
     }
 }
