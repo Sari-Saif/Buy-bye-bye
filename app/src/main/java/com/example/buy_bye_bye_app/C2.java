@@ -102,7 +102,7 @@ public class C2 extends AppCompatActivity {
      *
      * @param view The view (button) that was clicked.
      */
-    public void sign_in(View view) {
+    public void sign_in_costumer(View view) {
         // Retrieving input values from the UI components.
         String email = et_emailC2.getText().toString().trim();
         String password = et_passwordC2.getText().toString().trim();
@@ -139,4 +139,8 @@ public class C2 extends AppCompatActivity {
                 });
     }
 
+    public void back_c2_main(View view)
+    {
+        finish();
+    }
 }
