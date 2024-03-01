@@ -80,8 +80,8 @@ public class ActiveItemAdapter extends RecyclerView.Adapter<ActiveItemAdapter.My
         ActiveOrderItem activeOrderItem = list.get(position);
         // Set product details
         holder.product.setText(activeOrderItem.getName());
-        holder.amount.setText(activeOrderItem.getAmount());
-        holder.price.setText(activeOrderItem.getPrice());
+        holder.amount.setText(activeOrderItem.getAmount() + " pieces");
+        holder.price.setText(activeOrderItem.getPrice() + "$");
         // Firebase reference to retrieve product image
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Stores")
                 .child(this.storename)
