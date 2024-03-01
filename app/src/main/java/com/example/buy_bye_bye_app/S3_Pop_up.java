@@ -11,8 +11,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class represents a pop-up activity used for adding a new store. It extends Android's Activity class.
  * This pop-up allows the user to input a new store name and add it to the Firebase Realtime Database under the current user's ID.
@@ -30,6 +42,8 @@ public class S3_Pop_up extends Activity {
 
     // Firebase Authentication instance for user authentication.
     private FirebaseAuth mAuth;
+
+    List<String> storeNames;
 
 
     /**
@@ -96,39 +110,74 @@ public class S3_Pop_up extends Activity {
     /**
      * Sets up the done button's onClickListener. When clicked, it adds the new store details to the Firebase database under "Stores".
      */
-    public void done_Ok()
-    {
-
+    public void done_Ok() {
         done = (Button) findViewById(R.id.done_button);
-        done.setOnClickListener(new View.OnClickListener()
-        {
+        done.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
+                Log.e("err_store_names", "Inside onClick(done_Ok())");
+                store_name = (EditText) findViewById(R.id.Input_store_Name);
+                final String store = store_name.getText().toString();
 
-                store_name =(EditText) findViewById(R.id.Input_store_Name);
-                String store = store_name.getText().toString();
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Stores");
 
-                // Add the store to the database under "Stores", setting the "OwnerID" to the current user's UID.
-                // Also sets the "StoreName" in the database to the value entered in the EditText.                Log.d("FirebaseDebug", "EditText value: " + store_name.getText().toString());
-                database.getInstance().getReference().child("Stores").child(store).child(
-                        "OwnerID").setValue(mAuth.getCurrentUser().getUid());
-                database.getInstance().getReference().child("Stores").child(store).child(
-                        "StoreName").setValue(store_name.getText().toString());
-                database.getInstance().getReference().child("Stores").child(store).child(
-                        "sum_ratings").setValue("0");
-                database.getInstance().getReference().child("Stores").child(store).child(
-                        "total_raters").setValue("0");
+                // Listener to retrieve data from Firebase
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        storeNames = new ArrayList<>();
 
-                // Intent to refresh the pop-up or return to the main page (S3 Activity) after adding the store.
-                Intent i = new Intent(S3_Pop_up.this , S3_Pop_up.class);
-                startActivity(i);
+                        // Iterate through all children under "Stores"
+                        for (DataSnapshot storeSnapshot : dataSnapshot.getChildren()) {
+                            // Assuming the store name is stored as a child node with key "name"
+                            String storeName = storeSnapshot.child("StoreName").getValue(String.class);
+                            if (storeName != null) {
+                                storeNames.add(storeName);
+                            }
+                        }
 
-                //  after adding its done back to main page
-                startActivity(new Intent(S3_Pop_up.this, S3.class));
+                        // Check if the entered store name is already taken
+                        boolean storeNameExists = false;
+                        Log.e("err_store_names", "list: " + storeNames.toString());
+                        for (String existingStoreName : storeNames) {
+                            if (existingStoreName.equals(store)) {
+                                storeNameExists = true;
+                                break;
+                            }
+                        }
 
+                        // If the store name already exists, show a toast and return
+                        if (storeNameExists) {
+                            Log.e("err_store_names", "Current store exists");
+                            Toast.makeText(S3_Pop_up.this, "Sorry, but this store name is already taken!", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else if (store.isEmpty()) {
+                            Log.e("err_store_names", "Current storename empty");
+                            Toast.makeText(S3_Pop_up.this, "Sorry, but store name cannot be empty!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-            };
+                        // If the store name is available, proceed with adding it to the database
+                        database.getInstance().getReference().child("Stores").child(store).child(
+                                "OwnerID").setValue(mAuth.getCurrentUser().getUid());
+                        database.getInstance().getReference().child("Stores").child(store).child(
+                                "StoreName").setValue(store_name.getText().toString());
+                        database.getInstance().getReference().child("Stores").child(store).child(
+                                "sum_ratings").setValue("0");
+                        database.getInstance().getReference().child("Stores").child(store).child(
+                                "total_raters").setValue("0");
+
+                        // Intent to refresh the pop-up or return to the main page (S3 Activity) after adding the store.
+                        Intent i = new Intent(S3_Pop_up.this, S3.class);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("err_store_names", "Failed to read store names.", databaseError.toException());
+                    }
+                });
+            }
         });
     }
 }
