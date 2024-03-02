@@ -47,8 +47,8 @@ Each seller can have as many stores as he wants, and each store will have any pr
 With the customers, each customer can shop at any store, order products and wait for the order to be confirmed.<br/>
 When the seller approves an order - it makes its way to the customer!
 
-* Click [here](https://link_to_video) to learn how to use the app as a Buyer.
-* Click [here](https://link_to_video) to learn how to use the app as a Seller.
+* Click [here](https://github.com/Sari-Saif/Buy-bye-bye/blob/main/videos/buyer.mp4) to learn how to use the app as a Buyer.
+* Click [here](https://github.com/Sari-Saif/Buy-bye-bye/blob/main/videos/seller.mp4) to learn how to use the app as a Seller.
 
 ## The planning
 The planning of the application and the methods of our work that were carried out throughout the semester, described here.
