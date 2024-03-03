@@ -19,7 +19,8 @@
 * [Architectural patterns](#architectural-patterns)
 * [Working with Git](#working-with-git)
 * [Languages & Tools](#languages--tools)
-* [Class Presentation](https://docs.google.com/presentation/d/1-8gl-mXpzZ_T5ZGtH8KkVpqxu5IIYQXGIjL3Z1qwttM/edit?usp=drivesdk)
+
+[Class Presentation](https://docs.google.com/presentation/d/1-8gl-mXpzZ_T5ZGtH8KkVpqxu5IIYQXGIjL3Z1qwttM/edit?usp=drivesdk)
 
 ## Authors
 - Sari Saif (Team Leader): <a href="https://github.com/Sari-Saif">GitHub</a>, <a href="https://www.linkedin.com/in/sari-saif-b4872a16b/">LinkedIn</a>.
