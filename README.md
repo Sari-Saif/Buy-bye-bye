@@ -118,7 +118,82 @@ Click [here](https://app.diagrams.net/#G10Ej_V39katLq-yU0P34w2P1Stv7QUacc) to vi
 We decided to use Firebase real time database (RTDB) for the application.<br/>
 Below is the structure of the database:
 
-<div align="center"><img src="./readme_pictures/db_structure.png"></div>
+```json 
+{
+    "Orders": {
+        "Active": {
+            "OrderID1": {
+                "CustomerName": "Example Customer",
+                "OrderDetails": {
+                    "ProductID": "12345",
+                    "Quantity": 2,
+                    "Price": 100
+                },
+                "StoreName": "TestStore"
+            }
+        },
+        "History": {
+            "OrderID2": {
+                "CustomerName": "Another Example",
+                "OrderDetails": {
+                    "ProductID": "67890",
+                    "Quantity": 1,
+                    "Price": 50
+                },
+                "StoreName": "WeaponsForYou"
+            }
+        }
+    },
+    "Stores": {
+        "TestStore": {
+            "OwnerID": "Owner123",
+            "Products": {
+                "ProductID1": {
+                    "Name": "Example Product",
+                    "Price": 100,
+                    "Quantity": 10,
+                    "ImageURL": "http://example.com/image1.jpg"
+                }
+            },
+            "StoreName": "TestStore",
+            "SumRatings": 4.5,
+            "TotalRaters": 2
+        },
+        "WeaponsForYou": {
+            "OwnerID": "Owner456",
+            "Products": {
+                "ProductID2": {
+                    "Name": "Weapon Example",
+                    "Price": 150,
+                    "Quantity": 5,
+                    "ImageURL": "http://example.com/image2.jpg"
+                }
+            },
+            "StoreName": "WeaponsForYou",
+            "SumRatings": 4.7,
+            "TotalRaters": 10
+        }
+    },
+    "Users": {
+        "Buyers": {
+            "UserID1": {
+                "Name": "Example Buyer",
+                "Email": "buyer@example.com",
+                "Address": "123 Example St, City",
+                "Preferences": "Gaming, Outdoors"
+            }
+        },
+        "Sellers": {
+            "UserID2": {
+                "Name": "Example Seller",
+                "Email": "seller@example.com",
+                "StoreOwned": "TestStore",
+                "Ratings": 4.5
+            }
+        }
+    }
+}
+```
 
 ## The implementation
 The implementation process was using the **Agile** style and techniques.<br />
